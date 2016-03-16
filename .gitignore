@@ -210,3 +210,8 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+# Custom Files
+*.opendb
+ScriptHookV_SDK/
+SteamWorks_SDK/
