@@ -2,7 +2,9 @@
 #include "controller.h"
 #include "log.h"
 
-Controller::Controller() {}
+Controller::Controller() {
+	InitSteamController();
+}
 
 Controller::~Controller() {}
 
@@ -43,6 +45,25 @@ BOOL InitializeSteam() {
 		return FALSE;
 	}
 	return TRUE;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Initialize the steam controller actions
+//-----------------------------------------------------------------------------
+void Controller::InitSteamController() {
+	m_ControllerActionSetHandles[ActionSet::Menu] = SteamController()->GetActionSetHandle("Default");
+	m_ControllerActionSetHandles[ActionSet::OnFoot] = SteamController()->GetActionSetHandle("Foot");
+	m_ControllerActionSetHandles[ActionSet::InVehicle] = SteamController()->GetActionSetHandle("Vehicle");
+
+#ifdef DEBUG
+	char text[256];
+	sprintf_s(text, "Adding ActionSet Default -> %d", m_ControllerActionSetHandles[ActionSet::Menu]);
+	DEBUGOUT(text);
+	sprintf_s(text, "Adding ActionSet Foot -> %d", m_ControllerActionSetHandles[ActionSet::OnFoot]);
+	DEBUGOUT(text);
+	sprintf_s(text, "Adding ActionSet Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InVehicle]);
+	DEBUGOUT(text);
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -89,3 +110,14 @@ void Controller::TriggerHapticPulse() {
 		SteamController()->TriggerHapticPulse(m_ActiveControllerHandle, ESteamControllerPad::k_ESteamControllerPad_Left, 30000);
 	}
 }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+// Purpose: Put the controller into a specific action set. Action sets are collections of game-context actions ie "walking", "flying" or "menu"
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+void Controller::SetSteamControllerActionSet(ActionSet dwActionSet) {
+	if (BIsSteamControllerActive()) {
+		// This call is low-overhead and can be called repeatedly from game code that is active in a specific mode.
+		SteamController()->ActivateActionSet(m_ActiveControllerHandle, dwActionSet + 1);
+	}
+}
+

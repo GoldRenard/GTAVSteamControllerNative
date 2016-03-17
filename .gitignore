@@ -213,5 +213,5 @@ ModelManifest.xml
 
 # Custom Files
 *.opendb
-ScriptHookV_SDK/
-SteamWorks_SDK/
+intermediate/
+bin/

@@ -12,6 +12,7 @@ const char* getActionSetName(ActionSet actionSet) {
 	return ActionNames[actionSet];
 }
 
+#ifdef DEBUG
 void draw_state(float x, float y, ActionSet actionSet) {
 	char text[256];
 	sprintf_s(text, "Controller state: %s", getActionSetName(actionSet));
@@ -26,14 +27,18 @@ void draw_state(float x, float y, ActionSet actionSet) {
 	UI::_ADD_TEXT_COMPONENT_STRING(text);
 	UI::_DRAW_TEXT(x, y);
 }
+#endif
 
 void apply_state(ActionSet actionSet) {
+	controller->SetSteamControllerActionSet(actionSet);
+#ifdef DEBUG
 	draw_state(0.01f, 0.01f, actionSet);
+#endif
 	if (currentActionSet == actionSet) {
 		return;
 	}
 	currentActionSet = actionSet;
-
+#ifdef DEBUG
 	char text[256];
 	sprintf_s(text, "Controller state: %s", getActionSetName(actionSet));
 
@@ -44,6 +49,7 @@ void apply_state(ActionSet actionSet) {
 	DEBUGOUT(text);
 
 	controller->TriggerHapticPulse();
+#endif
 }
 
 void handle_state() {

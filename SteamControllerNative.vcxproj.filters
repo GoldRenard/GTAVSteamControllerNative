@@ -9,56 +9,38 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files\SDK">
-      <UniqueIdentifier>{1246b26a-61a2-4b7e-a076-2f407f793a31}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="src\log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
+    <ClInclude Include="src\script.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ScriptHookV_SDK\inc\enums.h">
-      <Filter>Header Files\SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptHookV_SDK\inc\main.h">
-      <Filter>Header Files\SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptHookV_SDK\inc\nativeCaller.h">
-      <Filter>Header Files\SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptHookV_SDK\inc\natives.h">
-      <Filter>Header Files\SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptHookV_SDK\inc\types.h">
-      <Filter>Header Files\SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="script.h">
+    <ClInclude Include="src\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="controller.h">
+    <ClInclude Include="src\controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="log.h">
+    <ClInclude Include="src\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="src\dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dllmain.cpp">
+    <ClCompile Include="src\log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="script.cpp">
+    <ClCompile Include="src\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Controller.cpp">
+    <ClCompile Include="src\script.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="log.cpp">
+    <ClCompile Include="src\controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

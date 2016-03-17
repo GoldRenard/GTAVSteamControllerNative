@@ -1,6 +1,10 @@
 #pragma once
 
+#ifdef DEBUG
 #define DEBUGOUT( X, ... ) Log::Debug( X, __VA_ARGS__ )
+#else
+#define DEBUGOUT( X, ... )
+#endif
 
 class Log {
 public:
