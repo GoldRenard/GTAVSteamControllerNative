@@ -78,8 +78,10 @@ void handle_state() {
         apply_state(ActionSet::Menu);
         return;
     }
-
-    if (PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0)) {
+    if (PED::IS_PED_IN_FLYING_VEHICLE(playerPed)) {
+        apply_state(ActionSet::InFlyingVehicle);
+    }
+    else if (PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0)) {
         apply_state(ActionSet::InVehicle);
     }
     else {

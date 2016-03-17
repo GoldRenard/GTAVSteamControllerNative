@@ -21,17 +21,18 @@
 #include "stdafx.h"
 #include "steam/steam_api.h"
 
-#define NUM_ACTION_SETS 3
+#define NUM_ACTION_SETS 4
 
 BOOL InitializeSteam();
 
 enum ActionSet {
     Menu = 0,
     OnFoot = 1,
-    InVehicle = 2
+    InVehicle = 2,
+    InFlyingVehicle = 3
 };
 
-static const char* ActionNames[] = { "Menu", "OnFoot", "InVehicle" };
+static const char* ActionNames[] = { "Menu", "OnFoot", "InVehicle", "InFlyingVehicle" };
 
 class Controller {
 public:

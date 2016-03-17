@@ -69,18 +69,16 @@ BOOL InitializeSteam() {
 // Purpose: Initialize the steam controller actions
 //-----------------------------------------------------------------------------
 void Controller::InitSteamController() {
-    m_ControllerActionSetHandles[ActionSet::Menu] = SteamController()->GetActionSetHandle("Default");
-    m_ControllerActionSetHandles[ActionSet::OnFoot] = SteamController()->GetActionSetHandle("Foot");
-    m_ControllerActionSetHandles[ActionSet::InVehicle] = SteamController()->GetActionSetHandle("Vehicle");
+    m_ControllerActionSetHandles[ActionSet::Menu] = SteamController()->GetActionSetHandle("menu_set");
+    m_ControllerActionSetHandles[ActionSet::OnFoot] = SteamController()->GetActionSetHandle("foot_set");
+    m_ControllerActionSetHandles[ActionSet::InVehicle] = SteamController()->GetActionSetHandle("vehicle_set");
+    m_ControllerActionSetHandles[ActionSet::InFlyingVehicle] = SteamController()->GetActionSetHandle("flying_set");
 
 #ifdef DEBUG
-    char text[256];
-    sprintf_s(text, "Adding ActionSet Default -> %d", m_ControllerActionSetHandles[ActionSet::Menu]);
-    DEBUGOUT(text);
-    sprintf_s(text, "Adding ActionSet Foot -> %d", m_ControllerActionSetHandles[ActionSet::OnFoot]);
-    DEBUGOUT(text);
-    sprintf_s(text, "Adding ActionSet Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InVehicle]);
-    DEBUGOUT(text);
+    DEBUGOUT("Adding ActionSet Default -> %d", m_ControllerActionSetHandles[ActionSet::Menu]);
+    DEBUGOUT("Adding ActionSet Foot -> %d", m_ControllerActionSetHandles[ActionSet::OnFoot]);
+    DEBUGOUT("Adding ActionSet Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InVehicle]);
+    DEBUGOUT("Adding ActionSet Flying Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InFlyingVehicle]);
 #endif
 }
 
