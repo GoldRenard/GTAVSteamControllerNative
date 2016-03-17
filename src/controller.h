@@ -43,7 +43,7 @@ public:
     void SetSteamControllerActionSet(ActionSet dwActionSet);
 
     // Return true if there is an active Steam Controller
-    bool BIsSteamControllerActive();
+    bool IsSteamControllerActive();
 
     // Find an active Steam controller
     void FindActiveSteamController();

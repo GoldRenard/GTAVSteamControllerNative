@@ -127,6 +127,9 @@
     <ClCompile Include="src\script.cpp" />
     <ClCompile Include="src\controller.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="controller.vdf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

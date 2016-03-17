@@ -59,18 +59,19 @@ void apply_state(ActionSet actionSet) {
 #ifdef DEBUG
     char text[256];
     sprintf_s(text, "Controller state: %s", getActionSetName(actionSet));
+    DEBUGOUT(text);
 
     UI::_SET_NOTIFICATION_TEXT_ENTRY("STRING");
     UI::_ADD_TEXT_COMPONENT_STRING(text);
     UI::_DRAW_NOTIFICATION(FALSE, FALSE);
 
-    DEBUGOUT(text);
-
     controller->TriggerHapticPulse();
 #endif
 }
 
-void handle_state() {
+void update() {
+    controller->PollSteamController();
+
     Player player = PLAYER::PLAYER_ID();
     Ped playerPed = PLAYER::PLAYER_PED_ID();
 
@@ -89,18 +90,13 @@ void handle_state() {
     }
 }
 
-void main() {
+void ScriptMain() {
+    srand(GetTickCount());
     if (InitializeSteam()) {
         controller = new Controller();
         while (true) {
-            controller->PollSteamController();
-            handle_state();
+            update();
             WAIT(0);
         }
     }
-}
-
-void ScriptMain() {
-    srand(GetTickCount());
-    main();
 }
