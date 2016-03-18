@@ -23,8 +23,6 @@
 
 #define NUM_ACTION_SETS 4
 
-BOOL InitializeSteam();
-
 enum ActionSet {
     Menu = 0,
     OnFoot = 1,
@@ -32,34 +30,34 @@ enum ActionSet {
     InFlyingVehicle = 3
 };
 
-static const char* ActionNames[] = { "Menu", "OnFoot", "InVehicle", "InFlyingVehicle" };
-
 class Controller {
 public:
-    Controller();
-    ~Controller();
-
-    // Set the current Steam Controller Action set
-    void SetSteamControllerActionSet(ActionSet dwActionSet);
-
-    // Return true if there is an active Steam Controller
-    bool IsSteamControllerActive();
-
-    // Find an active Steam controller
-    void FindActiveSteamController();
-
-    // Called each frame to update the Steam Controller interface
-    void PollSteamController();
 
     // Initialize the Steam Controller interfaces
-    void InitSteamController();
+    static BOOL InitSteamController();
 
-    void TriggerHapticPulse();
+    // Find an active Steam controller
+    static void FindActiveSteamController();
+
+    // Called each frame to update the Steam Controller interface
+    static void PollSteamController();
+
+    // Return true if there is an active Steam Controller
+    static BOOL IsSteamControllerActive();
+
+    // Set the current Steam Controller Action set
+    static void SetSteamControllerActionSet(ActionSet dwActionSet);
+
+    // Trigger Haptic Pulse (just for debugging)
+    static void TriggerHapticPulse();
 private:
 
     // A handle to the currently active Steam Controller.
-    ControllerHandle_t m_ActiveControllerHandle;
+    static ControllerHandle_t m_ActiveControllerHandle;
+
+    // Check whether is we got action sets by their name or we should use them by index
+    static BOOL m_IsNativeActionSets;
 
     // An array of handles to different Steam Controller action set configurations
-    ControllerActionSetHandle_t m_ControllerActionSetHandles[NUM_ACTION_SETS];
+    static ControllerActionSetHandle_t m_ControllerActionSetHandles[NUM_ACTION_SETS];
 };

@@ -31,4 +31,6 @@ public:
     static void Msg(const char* fmt, ...);
     static void Error(const char* fmt, ...);
     static void Fatal(const char* fmt, ...);
+private:
+    static void Write(const char* level, const char* logFile, const char* fmt, va_list args);
 };

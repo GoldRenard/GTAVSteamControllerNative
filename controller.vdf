@@ -1,29 +1,29 @@
 "controller_mappings"
 {
 	"version"		"2"
-	"title"		"Steam Controller Native"
-	"description"		"Steam Controller Native Preset for Grand Theft Auto V"
+	"title"			"Steam Controller Native"
+	"description"	"#SettingsController_AutosaveDescription"
 	"creator"		"76561197983619863"
 	"actions"
 	{
-		"Default"
+		"Menu"
 		{
-			"title"		"Menu"
+			"title"				"Menu"
 			"legacy_set"		"1"
 		}
-		"Preset_1000001"
+		"OnFoot"
 		{
-			"title"		"Foot"
+			"title"				"Foot"
 			"legacy_set"		"1"
 		}
-		"Preset_1000002"
+		"InVehicle"
 		{
-			"title"		"Vehicle"
+			"title"				"Vehicle"
 			"legacy_set"		"1"
 		}
-		"Preset_1000003"
+		"InFlyingVehicle"
 		{
-			"title"		"Flying Vehicle"
+			"title"				"Flying Vehicle"
 			"legacy_set"		"1"
 		}
 	}
@@ -31,8 +31,8 @@
 	{
 		"english"
 		{
-			"title"		"Steam Controller Native"
-			"description"		"Steam Controller Native Preset for Grand Theft Auto V"
+			"title"				"Steam Controller Native"
+			"description"		"Steam Controller Native Plugin configuration for Grand Theft Auto V"
 		}
 	}
 	"group"
@@ -49,8 +49,8 @@
 		"settings"
 		{
 			"hold_repeat_inverval"		"99"
-			"button_size"		"17994"
-			"button_dist"		"19994"
+			"button_size"				"17994"
+			"button_dist"				"19994"
 		}
 	}
 	"group"
@@ -61,8 +61,8 @@
 		{
 			"dpad_north"		"xinput_button DPAD_UP"
 			"dpad_south"		"xinput_button DPAD_DOWN"
-			"dpad_east"		"xinput_button DPAD_RIGHT"
-			"dpad_west"		"xinput_button DPAD_LEFT"
+			"dpad_east"			"xinput_button DPAD_RIGHT"
+			"dpad_west"			"xinput_button DPAD_LEFT"
 		}
 		"settings"
 		{
@@ -80,7 +80,7 @@
 		}
 		"settings"
 		{
-			"sensitivity"		"145"
+			"sensitivity"				"145"
 			"doubetap_max_duration"		"320"
 		}
 	}
@@ -90,15 +90,15 @@
 		"mode"		"dpad"
 		"bindings"
 		{
-			"dpad_north"		"key_press W, Move Forward"
-			"dpad_south"		"key_press S, Move Back"
+			"dpad_north"	"key_press W, Move Forward"
+			"dpad_south"	"key_press S, Move Back"
 			"dpad_east"		"key_press D, Move Right"
 			"dpad_west"		"key_press A, Move Left"
-			"click"		"key_press LEFT_SHIFT, Sprint"
+			"click"			"key_press LEFT_SHIFT, Sprint"
 		}
 		"settings"
 		{
-			"requires_click"		"0"
+			"requires_click"			"0"
 			"hold_repeat_inverval"		"99"
 			"edge_binding_radius"		"24995"
 		}
@@ -110,7 +110,7 @@
 		"settings"
 		{
 			"hold_repeat_inverval"		"99"
-			"output_trigger"		"1"
+			"output_trigger"			"1"
 		}
 	}
 	"group"
@@ -120,7 +120,7 @@
 		"settings"
 		{
 			"hold_repeat_inverval"		"99"
-			"output_trigger"		"2"
+			"output_trigger"			"2"
 		}
 	}
 	"group"
@@ -151,10 +151,10 @@
 		"mode"		"trigger"
 		"settings"
 		{
-			"hold_repeats"		"1"
+			"hold_repeats"			"1"
 			"output_trigger"		"2"
 			"haptic_intensity"		"0"
-			"adaptive_threshold"		"4"
+			"adaptive_threshold"	"4"
 		}
 	}
 	"group"
@@ -257,9 +257,9 @@
 		{
 			"dpad_north"		"key_press W, More Forward"
 			"dpad_south"		"key_press S, Move Back"
-			"dpad_east"		"key_press D, Move Right"
-			"dpad_west"		"key_press A, Move Left"
-			"click"		"xinput_button JOYSTICK_LEFT"
+			"dpad_east"			"key_press D, Move Right"
+			"dpad_west"			"key_press A, Move Left"
+			"click"				"xinput_button JOYSTICK_LEFT"
 		}
 		"settings"
 		{
@@ -274,9 +274,9 @@
 		{
 			"dpad_north"		"xinput_button DPAD_UP"
 			"dpad_south"		"xinput_button DPAD_DOWN"
-			"dpad_east"		"xinput_button DPAD_RIGHT"
-			"dpad_west"		"xinput_button DPAD_LEFT"
-			"click"		"xinput_button JOYSTICK_LEFT"
+			"dpad_east"			"xinput_button DPAD_RIGHT"
+			"dpad_west"			"xinput_button DPAD_LEFT"
+			"click"				"xinput_button JOYSTICK_LEFT"
 		}
 		"settings"
 		{
@@ -295,7 +295,7 @@
 		"settings"
 		{
 			"acceleration"		"2"
-			"mouse_dampening_trigger"		"2"
+			"mouse_dampening_trigger"			"2"
 			"mouse_trigger_clamp_amount"		"51"
 		}
 	}
@@ -320,8 +320,8 @@
 		{
 			"dpad_north"		"xinput_button DPAD_UP"
 			"dpad_south"		"xinput_button DPAD_DOWN"
-			"dpad_east"		"xinput_button DPAD_RIGHT"
-			"dpad_west"		"xinput_button DPAD_LEFT"
+			"dpad_east"			"xinput_button DPAD_RIGHT"
+			"dpad_west"			"xinput_button DPAD_LEFT"
 		}
 	}
 	"group"
@@ -334,7 +334,7 @@
 		}
 		"settings"
 		{
-			"haptic_intensity"		"0"
+			"haptic_intensity"				"0"
 			"mousejoystick_deadzone_x"		"19009"
 			"mousejoystick_deadzone_y"		"19009"
 		}
@@ -410,8 +410,8 @@
 		{
 			"dpad_north"		"xinput_button DPAD_UP"
 			"dpad_south"		"xinput_button DPAD_DOWN"
-			"dpad_east"		"xinput_button DPAD_RIGHT"
-			"dpad_west"		"xinput_button DPAD_LEFT"
+			"dpad_east"			"xinput_button DPAD_RIGHT"
+			"dpad_west"			"xinput_button DPAD_LEFT"
 		}
 	}
 	"group"
@@ -434,7 +434,7 @@
 		"settings"
 		{
 			"haptic_intensity"		"0"
-			"acceleration"		"2"
+			"acceleration"			"2"
 		}
 	}
 	"group"
@@ -444,8 +444,8 @@
 		"settings"
 		{
 			"haptic_intensity"		"0"
-			"gyro_button"		"1"
-			"invert_y"		"1"
+			"gyro_button"			"1"
+			"invert_y"				"1"
 		}
 	}
 	"group"
@@ -455,7 +455,7 @@
 		"settings"
 		{
 			"haptic_intensity"		"0"
-			"acceleration"		"2"
+			"acceleration"			"2"
 		}
 	}
 	"group"
@@ -491,24 +491,24 @@
 		}
 		"settings"
 		{
-			"hold_repeats"		"1"
-			"output_trigger"		"2"
-			"haptic_intensity"		"1"
+			"hold_repeats"				"1"
+			"output_trigger"			"2"
+			"haptic_intensity"			"1"
 			"adaptive_threshold"		"4"
 		}
 	}
 	"preset"
 	{
 		"id"		"0"
-		"name"		"Default"
+		"name"		"Menu"
 		"group_source_bindings"
 		{
 			"0"		"button_diamond active"
 			"1"		"left_trackpad active"
 			"2"		"right_trackpad inactive"
-			"40"		"right_trackpad active"
+			"40"	"right_trackpad active"
 			"3"		"joystick inactive"
-			"39"		"joystick active"
+			"39"	"joystick active"
 			"4"		"left_trigger active"
 			"5"		"right_trigger active"
 		}
@@ -516,10 +516,10 @@
 		{
 			"bindings"
 			{
-				"left_bumper"		"xinput_button SHOULDER_LEFT"
-				"right_bumper"		"xinput_button SHOULDER_RIGHT"
-				"button_escape"		"xinput_button START"
-				"button_menu"		"xinput_button SELECT"
+				"left_bumper"					"xinput_button SHOULDER_LEFT"
+				"right_bumper"					"xinput_button SHOULDER_RIGHT"
+				"button_escape"					"xinput_button START"
+				"button_menu"					"xinput_button SELECT"
 				"left_trigger_threshold"		"mode_shift right_trigger 41"
 			}
 		}
@@ -530,21 +530,21 @@
 	"preset"
 	{
 		"id"		"1"
-		"name"		"Preset_1000001"
+		"name"		"OnFoot"
 		"group_source_bindings"
 		{
 			"6"		"button_diamond active"
 			"9"		"left_trackpad inactive"
-			"19"		"left_trackpad active"
-			"11"		"right_trackpad inactive"
-			"18"		"right_trackpad active"
-			"21"		"right_trackpad inactive"
-			"10"		"joystick inactive"
-			"20"		"joystick active"
+			"19"	"left_trackpad active"
+			"11"	"right_trackpad inactive"
+			"18"	"right_trackpad active"
+			"21"	"right_trackpad inactive"
+			"10"	"joystick inactive"
+			"20"	"joystick active"
 			"7"		"left_trigger active"
 			"8"		"right_trigger active"
-			"41"		"right_trigger active modeshift"
-			"22"		"gyro active"
+			"41"	"right_trigger active modeshift"
+			"22"	"gyro active"
 		}
 		"switch_bindings"
 		{
@@ -552,10 +552,10 @@
 			{
 				"button_back_left"		"key_press LEFT_CONTROL, Stealth Mode"
 				"button_back_right"		"key_press SPACE, Jump"
-				"button_menu"		"xinput_button SELECT"
-				"button_escape"		"xinput_button START"
-				"right_bumper"		"xinput_button SHOULDER_RIGHT"
-				"left_bumper"		"xinput_button SHOULDER_LEFT"
+				"button_menu"			"xinput_button SELECT"
+				"button_escape"			"xinput_button START"
+				"right_bumper"			"xinput_button SHOULDER_RIGHT"
+				"left_bumper"			"xinput_button SHOULDER_LEFT"
 			}
 		}
 		"settings"
@@ -565,7 +565,7 @@
 	"preset"
 	{
 		"id"		"2"
-		"name"		"Preset_1000002"
+		"name"		"InVehicle"
 		"group_source_bindings"
 		{
 			"12"		"button_diamond active"
@@ -585,10 +585,10 @@
 		{
 			"bindings"
 			{
-				"left_bumper"		"xinput_button SHOULDER_LEFT"
-				"right_bumper"		"xinput_button SHOULDER_RIGHT"
-				"button_menu"		"xinput_button SELECT"
-				"button_escape"		"xinput_button START"
+				"left_bumper"			"xinput_button SHOULDER_LEFT"
+				"right_bumper"			"xinput_button SHOULDER_RIGHT"
+				"button_menu"			"xinput_button SELECT"
+				"button_escape"			"xinput_button START"
 				"button_back_left"		"xinput_button A"
 				"button_back_right"		"mouse_button RIGHT, Mouse aim"
 			}
@@ -600,7 +600,7 @@
 	"preset"
 	{
 		"id"		"3"
-		"name"		"Preset_1000003"
+		"name"		"InFlyingVehicle"
 		"group_source_bindings"
 		{
 			"15"		"button_diamond active"

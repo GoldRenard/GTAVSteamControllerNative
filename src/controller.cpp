@@ -20,12 +20,6 @@
 #include "controller.h"
 #include "log.h"
 
-Controller::Controller() {
-    InitSteamController();
-}
-
-Controller::~Controller() {}
-
 //-----------------------------------------------------------------------------
 // Purpose: callback hook for debug text emitted from the Steam API
 //-----------------------------------------------------------------------------
@@ -33,7 +27,18 @@ extern "C" void __cdecl SteamAPIDebugTextHook(int nSeverity, const char *pchDebu
     DEBUGOUT(pchDebugText);
 }
 
-BOOL InitializeSteam() {
+// A handle to the currently active Steam Controller.
+ControllerHandle_t Controller::m_ActiveControllerHandle;
+
+// An array of handles to different Steam Controller action set configurations
+ControllerActionSetHandle_t Controller::m_ControllerActionSetHandles[NUM_ACTION_SETS];
+
+BOOL Controller::m_IsNativeActionSets = TRUE;
+
+//-----------------------------------------------------------------------------
+// Purpose: Initialize the steam controller api
+//-----------------------------------------------------------------------------
+BOOL Controller::InitSteamController() {
     DEBUGOUT("Initializing SteamAPI...\n");
     if (!SteamAPI_Init()) {
         DEBUGOUT("SteamAPI_Init() failed\n");
@@ -51,17 +56,19 @@ BOOL InitializeSteam() {
         DEBUGOUT("SteamController()->Init failed.\n");
         return FALSE;
     }
-    return TRUE;
-}
 
-//-----------------------------------------------------------------------------
-// Purpose: Initialize the steam controller actions
-//-----------------------------------------------------------------------------
-void Controller::InitSteamController() {
-    m_ControllerActionSetHandles[ActionSet::Menu] = SteamController()->GetActionSetHandle("menu_set");
-    m_ControllerActionSetHandles[ActionSet::OnFoot] = SteamController()->GetActionSetHandle("foot_set");
-    m_ControllerActionSetHandles[ActionSet::InVehicle] = SteamController()->GetActionSetHandle("vehicle_set");
-    m_ControllerActionSetHandles[ActionSet::InFlyingVehicle] = SteamController()->GetActionSetHandle("flying_set");
+    m_ControllerActionSetHandles[ActionSet::Menu] = SteamController()->GetActionSetHandle("Menu");
+    m_ControllerActionSetHandles[ActionSet::OnFoot] = SteamController()->GetActionSetHandle("OnFoot");
+    m_ControllerActionSetHandles[ActionSet::InVehicle] = SteamController()->GetActionSetHandle("InVehicle");
+    m_ControllerActionSetHandles[ActionSet::InFlyingVehicle] = SteamController()->GetActionSetHandle("InFlyingVehicle");
+
+    for (int i = 0; i < NUM_ACTION_SETS; i++) {
+        if (m_ControllerActionSetHandles[i] <= 0) {
+            DEBUGOUT("Wrong IGAS handle detected, use desired values...");
+            m_IsNativeActionSets = FALSE;
+            break;
+        }
+    }
 
 #ifdef DEBUG
     DEBUGOUT("Adding ActionSet Default -> %d", m_ControllerActionSetHandles[ActionSet::Menu]);
@@ -69,6 +76,7 @@ void Controller::InitSteamController() {
     DEBUGOUT("Adding ActionSet Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InVehicle]);
     DEBUGOUT("Adding ActionSet Flying Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InFlyingVehicle]);
 #endif
+    return TRUE;
 }
 
 //-----------------------------------------------------------------------------
@@ -102,11 +110,11 @@ void Controller::FindActiveSteamController() {
 //-----------------------------------------------------------------------------
 // Purpose: Return true if there is an active Steam Controller
 //-----------------------------------------------------------------------------
-bool Controller::IsSteamControllerActive() {
+BOOL Controller::IsSteamControllerActive() {
     if (m_ActiveControllerHandle) {
-        return true;
+        return TRUE;
     }
-    return false;
+    return FALSE;
 }
 
 void Controller::TriggerHapticPulse() {
@@ -121,6 +129,7 @@ void Controller::TriggerHapticPulse() {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void Controller::SetSteamControllerActionSet(ActionSet dwActionSet) {
     if (IsSteamControllerActive()) {
-        SteamController()->ActivateActionSet(m_ActiveControllerHandle, dwActionSet + 1);
+        SteamController()->ActivateActionSet(m_ActiveControllerHandle, m_IsNativeActionSets
+            ? m_ControllerActionSetHandles[dwActionSet] : dwActionSet + 1);
     }
 }

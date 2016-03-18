@@ -46,5 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="controller.vdf" />
+    <None Include="game_actions_271590.vdf" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,75 @@
+"In Game Actions"
+{
+	"actions"
+	{
+		"Menu"
+		{
+			"title"				"#Set_Menu"
+			"StickPadGyro"
+			{
+			}
+			"AnalogTrigger"
+			{
+			}
+			"Button"
+			{
+			}
+		}
+		"OnFoot"
+		{
+			"title"				"#Set_OnFoot"
+			"StickPadGyro"
+			{
+			}
+			"AnalogTrigger"
+			{
+			}
+			"Button"
+			{
+			}
+		}
+		"InVehicle"
+		{
+			"title"				"#Set_InVehicle"
+			"StickPadGyro"
+			{
+			}
+			"AnalogTrigger"
+			{
+			}
+			"Button"
+			{
+			}
+		}
+		"InFlyingVehicle"
+		{
+			"title"				"#Set_InFlyingVehicle"
+			"StickPadGyro"
+			{
+			}
+			"AnalogTrigger"
+			{
+			}
+			"Button"
+			{
+			}
+		}
+	}
+	"localization"
+	{
+		"english"
+		{
+			"Set_Menu"					"Menu"
+			"Set_OnFoot"				"Foot"
+			"Set_InVehicle"				"Vehicle"
+			"Set_InFlyingVehicle"		"Flying Vehicle"
+		}
+		"russian"
+		{
+			"Set_Menu"					"Меню"
+			"Set_OnFoot"				"Пешком"
+			"Set_InVehicle"				"Транспорт"
+			"Set_InFlyingVehicle"		"Возд. транспорт"
+		}
+	}
+}

@@ -24,7 +24,7 @@
 
 ActionSet currentActionSet = ActionSet::Menu;
 
-Controller *controller;
+static const char* ActionNames[] = { "Menu", "OnFoot", "InVehicle", "InFlyingVehicle" };
 
 const char* getActionSetName(ActionSet actionSet) {
     return ActionNames[actionSet];
@@ -48,7 +48,7 @@ void draw_state(float x, float y, ActionSet actionSet) {
 #endif
 
 void apply_state(ActionSet actionSet) {
-    controller->SetSteamControllerActionSet(actionSet);
+    Controller::SetSteamControllerActionSet(actionSet);
 #ifdef DEBUG
     draw_state(0.01f, 0.01f, actionSet);
 #endif
@@ -65,21 +65,20 @@ void apply_state(ActionSet actionSet) {
     UI::_ADD_TEXT_COMPONENT_STRING(text);
     UI::_DRAW_NOTIFICATION(FALSE, FALSE);
 
-    controller->TriggerHapticPulse();
+    Controller::TriggerHapticPulse();
 #endif
 }
 
 void update() {
-    controller->PollSteamController();
+    Controller::PollSteamController();
 
     Player player = PLAYER::PLAYER_ID();
     Ped playerPed = PLAYER::PLAYER_PED_ID();
 
     if (UI::IS_PAUSE_MENU_ACTIVE() || !ENTITY::DOES_ENTITY_EXIST(playerPed) || !PLAYER::IS_PLAYER_CONTROL_ON(player)) {
         apply_state(ActionSet::Menu);
-        return;
     }
-    if (PED::IS_PED_IN_FLYING_VEHICLE(playerPed)) {
+    else if (PED::IS_PED_IN_FLYING_VEHICLE(playerPed)) {
         apply_state(ActionSet::InFlyingVehicle);
     }
     else if (PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0)) {
@@ -92,11 +91,8 @@ void update() {
 
 void ScriptMain() {
     srand(GetTickCount());
-    if (InitializeSteam()) {
-        controller = new Controller();
-        while (true) {
-            update();
-            WAIT(0);
-        }
+    while (true) {
+        update();
+        WAIT(0);
     }
 }

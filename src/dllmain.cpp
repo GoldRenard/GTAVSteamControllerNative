@@ -19,15 +19,22 @@
 #include "stdafx.h"
 #include "script.h"
 
+BOOL m_controllerInitialized = FALSE;
+
 BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved) {
     switch (reason) {
         case DLL_PROCESS_ATTACH:
             Log::Init(hInstance);
-            DEBUGOUT("Steam Controller Native initialized.");
-            scriptRegister(hInstance, ScriptMain);
+            m_controllerInitialized = Controller::InitSteamController();
+            if (m_controllerInitialized) {
+                DEBUGOUT("Steam Controller Native initialized.");
+                scriptRegister(hInstance, ScriptMain);
+            }
             break;
         case DLL_PROCESS_DETACH:
-            scriptUnregister(hInstance);
+            if (m_controllerInitialized) {
+                scriptUnregister(hInstance);
+            }
             break;
     }
     return TRUE;
