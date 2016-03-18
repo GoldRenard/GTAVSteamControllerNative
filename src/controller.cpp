@@ -17,8 +17,6 @@
 // ======================================================================
 
 #include "stdafx.h"
-#include "controller.h"
-#include "log.h"
 
 //-----------------------------------------------------------------------------
 // Purpose: callback hook for debug text emitted from the Steam API

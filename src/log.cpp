@@ -17,9 +17,9 @@
 // ======================================================================
 
 #include "stdafx.h"
+#include "log.h"
 #include <time.h>
 #include <stdio.h>
-#include "log.h"
 
 char g_logFile[MAX_PATH];
 char g_debugLogFile[MAX_PATH];
@@ -71,10 +71,6 @@ void Log::Init(HMODULE hModule) {
         fprintf_s(file, "%s", chLogBuff); \
         fclose(file); \
     }
-
-void Write(const char* level, const char* logFile, const char* fmt, va_list args) {
-    WRITE(DEBUG, g_debugLogFile);
-}
 
 void Log::Debug(const char* fmt, ...) {
     WRITE(DEBUG, g_debugLogFile);

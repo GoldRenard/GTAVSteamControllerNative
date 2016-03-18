@@ -29,4 +29,36 @@
 // Windows Header Files:
 #include <windows.h>
 
+#include "log.h"
+#include "controller.h"
+
+#ifdef SCRIPT_ASI
+#include "inc\natives.h"
+#include "inc\types.h"
+#include "inc\enums.h"
+#include "inc\main.h"
+#else
+#include <string>
+#include <vector>
+#include <sstream>
+#include <Psapi.h>
+#include <timeapi.h>
+
+#pragma comment(lib, "winmm.lib")
+
+extern MODULEINFO g_MainModuleInfo;
+
+#include "Pattern.h"
+#include "Types.h"
+#include "pgCollection.h"
+#include "scrThread.h"
+#include "natives.h"
+#include "RAGEHelper.h"
+
+void Tick();
+void Run();
+void RunUnreliable();
+
+#endif
+
 // TODO: reference additional headers your program requires here
