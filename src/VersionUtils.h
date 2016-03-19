@@ -16,45 +16,33 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 // ======================================================================
 
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently, but
-// are changed infrequently
-
 #pragma once
 
-#include "targetver.h"
+#define REQUIRED_STEAM_API_VERSION  "1.27.76.74"
+#define STEAM_API_MODULE_NAME       "steam_api64.dll"
 
-#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
-// Windows Header Files:
-#include <windows.h>
-#include <string>
-#include <Psapi.h>
+#define GAME_MODULE_NAME            "GTA5.exe"
+#define REQUIRED_GAME_VERSION       "1.0.678.1"
 
-#include "Logger.h"
-#include "Controller.h"
-#include "VersionUtils.h"
+enum EVersionCheckResult {
+    VALID = 0,
+    INVALID = 1,
+    NOT_FOUND
+};
 
-#ifdef SCRIPT_ASI
-#include "inc\natives.h"
-#include "inc\types.h"
-#include "inc\enums.h"
-#include "inc\main.h"
-#else
-#include <vector>
-#include <sstream>
-#include <timeapi.h>
+class VersionUtils {
+public:
 
-#pragma comment(lib, "winmm.lib")
+    // Checks versions of SteamAPI and game itself
+    static BOOL IsVelidEnvironment();
 
-extern MODULEINFO g_MainModuleInfo;
+    // Returns version of file
+    static BOOL GetFileVersion(const char *fileName, char *ver);
 
-#include "Pattern.h"
-#include "Types.h"
-#include "pgCollection.h"
-#include "ScriptThread.h"
-#include "NativeInvoker.h"
-#include "natives.h"
+    // Checks version of file
+    static BOOL HasFileVersion(const char *fileName, const char *expectedVersion, char *currentVersion);
 
-#endif
+    // Checks version of module loaded by current process
+    static EVersionCheckResult IsValidModuleVersion(const char* mName, const char* mRequiredVersion, char* mCurrentVersion);
+};
 
-// TODO: reference additional headers your program requires here

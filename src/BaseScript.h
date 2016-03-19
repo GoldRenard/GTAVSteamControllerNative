@@ -40,7 +40,7 @@ protected:
 
     HMODULE hInstance = 0;
 
-    ActionSet m_CurrentActionSet = ActionSet::Menu;
+    ActionSet mCurrentActionSet = ActionSet::Menu;
 
 private:
     void ApplyState(ActionSet dwActionSet);

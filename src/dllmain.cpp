@@ -25,16 +25,15 @@
 MODULEINFO g_MainModuleInfo = { 0 };
 #endif
 
-BaseScript * m_BaseScript = NULL;
+BaseScript * mBaseScript = NULL;
 
 BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved) {
     switch (reason) {
         case DLL_PROCESS_ATTACH:
             Logger::Init(hInstance);
-
-            if (Controller::InitSteamController()) {
+            if (VersionUtils::IsVelidEnvironment() && Controller::InitSteamController()) {
                 DEBUGOUT("Steam Controller Native initialized.");
-                m_BaseScript =
+                mBaseScript =
 #ifdef SCRIPT_ASI
                     HookedScript::GetInstance();
 #else
@@ -43,19 +42,17 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved) {
                 if (!GetModuleInformation(GetCurrentProcess(), GetModuleHandle(0), &g_MainModuleInfo, sizeof(g_MainModuleInfo))) {
                     Logger::Fatal("Unable to get MODULEINFO from GTA5.exe");
                 }
-
                 DEBUGOUT("GTA5 [0x%I64X][0x%X]", g_MainModuleInfo.lpBaseOfDll, g_MainModuleInfo.SizeOfImage);
-
 #endif
-                m_BaseScript->Start(hInstance);
+                mBaseScript->Start(hInstance);
             }
             else {
                 DEBUGOUT("Cannot initialize Steam Controller!");
             }
             break;
         case DLL_PROCESS_DETACH:
-            if (m_BaseScript != NULL) {
-                m_BaseScript->Shutdown();
+            if (mBaseScript != NULL) {
+                mBaseScript->Shutdown();
             }
             break;
     }

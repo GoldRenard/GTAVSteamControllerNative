@@ -60,20 +60,20 @@ BOOL Controller::InitSteamController() {
     m_ControllerActionSetHandles[ActionSet::InVehicle] = SteamController()->GetActionSetHandle("InVehicle");
     m_ControllerActionSetHandles[ActionSet::InFlyingVehicle] = SteamController()->GetActionSetHandle("InFlyingVehicle");
 
-    for (int i = 0; i < NUM_ACTION_SETS; i++) {
-        if (m_ControllerActionSetHandles[i] <= 0) {
-            DEBUGOUT("Wrong IGAS handle detected, use desired values...");
-            m_IsNativeActionSets = FALSE;
-            break;
-        }
-    }
-
 #ifdef DEBUG
     DEBUGOUT("Adding ActionSet Default -> %d", m_ControllerActionSetHandles[ActionSet::Menu]);
     DEBUGOUT("Adding ActionSet Foot -> %d", m_ControllerActionSetHandles[ActionSet::OnFoot]);
     DEBUGOUT("Adding ActionSet Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InVehicle]);
     DEBUGOUT("Adding ActionSet Flying Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InFlyingVehicle]);
 #endif
+
+    for (int i = 0; i < NUM_ACTION_SETS; i++) {
+        if (m_ControllerActionSetHandles[i] <= 0) {
+            DEBUGOUT("Wrong IGAS handle detected. Unsupported steam_api.dll version? Anyway, true to use desired values...");
+            m_IsNativeActionSets = FALSE;
+            break;
+        }
+    }
     return TRUE;
 }
 

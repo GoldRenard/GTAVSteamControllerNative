@@ -26,10 +26,10 @@ void BaseScript::ApplyState(ActionSet dwActionSet) {
 #ifdef DEBUG
     RenderState(0.01f, 0.01f, dwActionSet);
 #endif
-    if (m_CurrentActionSet == dwActionSet) {
+    if (mCurrentActionSet == dwActionSet) {
         return;
     }
-    m_CurrentActionSet = dwActionSet;
+    mCurrentActionSet = dwActionSet;
 #ifdef DEBUG
     char text[256];
     sprintf_s(text, "Controller state: %s", GetActionSetName(dwActionSet));
