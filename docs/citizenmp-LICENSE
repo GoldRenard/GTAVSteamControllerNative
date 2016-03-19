@@ -1,4 +1,3 @@
-/*
 Copyright (c) 2014 Bas Timmer/NTAuthority et al.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,54 +17,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-*/
-
-#pragma once
-
-template<typename T> class pgCollection {
-private:
-    T*			m_pData;
-    UINT16		m_pCount;
-    UINT16		m_pSize;
-
-public:
-    T* begin() {
-        return m_pData;
-    }
-
-    T* end() {
-        return (m_pData + m_pCount);
-    }
-
-    T* at(UINT16 index) {
-        return &m_pData[index];
-    }
-};
-
-template<typename T> class pgPtrCollection {
-private:
-    T**			m_pData;
-    UINT16		m_pCount;
-    UINT16		m_pSize;
-
-public:
-    T** begin() {
-        return m_pData;
-    }
-
-    T** end() {
-        return (m_pData + m_pCount);
-    }
-
-    T* at(UINT16 index) {
-        return m_pData[index];
-    }
-
-    UINT16 count() {
-        return m_pCount;
-    }
-
-    void set(UINT16 index, T* ptr) {
-        m_pData[index] = ptr;
-    }
-};

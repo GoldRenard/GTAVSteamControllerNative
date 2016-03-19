@@ -19,7 +19,6 @@
 // stdafx.h : include file for standard system include files,
 // or project specific include files that are used frequently, but
 // are changed infrequently
-//
 
 #pragma once
 
@@ -29,8 +28,8 @@
 // Windows Header Files:
 #include <windows.h>
 
-#include "log.h"
-#include "controller.h"
+#include "Logger.h"
+#include "Controller.h"
 
 #ifdef SCRIPT_ASI
 #include "inc\natives.h"
@@ -51,13 +50,9 @@ extern MODULEINFO g_MainModuleInfo;
 #include "Pattern.h"
 #include "Types.h"
 #include "pgCollection.h"
-#include "scrThread.h"
+#include "ScriptThread.h"
+#include "NativeInvoker.h"
 #include "natives.h"
-#include "RAGEHelper.h"
-
-void Tick();
-void Run();
-void RunUnreliable();
 
 #endif
 

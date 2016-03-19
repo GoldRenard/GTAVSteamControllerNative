@@ -19,16 +19,16 @@
 #pragma once
 
 #ifdef DEBUG
-#define DEBUGOUT( X, ... ) Log::Debug( X, __VA_ARGS__ )
+#define DEBUGOUT( X, ... ) Logger::Debug( X, __VA_ARGS__ )
 #else
 #define DEBUGOUT( X, ... )
 #endif
 
-class Log {
+class Logger {
 public:
     static void Init(HMODULE hModule);
+    static void Info(const char* fmt, ...);
     static void Debug(const char* fmt, ...);
-    static void Msg(const char* fmt, ...);
     static void Error(const char* fmt, ...);
     static void Fatal(const char* fmt, ...);
 };

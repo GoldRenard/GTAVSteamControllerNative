@@ -10,6 +10,7 @@ Global
 		Debug ASI|x64 = Debug ASI|x64
 		Debug DLL|x64 = Debug DLL|x64
 		Release ASI|x64 = Release ASI|x64
+		Release DLL|x64 = Release DLL|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4EECFF18-516F-4D34-AF9D-DAD133ABC2F8}.Debug ASI|x64.ActiveCfg = Debug ASI|x64
@@ -18,6 +19,8 @@ Global
 		{4EECFF18-516F-4D34-AF9D-DAD133ABC2F8}.Debug DLL|x64.Build.0 = Debug DLL|x64
 		{4EECFF18-516F-4D34-AF9D-DAD133ABC2F8}.Release ASI|x64.ActiveCfg = Release ASI|x64
 		{4EECFF18-516F-4D34-AF9D-DAD133ABC2F8}.Release ASI|x64.Build.0 = Release ASI|x64
+		{4EECFF18-516F-4D34-AF9D-DAD133ABC2F8}.Release DLL|x64.ActiveCfg = Release DLL|x64
+		{4EECFF18-516F-4D34-AF9D-DAD133ABC2F8}.Release DLL|x64.Build.0 = Release DLL|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

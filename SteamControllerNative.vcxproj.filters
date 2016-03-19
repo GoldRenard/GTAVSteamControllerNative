@@ -32,11 +32,8 @@
     <ClInclude Include="src\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\controller.h">
+    <ClInclude Include="src\Controller.h">
       <Filter>Header Files\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="src\log.h">
-      <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\BaseScript.h">
       <Filter>Header Files\Common</Filter>
@@ -53,17 +50,20 @@
     <ClInclude Include="src\Types.h">
       <Filter>Header Files\Standalone</Filter>
     </ClInclude>
-    <ClInclude Include="src\scrThread.h">
-      <Filter>Header Files\Standalone</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RAGEHelper.h">
-      <Filter>Header Files\Standalone</Filter>
-    </ClInclude>
     <ClInclude Include="src\pgCollection.h">
       <Filter>Header Files\Standalone</Filter>
     </ClInclude>
     <ClInclude Include="src\Pattern.h">
       <Filter>Header Files\Standalone</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ScriptThread.h">
+      <Filter>Header Files\Standalone</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NativeInvoker.h">
+      <Filter>Header Files\Standalone</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Logger.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -73,11 +73,8 @@
     <ClCompile Include="src\dllmain.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
-    <ClCompile Include="src\controller.cpp">
+    <ClCompile Include="src\Controller.cpp">
       <Filter>Source Files\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="src\log.cpp">
-      <Filter>Source Files\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\InjectedScript.cpp">
       <Filter>Source Files\Common</Filter>
@@ -88,7 +85,13 @@
     <ClCompile Include="src\BaseScript.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
-    <ClCompile Include="src\RAGEHelper.cpp">
+    <ClCompile Include="src\ScriptThread.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NativeInvoker.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Logger.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>
