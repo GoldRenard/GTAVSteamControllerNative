@@ -8,13 +8,11 @@ This plugin project is an implementation of native Steam Controller IGAs (In-Gam
 - In vehicle controls
 - In flying vehicle controls
 
-It is implemented as ScriptHookV ASI plugin as well as standalone injectable DLL.
-
 ### Requirements
 
 - Grand Theft Auto V v1.0.678.1
 - Steam **Beta**
-- [ScriptHookV](http://www.dev-c.com/gtav/scripthookv/) or any [DLL Injector](http://lmgtfy.com/?q=DLL+Injector)
+- [ScriptHookV](http://www.dev-c.com/gtav/scripthookv/)
 
 ### How to use
 
@@ -22,9 +20,7 @@ It is implemented as ScriptHookV ASI plugin as well as standalone injectable DLL
 2. Create new Steam Controller template for GTA V with four action sets **in sequence**: Menu, Foot, Vehicle, Flying Vehicle. You can leave them empty for now and configure later in game, or you can use prepared configuration like described in next section;
 3. Download and unpack latest [Release package](https://github.com/GoldRenard/DMOAdvancedLauncher/releases/latest);
 4. Replace the original `steam_api64.dll` located in game folder with packaged one;
-5. Now you have two ways depending on the method you want to use the plugin:
-   - If you want use it offline with ScriptHookV, just copy `SteamControllerNative.asi` plugin to game folder;
-   - If you want to use any online/offline, you must [inject](http://lmgtfy.com/?q=DLL+Injector) `SteamControllerNative.dll` to the game process.
+5. Copy `SteamControllerNative.asi` plugin to game folder;
 6. Start the game. It should switch action sets automatically, you just have to configure them as you want;
 
 ### Prepared controller configuration
@@ -49,11 +45,6 @@ At the time of writing this manual, the user-made action sets [only available in
 
 GTA V out the box uses old version of Steamworks SDK with very poor Steam Controller support and there is no Action Sets API at all. `steam_api64.dll` I provided is official library taken from the latest Steamworks SDK 1.36: https://partner.steamgames.com/downloads/
 
-##### Can I use it Online?
-
-Technically, injectable DLL should work Online. But, you know, Rockstar Games doesn't allow to use any mods for GTA:O. Since this plugin is not made for cheating or giving the player some sort of advantage over another, it is still 3rd-party injectable code so they can punish you for using it. I'm not saying they will ban you 100%, but anyway **USE IT ONLINE ON YOUR OWN RISK. I'm responsible for bans. I'm warning you.**
-
 ### Credits
 
 - Thanks to Alexander Blade for both the Scripthook and the asi loader.
-- Thanks to m0d-s0beit-v (Redux) developers and other authors of its parts: s0biet, NTAuthority/citizenMP, gir489 `[, %DEVELOPER_NAME%]`. Injectable DLL mostly based on their codebase.
