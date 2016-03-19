@@ -16,44 +16,38 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 // ======================================================================
 
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently, but
-// are changed infrequently
-
 #pragma once
 
-#include "targetver.h"
+#include "stdafx.h"
 
-#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
-// Windows Header Files:
-#include <windows.h>
+static const char* ActionNames[] = { "Menu", "OnFoot", "InVehicle", "InFlyingVehicle" };
 
-#include "Logger.h"
-#include "Controller.h"
+class BaseScript {
+public:
 
-#ifdef SCRIPT_ASI
-#include "inc\natives.h"
-#include "inc\types.h"
-#include "inc\enums.h"
-#include "inc\main.h"
-#else
-#include <string>
-#include <vector>
-#include <sstream>
-#include <Psapi.h>
-#include <timeapi.h>
+    // Start the script execution
+    virtual void Start(HMODULE hInstance) {};
 
-#pragma comment(lib, "winmm.lib")
+    // Shutdown the script execution
+    virtual void Shutdown() {};
 
-extern MODULEINFO g_MainModuleInfo;
+    // Execute the script
+    void Execute();
 
-#include "Pattern.h"
-#include "Types.h"
-#include "pgCollection.h"
-#include "ScriptThread.h"
-#include "NativeInvoker.h"
-#include "natives.h"
+    ~BaseScript() { Shutdown(); }
 
-#endif
+protected:
 
-// TODO: reference additional headers your program requires here
+    HMODULE hInstance = 0;
+
+    ActionSet m_CurrentActionSet = ActionSet::Menu;
+
+private:
+    void ApplyState(ActionSet dwActionSet);
+
+    void RenderState(float x, float y, ActionSet dwActionSet);
+
+    const char* GetActionSetName(ActionSet actionSet) {
+        return ActionNames[actionSet];
+    }
+};

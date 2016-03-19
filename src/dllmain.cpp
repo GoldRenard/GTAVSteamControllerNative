@@ -17,23 +17,45 @@
 // ======================================================================
 
 #include "stdafx.h"
-#include "script.h"
 
-BOOL m_controllerInitialized = FALSE;
+#ifdef SCRIPT_ASI
+#include "HookedScript.h"
+#else
+#include "InjectedScript.h"
+MODULEINFO g_MainModuleInfo = { 0 };
+#endif
+
+BaseScript * m_BaseScript = NULL;
 
 BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved) {
     switch (reason) {
         case DLL_PROCESS_ATTACH:
-            Log::Init(hInstance);
-            m_controllerInitialized = Controller::InitSteamController();
-            if (m_controllerInitialized) {
+            Logger::Init(hInstance);
+
+            if (Controller::InitSteamController()) {
                 DEBUGOUT("Steam Controller Native initialized.");
-                scriptRegister(hInstance, ScriptMain);
+                m_BaseScript =
+#ifdef SCRIPT_ASI
+                    HookedScript::GetInstance();
+#else
+                    InjectedScript::GetInstance();
+
+                if (!GetModuleInformation(GetCurrentProcess(), GetModuleHandle(0), &g_MainModuleInfo, sizeof(g_MainModuleInfo))) {
+                    Logger::Fatal("Unable to get MODULEINFO from GTA5.exe");
+                }
+
+                DEBUGOUT("GTA5 [0x%I64X][0x%X]", g_MainModuleInfo.lpBaseOfDll, g_MainModuleInfo.SizeOfImage);
+
+#endif
+                m_BaseScript->Start(hInstance);
+            }
+            else {
+                DEBUGOUT("Cannot initialize Steam Controller!");
             }
             break;
         case DLL_PROCESS_DETACH:
-            if (m_controllerInitialized) {
-                scriptUnregister(hInstance);
+            if (m_BaseScript != NULL) {
+                m_BaseScript->Shutdown();
             }
             break;
     }

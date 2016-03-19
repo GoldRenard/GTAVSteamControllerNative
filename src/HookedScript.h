@@ -16,44 +16,26 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 // ======================================================================
 
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently, but
-// are changed infrequently
-
 #pragma once
-
-#include "targetver.h"
-
-#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
-// Windows Header Files:
-#include <windows.h>
-
-#include "Logger.h"
-#include "Controller.h"
-
-#ifdef SCRIPT_ASI
-#include "inc\natives.h"
-#include "inc\types.h"
-#include "inc\enums.h"
-#include "inc\main.h"
-#else
-#include <string>
 #include <vector>
-#include <sstream>
-#include <Psapi.h>
-#include <timeapi.h>
+#include "BaseScript.h"
+class HookedScript : public BaseScript {
+public:
 
-#pragma comment(lib, "winmm.lib")
+    void Start(HMODULE hInstance);
 
-extern MODULEINFO g_MainModuleInfo;
+    void Shutdown();
 
-#include "Pattern.h"
-#include "Types.h"
-#include "pgCollection.h"
-#include "ScriptThread.h"
-#include "NativeInvoker.h"
-#include "natives.h"
+    static HookedScript * GetInstance() {
+        if (!m_Instance) {
+            m_Instance = new HookedScript();
+        }
+        return m_Instance;
+    }
 
-#endif
+private:
 
-// TODO: reference additional headers your program requires here
+    static HookedScript *m_Instance;
+
+    HookedScript() {}
+};

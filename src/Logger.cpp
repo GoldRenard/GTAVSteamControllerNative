@@ -17,14 +17,14 @@
 // ======================================================================
 
 #include "stdafx.h"
+#include "Logger.h"
 #include <time.h>
 #include <stdio.h>
-#include "log.h"
 
 char g_logFile[MAX_PATH];
 char g_debugLogFile[MAX_PATH];
 
-void Log::Init(HMODULE hModule) {
+void Logger::Init(HMODULE hModule) {
     memset(g_logFile, 0, sizeof(g_logFile));
 
     if (GetModuleFileNameA(hModule, g_logFile, MAX_PATH) != 0) {
@@ -72,24 +72,20 @@ void Log::Init(HMODULE hModule) {
         fclose(file); \
     }
 
-void Write(const char* level, const char* logFile, const char* fmt, va_list args) {
-    WRITE(DEBUG, g_debugLogFile);
-}
-
-void Log::Debug(const char* fmt, ...) {
-    WRITE(DEBUG, g_debugLogFile);
-}
-
-void Log::Msg(const char* fmt, ...) {
+void Logger::Info(const char* fmt, ...) {
     WRITE(MSG, g_logFile);
 }
 
-void Log::Error(const char* fmt, ...) {
+void Logger::Debug(const char* fmt, ...) {
+    WRITE(DEBUG, g_debugLogFile);
+}
+
+void Logger::Error(const char* fmt, ...) {
     WRITE(ERROR, g_debugLogFile);
     MessageBoxA(NULL, chLogBuff, "ERROR", MB_ICONERROR);
 }
 
-void Log::Fatal(const char* fmt, ...) {
+void Logger::Fatal(const char* fmt, ...) {
     WRITE(FATAL, g_debugLogFile);
     MessageBoxA(NULL, chLogBuff, "FATAL ERROR", MB_ICONERROR);
     ExitProcess(0);
