@@ -23,8 +23,8 @@ It is implemented as ScriptHookV ASI plugin as well as standalone injectable DLL
 3. Download and unpack latest [Release package](https://github.com/GoldRenard/DMOAdvancedLauncher/releases/latest);
 4. Replace the original `steam_api64.dll` located in game folder with packaged one;
 5. Now you have two ways depending on the method you want to use the plugin:
-- If you want use it offline with ScriptHookV, just copy `SteamControllerNative.asi` plugin to game folder;
-- If you want to use any online/offline, you must [inject](http://lmgtfy.com/?q=DLL+Injector) `SteamControllerNative.dll` to the game process.
+   - If you want use it offline with ScriptHookV, just copy `SteamControllerNative.asi` plugin to game folder;
+   - If you want to use any online/offline, you must [inject](http://lmgtfy.com/?q=DLL+Injector) `SteamControllerNative.dll` to the game process.
 6. Start the game. It should switch action sets automatically, you just have to configure them as you want;
 
 ### Prepared controller configuration
@@ -35,8 +35,8 @@ Personally, I don't want to publish this plugin-specific configuration to the St
 
 1. Create new Steam Controller template for GTA V and save it **locally** with some unique name;
 2. Switch to any other controller configuration, close BigPicture or better even Steam;
-3. Steam stores all controller configurations in `<Steam>\SteamApps\workshop\content\241100\` folder. Use any notepad with 'Seach in files' feature supported to search your configuration by that unique name.
-4. Replace it with [prepared one](https://github.com/GoldRenard/GTAVSteamControllerNative/blob/master/controller.vdf).
+3. Steam stores all controller configurations in `<Steam>\SteamApps\workshop\content\241100\` folder. Use any notepad with 'Seach in files' feature supported to search your configuration by that unique name;
+4. Replace it with [prepared one](https://github.com/GoldRenard/GTAVSteamControllerNative/blob/master/controller.vdf);
 5. Start Steam, BigPicture, switch back to your configuration and it should be updated. You're done.
 
 ### FAQ
