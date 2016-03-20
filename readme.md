@@ -18,7 +18,7 @@ This plugin project is an implementation of native Steam Controller IGAs (In-Gam
 
 1. Launch Steam in BigPicture Mode;
 2. Create new Steam Controller template for GTA V with four action sets **in sequence**: Menu, Foot, Vehicle, Flying Vehicle. You can leave them empty for now and configure later in game, or you can use prepared configuration like described in following section;
-3. Download and unpack latest [Release package](https://github.com/GoldRenard/DMOAdvancedLauncher/releases/latest);
+3. Download and unpack latest [Release package](https://github.com/GoldRenard/GTAVSteamControllerNative /releases/latest);
 4. Create a backup of original `steam_api64.dll` located in game folder;
 5. Copy both `SteamControllerNative.asi` and `steam_api64.dll` (replace it) to game folder;
 6. Start the game. It should switch action sets automatically, you just have to configure them as you want;
