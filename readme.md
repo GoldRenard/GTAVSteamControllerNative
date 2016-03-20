@@ -10,7 +10,7 @@ This plugin project is an implementation of native Steam Controller IGAs (In-Gam
 
 ### Requirements
 
-- Grand Theft Auto V v1.0.678.1
+- Grand Theft Auto V
 - Steam **Beta**
 - [ScriptHookV](http://www.dev-c.com/gtav/scripthookv/)
 
