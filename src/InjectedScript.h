@@ -17,7 +17,6 @@
 // ======================================================================
 
 #pragma once
-#include "BaseScript.h"
 
 #define MAIN_PERSISTENT 0x5700179C
 

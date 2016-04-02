@@ -18,13 +18,6 @@
 
 #include "stdafx.h"
 
-//-----------------------------------------------------------------------------
-// Purpose: callback hook for debug text emitted from the Steam API
-//-----------------------------------------------------------------------------
-extern "C" void __cdecl SteamAPIDebugTextHook(int nSeverity, const char *pchDebugText) {
-    DEBUGOUT(pchDebugText);
-}
-
 // A handle to the currently active Steam Controller.
 ControllerHandle_t Controller::m_ActiveControllerHandle;
 
@@ -38,17 +31,14 @@ BOOL Controller::m_IsNativeActionSets = TRUE;
 //-----------------------------------------------------------------------------
 BOOL Controller::InitSteamController() {
     DEBUGOUT("Initializing SteamAPI...\n");
+#ifdef SCRIPT_ASI
+
     if (!SteamAPI_Init()) {
         DEBUGOUT("SteamAPI_Init() failed\n");
         return FALSE;
     }
 
-    SteamClient()->SetWarningMessageHook(&SteamAPIDebugTextHook);
-
-    if (!SteamUser()->BLoggedOn()) {
-        DEBUGOUT("Steam user is not logged in\n");
-        return FALSE;
-    }
+#endif // SCRIPT_ASI
 
     if (!SteamController()->Init()) {
         DEBUGOUT("SteamController()->Init failed.\n");
@@ -60,16 +50,13 @@ BOOL Controller::InitSteamController() {
     m_ControllerActionSetHandles[ActionSet::InVehicle] = SteamController()->GetActionSetHandle("InVehicle");
     m_ControllerActionSetHandles[ActionSet::InFlyingVehicle] = SteamController()->GetActionSetHandle("InFlyingVehicle");
 
-#ifdef DEBUG
     DEBUGOUT("Adding ActionSet Default -> %d", m_ControllerActionSetHandles[ActionSet::Menu]);
     DEBUGOUT("Adding ActionSet Foot -> %d", m_ControllerActionSetHandles[ActionSet::OnFoot]);
     DEBUGOUT("Adding ActionSet Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InVehicle]);
     DEBUGOUT("Adding ActionSet Flying Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InFlyingVehicle]);
-#endif
 
     for (int i = 0; i < NUM_ACTION_SETS; i++) {
         if (m_ControllerActionSetHandles[i] <= 0) {
-            DEBUGOUT("Wrong IGAS handle detected. Unsupported steam_api.dll version? Anyway, true to use desired values...");
             m_IsNativeActionSets = FALSE;
             break;
         }
@@ -81,14 +68,6 @@ BOOL Controller::InitSteamController() {
 // Purpose: Called each frame
 //-----------------------------------------------------------------------------
 void Controller::PollSteamController() {
-    // Each frame check our active controller handle
-    FindActiveSteamController();
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: Find an active Steam controller
-//-----------------------------------------------------------------------------
-void Controller::FindActiveSteamController() {
     // Use the first available steam controller for all interaction. We can call this each frame to handle
     // a controller disconnecting and a different one reconnecting. Handles are guaranteed to be unique for
     // a given controller, even across power cycles.
@@ -101,8 +80,6 @@ void Controller::FindActiveSteamController() {
     if (nNumActive && (m_ActiveControllerHandle != pHandles[0])) {
         m_ActiveControllerHandle = pHandles[0];
     }
-
-    return;
 }
 
 //-----------------------------------------------------------------------------

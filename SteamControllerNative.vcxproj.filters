@@ -24,6 +24,12 @@
     <Filter Include="Header Files\Standalone">
       <UniqueIdentifier>{9236116f-2ba9-4a0d-b559-01abbb6b8811}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SteamAPI">
+      <UniqueIdentifier>{9bfd842f-a3b1-4b04-aa6d-aa81a0e575d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SteamAPI">
+      <UniqueIdentifier>{8dc85059-e7c3-4e25-be8d-60f3bf7f4610}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\stdafx.h">
@@ -47,16 +53,7 @@
     <ClInclude Include="src\natives.h">
       <Filter>Header Files\Standalone</Filter>
     </ClInclude>
-    <ClInclude Include="src\Types.h">
-      <Filter>Header Files\Standalone</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pgCollection.h">
-      <Filter>Header Files\Standalone</Filter>
-    </ClInclude>
     <ClInclude Include="src\Pattern.h">
-      <Filter>Header Files\Standalone</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ScriptThread.h">
       <Filter>Header Files\Standalone</Filter>
     </ClInclude>
     <ClInclude Include="src\NativeInvoker.h">
@@ -67,6 +64,12 @@
     </ClInclude>
     <ClInclude Include="src\VersionUtils.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ISteamController003.h">
+      <Filter>Header Files\SteamAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\steam_api64.h">
+      <Filter>Header Files\SteamAPI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -88,9 +91,6 @@
     <ClCompile Include="src\BaseScript.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
-    <ClCompile Include="src\ScriptThread.cpp">
-      <Filter>Source Files\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="src\NativeInvoker.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
@@ -100,9 +100,15 @@
     <ClCompile Include="src\VersionUtils.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\steam_api64.cpp">
+      <Filter>Source Files\SteamAPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="controller.vdf" />
     <None Include="game_actions_271590.vdf" />
+    <None Include="src\steam_api64.def">
+      <Filter>Source Files\SteamAPI</Filter>
+    </None>
   </ItemGroup>
 </Project>

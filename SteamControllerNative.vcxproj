@@ -90,18 +90,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">
     <LinkIncremental>false</LinkIncremental>
     <TargetExt>.dll</TargetExt>
-    <IncludePath>.\sdk\Steamworks\public;$(IncludePath)</IncludePath>
-    <LibraryPath>.\sdk\Steamworks\redistributable_bin\win64\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\</IntDir>
+    <TargetName>steam_api64</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">
     <LinkIncremental>false</LinkIncremental>
     <TargetExt>.dll</TargetExt>
-    <IncludePath>.\sdk\Steamworks\public;$(IncludePath)</IncludePath>
-    <LibraryPath>.\sdk\Steamworks\redistributable_bin\win64\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\</IntDir>
+    <TargetName>steam_api64</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">
     <ClCompile>
@@ -123,6 +125,8 @@
       <AdditionalOptions>
       </AdditionalOptions>
       <AdditionalDependencies>Version.lib;steam_api64.lib;ScriptHookV.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)sdk\Steamworks\redistributable_bin\win64\steam_api64.dll" "$(SolutionDir)bin\$(Configuration)\steam_api64.dll"</Command>
@@ -148,6 +152,8 @@
       <AdditionalOptions>
       </AdditionalOptions>
       <AdditionalDependencies>Version.lib;steam_api64.lib;ScriptHookV.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)sdk\Steamworks\redistributable_bin\win64\steam_api64.dll" "$(SolutionDir)bin\$(Configuration)\steam_api64.dll"</Command>
@@ -172,10 +178,11 @@
       <GenerateDebugInformation>No</GenerateDebugInformation>
       <AdditionalOptions>
       </AdditionalOptions>
-      <AdditionalDependencies>Version.lib;steam_api64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Version.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>src\steam_api64.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)sdk\Steamworks\redistributable_bin\win64\steam_api64.dll" "$(SolutionDir)bin\$(Configuration)\steam_api64.dll"</Command>
+      <Command>C:\Users\Renard\Desktop\cert\deploy.bat</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">
@@ -197,20 +204,22 @@
       <GenerateDebugInformation>No</GenerateDebugInformation>
       <AdditionalOptions>
       </AdditionalOptions>
-      <AdditionalDependencies>Version.lib;steam_api64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Version.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>src\steam_api64.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)sdk\Steamworks\redistributable_bin\win64\steam_api64.dll" "$(SolutionDir)bin\$(Configuration)\steam_api64.dll"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\NativeInvoker.h">
+    <ClInclude Include="src\ISteamController003.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="src\ScriptThread.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
+    <ClInclude Include="src\NativeInvoker.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="src\BaseScript.h" />
     <ClInclude Include="src\HookedScript.h">
@@ -230,13 +239,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="src\pgCollection.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
+    <ClInclude Include="src\steam_api64.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="src\Types.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\Controller.h" />
@@ -245,12 +250,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\NativeInvoker.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">
-      </DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\ScriptThread.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">
       </DeploymentContent>
@@ -287,11 +286,19 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Controller.cpp" />
+    <ClCompile Include="src\steam_api64.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="src\VersionUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="controller.vdf" />
     <None Include="game_actions_271590.vdf" />
+    <None Include="src\steam_api64.def">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

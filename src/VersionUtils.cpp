@@ -18,33 +18,21 @@
 
 #include "stdafx.h"
 
-BOOL VersionUtils::IsVelidEnvironment() {
+BOOL VersionUtils::IsValidEnvironment() {
     TCHAR currentVersion[64];
-    EVersionCheckResult mResult = VersionUtils::IsValidModuleVersion(STEAM_API_MODULE_NAME, REQUIRED_STEAM_API_VERSION, currentVersion);
-    switch (mResult) {
-        case INVALID:
-            Logger::Fatal("Unsupported SteamAPI version %s, %s is required. Make sure you have supported steam_api.dll", currentVersion, REQUIRED_STEAM_API_VERSION);
-            return FALSE;
-        case NOT_FOUND:
-            Logger::Fatal("No SteamAPI found. Non-steam game?");
-            return FALSE;
-        default:
-            break;
-    }
-#ifndef SCRIPT_ASI
     memset(&currentVersion[0], 0, sizeof(currentVersion));
-    mResult = VersionUtils::IsValidModuleVersion(GAME_MODULE_NAME, REQUIRED_GAME_VERSION, currentVersion);
+    EVersionCheckResult mResult = VersionUtils::IsValidModuleVersion(GAME_MODULE_NAME, REQUIRED_GAME_VERSION, currentVersion);
     switch (mResult) {
         case INVALID:
             Logger::Fatal("Unsupported game version %s, %s is required. Download new version of plugin.", currentVersion, REQUIRED_GAME_VERSION);
             return FALSE;
         case NOT_FOUND:
-            Logger::Fatal("Injecting not in a game?");
+            //Logger::Fatal("Injecting not in a game?");
+            DEBUGOUT("Executing out of context of %s", GAME_MODULE_NAME);
             return FALSE;
         default:
             break;
     }
-#endif
     return TRUE;
 }
 

@@ -31,10 +31,9 @@
 #include <Psapi.h>
 
 #include "Logger.h"
-#include "Controller.h"
-#include "VersionUtils.h"
 
 #ifdef SCRIPT_ASI
+#include "steam/steam_api.h"
 #include "inc\natives.h"
 #include "inc\types.h"
 #include "inc\enums.h"
@@ -44,17 +43,20 @@
 #include <sstream>
 #include <timeapi.h>
 
-#pragma comment(lib, "winmm.lib")
-
-extern MODULEINFO g_MainModuleInfo;
-
+#include "ISteamController003.h"
+#include "steam_api64.h"
 #include "Pattern.h"
-#include "Types.h"
-#include "pgCollection.h"
-#include "ScriptThread.h"
 #include "NativeInvoker.h"
 #include "natives.h"
 
+extern MODULEINFO g_MainModuleInfo;
+
+extern BOOL g_CompatibleVersion;
+
 #endif
 
-// TODO: reference additional headers your program requires here
+#include "Controller.h"
+#include "VersionUtils.h"
+#include "BaseScript.h"
+
+extern BaseScript *m_BaseScript;
