@@ -31,11 +31,11 @@ void BaseScript::ApplyState(ActionSet dwActionSet) {
     }
     mCurrentActionSet = dwActionSet;
 #ifdef DEBUG
-    char text[256];
-    sprintf_s(text, "Controller state: %s", GetActionSetName(dwActionSet));
-    DEBUGOUT(text);
+    DEBUGOUT(L"Controller state: %s", GetActionSetName(dwActionSet));
     Controller::TriggerHapticPulse();
 #ifdef SCRIPT_ASI
+    char text[256];
+    sprintf_s(text, "Controller state: %s", GetActionSetName(dwActionSet));
     UI::_SET_NOTIFICATION_TEXT_ENTRY("STRING");
     UI::_ADD_TEXT_COMPONENT_STRING(text);
     UI::_DRAW_NOTIFICATION(FALSE, FALSE);

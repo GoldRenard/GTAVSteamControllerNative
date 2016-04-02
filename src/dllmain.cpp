@@ -32,7 +32,7 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved) {
     switch (reason) {
         case DLL_PROCESS_ATTACH:
             Logger::Init(hInstance);
-            DEBUGOUT("Steam Controller Native initialized.");
+            DEBUGOUT(L"Steam Controller Native initialized.");
 
             m_BaseScript =
 #ifdef SCRIPT_ASI
@@ -43,12 +43,12 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved) {
             g_CompatibleVersion = VersionUtils::IsValidEnvironment();
             if (g_CompatibleVersion) {
                 if (!GetModuleInformation(GetCurrentProcess(), GetModuleHandle(0), &g_MainModuleInfo, sizeof(g_MainModuleInfo))) {
-                    Logger::Fatal("Unable to get MODULEINFO from GTA5.exe");
+                    Logger::Fatal(L"Unable to get MODULEINFO from GTA5.exe");
                 }
-                DEBUGOUT("GTA5 [0x%I64X][0x%X]", g_MainModuleInfo.lpBaseOfDll, g_MainModuleInfo.SizeOfImage);
+                DEBUGOUT(L"GTA5 [0x%I64X][0x%X]", g_MainModuleInfo.lpBaseOfDll, g_MainModuleInfo.SizeOfImage);
             }
             else {
-                DEBUGOUT("Incompatible game version found. Native call will not be invoked.");
+                DEBUGOUT(L"Incompatible game version found. Native call will not be invoked.");
             }
 #endif
             m_BaseScript->Start(hInstance);

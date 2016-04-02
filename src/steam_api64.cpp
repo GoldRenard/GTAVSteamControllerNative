@@ -1,10 +1,9 @@
 #include "stdafx.h"
 
-void S_CALLTYPE SteamAPI_InitProxy() {
-    // TODO It is better to extract it from resource to temp
-    steam_api64.dll = LoadLibrary("steam_api64_.dll");
+void S_CALLTYPE SteamAPI_InitProxy(const wchar_t* library) {
+    steam_api64.dll = LoadLibrary(library);
     if (steam_api64.dll == NULL) {
-        Logger::Fatal("SteamAPI load failed");
+        Logger::Fatal(L"SteamAPI load failed");
     }
 
     steam_api64.SteamAPI_Init = reinterpret_cast<BOOLPROC>(GetProcAddress(steam_api64.dll, "SteamAPI_Init"));
@@ -15,7 +14,6 @@ void S_CALLTYPE SteamAPI_InitProxy() {
     steam_api64.SteamAPI_UnregisterCallback = reinterpret_cast<UNREGPROC>(GetProcAddress(steam_api64.dll, "SteamAPI_UnregisterCallback"));
     steam_api64.SteamAPI_RunCallbacks = reinterpret_cast<VOIDPROC>(GetProcAddress(steam_api64.dll, "SteamAPI_RunCallbacks"));
 
-    // TODO return explicit interface versions of SDK 1.27. See header for more info.
     steam_api64.SteamApps = reinterpret_cast<APIPROC>(GetProcAddress(steam_api64.dll, "SteamApps"));
     steam_api64.SteamFriends = reinterpret_cast<APIPROC>(GetProcAddress(steam_api64.dll, "SteamFriends"));
     steam_api64.SteamUser = reinterpret_cast<APIPROC>(GetProcAddress(steam_api64.dll, "SteamUser"));
@@ -50,29 +48,29 @@ bool S_CALLTYPE _SteamAPI_Init() {
 
         Controller::InitSteamController();
     }
-    DEBUGOUT("SteamAPI_Init() called -> %d", result);
+    DEBUGOUT(L"SteamAPI_Init() called -> %d", result);
     return result;
 }
 
 void S_CALLTYPE _SteamAPI_Shutdown() {
     steam_api64.SteamAPI_Shutdown();
-    DEBUGOUT("SteamAPI_Shutdown() called");
+    DEBUGOUT(L"SteamAPI_Shutdown() called");
 }
 
 bool S_CALLTYPE _SteamAPI_RestartAppIfNecessary(uint32 unOwnAppID) {
     bool result = steam_api64.SteamAPI_RestartAppIfNecessary(unOwnAppID);
-    DEBUGOUT("SteamAPI_RestartAppIfNecessary(%d) called -> %d", unOwnAppID, result);
+    DEBUGOUT(L"SteamAPI_RestartAppIfNecessary(%d) called -> %d", unOwnAppID, result);
     return result;
 }
 
 void S_CALLTYPE _SteamAPI_RegisterCallback(INT_PTR pCallback, int iCallback) {
     steam_api64.SteamAPI_RegisterCallback(pCallback, iCallback);
-    DEBUGOUT("SteamAPI_RegisterCallback(0x%I64X, %d) called", pCallback, iCallback);
+    DEBUGOUT(L"SteamAPI_RegisterCallback(0x%I64X, %d) called", pCallback, iCallback);
 }
 
 void S_CALLTYPE _SteamAPI_UnregisterCallback(INT_PTR pCallback) {
     steam_api64.SteamAPI_UnregisterCallback(pCallback);
-    DEBUGOUT("SteamAPI_UnregisterCallback(0x%I64X) called", pCallback);
+    DEBUGOUT(L"SteamAPI_UnregisterCallback(0x%I64X) called", pCallback);
 }
 
 void S_CALLTYPE _SteamAPI_RunCallbacks() {
@@ -83,40 +81,40 @@ void S_CALLTYPE _SteamAPI_RunCallbacks() {
 }
 
 INT_PTR S_CALLTYPE _SteamApps() {
-    DEBUGOUT("SteamApps() requested -> [0x%I64X]", legacy_interfaces.SteamApps006);
+    DEBUGOUT(L"SteamApps() requested -> [0x%I64X]", legacy_interfaces.SteamApps006);
     return legacy_interfaces.SteamApps006;
 }
 
 INT_PTR S_CALLTYPE _SteamUserStats() {
     INT_PTR result = steam_api64.SteamUserStats();
-    DEBUGOUT("SteamUserStats() requested -> [0x%I64X]", result);
+    DEBUGOUT(L"SteamUserStats() requested -> [0x%I64X]", result);
     return result;
 }
 
 INT_PTR S_CALLTYPE _SteamUtils() {
-    DEBUGOUT("SteamUtils() requested -> [0x%I64X]", legacy_interfaces.SteamUtils006);
+    DEBUGOUT(L"SteamUtils() requested -> [0x%I64X]", legacy_interfaces.SteamUtils006);
     return legacy_interfaces.SteamUtils006;
 }
 
 INT_PTR S_CALLTYPE _SteamUser() {
-    DEBUGOUT("SteamUser() requested -> [0x%I64X]", legacy_interfaces.SteamUser017);
+    DEBUGOUT(L"SteamUser() requested -> [0x%I64X]", legacy_interfaces.SteamUser017);
     return legacy_interfaces.SteamUser017;
 }
 
 INT_PTR S_CALLTYPE _SteamFriends() {
-    DEBUGOUT("SteamFriends() requested -> [0x%I64X]", legacy_interfaces.SteamFriends014);
+    DEBUGOUT(L"SteamFriends() requested -> [0x%I64X]", legacy_interfaces.SteamFriends014);
     return legacy_interfaces.SteamFriends014;
 }
 
 HSteamPipe S_CALLTYPE _GetHSteamPipe() {
     HSteamPipe result = steam_api64.GetHSteamPipe();
-    DEBUGOUT("GetHSteamPipe() requested -> [0x%I64X]", result);
+    DEBUGOUT(L"GetHSteamPipe() requested -> [0x%I64X]", result);
     return result;
 }
 
 HSteamUser S_CALLTYPE _GetHSteamUser() {
     HSteamUser result = steam_api64.GetHSteamUser();
-    DEBUGOUT("GetHSteamUser() requested -> [0x%I64X]", result);
+    DEBUGOUT(L"GetHSteamUser() requested -> [0x%I64X]", result);
     return result;
 }
 

@@ -31,15 +31,15 @@ BOOL Controller::m_IsNativeActionSets = TRUE;
 //-----------------------------------------------------------------------------
 BOOL Controller::InitSteamController() {
 #ifdef SCRIPT_ASI
-    DEBUGOUT("Initializing SteamAPI...\n");
+    DEBUGOUT(L"Initializing SteamAPI...\n");
     if (!SteamAPI_Init()) {
-        DEBUGOUT("SteamAPI_Init() failed\n");
+        DEBUGOUT(L"SteamAPI_Init() failed\n");
         return FALSE;
     }
 #endif
 
     if (!SteamController()->Init()) {
-        DEBUGOUT("SteamController()->Init failed.\n");
+        DEBUGOUT(L"SteamController()->Init failed.\n");
         return FALSE;
     }
 
@@ -48,10 +48,10 @@ BOOL Controller::InitSteamController() {
     m_ControllerActionSetHandles[ActionSet::InVehicle] = SteamController()->GetActionSetHandle("InVehicle");
     m_ControllerActionSetHandles[ActionSet::InFlyingVehicle] = SteamController()->GetActionSetHandle("InFlyingVehicle");
 
-    DEBUGOUT("Adding ActionSet Default -> %d", m_ControllerActionSetHandles[ActionSet::Menu]);
-    DEBUGOUT("Adding ActionSet Foot -> %d", m_ControllerActionSetHandles[ActionSet::OnFoot]);
-    DEBUGOUT("Adding ActionSet Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InVehicle]);
-    DEBUGOUT("Adding ActionSet Flying Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InFlyingVehicle]);
+    DEBUGOUT(L"Adding ActionSet Default -> %d", m_ControllerActionSetHandles[ActionSet::Menu]);
+    DEBUGOUT(L"Adding ActionSet Foot -> %d", m_ControllerActionSetHandles[ActionSet::OnFoot]);
+    DEBUGOUT(L"Adding ActionSet Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InVehicle]);
+    DEBUGOUT(L"Adding ActionSet Flying Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InFlyingVehicle]);
 
     for (int i = 0; i < NUM_ACTION_SETS; i++) {
         if (m_ControllerActionSetHandles[i] <= 0) {
@@ -92,7 +92,7 @@ BOOL Controller::IsSteamControllerActive() {
 
 void Controller::TriggerHapticPulse() {
     if (IsSteamControllerActive()) {
-        DEBUGOUT("Calling TriggerHapticPulse() for active controller...");
+        DEBUGOUT(L"Calling TriggerHapticPulse() for active controller...");
         SteamController()->TriggerHapticPulse(m_ActiveControllerHandle, ESteamControllerPad::k_ESteamControllerPad_Left, 30000);
     }
 }

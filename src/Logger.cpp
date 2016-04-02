@@ -21,16 +21,16 @@
 #include <time.h>
 #include <stdio.h>
 
-char g_logFile[MAX_PATH];
-char g_debugLogFile[MAX_PATH];
+WCHAR g_logFile[MAX_PATH];
+WCHAR g_debugLogFile[MAX_PATH];
 
 void Logger::Init(HMODULE hModule) {
     memset(g_logFile, 0, sizeof(g_logFile));
 
-    if (GetModuleFileNameA(hModule, g_logFile, MAX_PATH) != 0) {
+    if (GetModuleFileName(hModule, g_logFile, MAX_PATH) != 0) {
         size_t slash = -1;
 
-        for (size_t i = 0; i < strlen(g_logFile); i++) {
+        for (size_t i = 0; i < wcslen(g_logFile); i++) {
             if (g_logFile[i] == '/' || g_logFile[i] == '\\') {
                 slash = i;
             }
@@ -38,55 +38,55 @@ void Logger::Init(HMODULE hModule) {
 
         if (slash != -1) {
             g_logFile[slash + 1] = '\0';
-            strcpy_s(g_debugLogFile, g_logFile);
-            strcat_s(g_debugLogFile, "debug.log");
-            strcat_s(g_logFile, "hook.log");
+            wcscpy_s(g_debugLogFile, g_logFile);
+            wcscpy_s(g_debugLogFile, L"debug.log");
+            wcscpy_s(g_logFile, L"hook.log");
         }
         else {
-            MessageBoxA(NULL, "Unable to parse target module path", "ERROR", MB_OK);
+            MessageBox(NULL, L"Unable to parse target module path", L"ERROR", MB_OK);
             ExitProcess(0);
         }
     }
     else {
-        MessageBoxA(NULL, "GetModuleFileNameA failed", "ERROR", MB_OK);
+        MessageBox(NULL, L"GetModuleFileNameA failed", L"ERROR", MB_OK);
         ExitProcess(0);
     }
 }
 
 #define WRITE(LEVEL, LOGFILE) \
     va_list va_alist; \
-    char chLogBuff[4096]; \
-    char chParameters[3500]; \
-    char szTimestamp[30]; \
+    WCHAR chLogBuff[4096]; \
+    WCHAR chParameters[3500]; \
+    WCHAR szTimestamp[30]; \
     struct tm current_tm; \
     time_t current_time = time(NULL); \
     FILE* file; \
     localtime_s(&current_tm, &current_time); \
-    sprintf_s(szTimestamp, "[%02d:%02d:%02d] ["#LEVEL"] %%s\n", current_tm.tm_hour, current_tm.tm_min, current_tm.tm_sec); \
-    va_start(va_alist, fmt);  \
-    _vsnprintf_s(chParameters, sizeof(chParameters), fmt, va_alist); \
+    swprintf(szTimestamp, 31, L"[%02d:%02d:%02d] ["#LEVEL"] %%s\n", current_tm.tm_hour, current_tm.tm_min, current_tm.tm_sec); \
+    va_start(va_alist, fmt); \
+    _vsnwprintf_s(chParameters, sizeof(chParameters), fmt, va_alist); \
     va_end(va_alist); \
-    sprintf_s(chLogBuff, szTimestamp, chParameters); \
-    if ((fopen_s(&file, LOGFILE, "a")) == 0) { \
-        fprintf_s(file, "%s", chLogBuff); \
+    swprintf(chLogBuff, 4096, szTimestamp, chParameters); \
+    if ((_wfopen_s(&file, LOGFILE, L"a")) == 0) { \
+        fwprintf_s(file, L"%s", chLogBuff); \
         fclose(file); \
     }
 
-void Logger::Info(const char* fmt, ...) {
+void Logger::Info(const WCHAR* fmt, ...) {
     WRITE(MSG, g_logFile);
 }
 
-void Logger::Debug(const char* fmt, ...) {
+void Logger::Debug(const WCHAR* fmt, ...) {
     WRITE(DEBUG, g_debugLogFile);
 }
 
-void Logger::Error(const char* fmt, ...) {
+void Logger::Error(const WCHAR* fmt, ...) {
     WRITE(ERROR, g_debugLogFile);
-    MessageBoxA(NULL, chLogBuff, "ERROR", MB_ICONERROR);
+    MessageBox(NULL, chLogBuff, L"ERROR", MB_ICONERROR);
 }
 
-void Logger::Fatal(const char* fmt, ...) {
+void Logger::Fatal(const WCHAR* fmt, ...) {
     WRITE(FATAL, g_debugLogFile);
-    MessageBoxA(NULL, chLogBuff, "FATAL ERROR", MB_ICONERROR);
+    MessageBox(NULL, chLogBuff, L"FATAL ERROR", MB_ICONERROR);
     ExitProcess(0);
 }

@@ -14,15 +14,15 @@ HookedScript *HookedScript::m_Instance = NULL;
 void HookedScript::Start(HMODULE hInstance) {
     this->hInstance = hInstance;
     if (Controller::InitSteamController()) {
-        DEBUGOUT("Registering ScriptHookV handler...");
+        DEBUGOUT(L"Registering ScriptHookV handler...");
         scriptRegister(hInstance, ScriptMain);
     }
     else {
-        DEBUGOUT("SteamController init failed.");
+        DEBUGOUT(L"SteamController init failed.");
     }
 }
 
 void HookedScript::Shutdown() {
-    DEBUGOUT("Unregistering ScriptHookV handler...");
+    DEBUGOUT(L"Unregistering ScriptHookV handler...");
     scriptUnregister(this->hInstance);
 }

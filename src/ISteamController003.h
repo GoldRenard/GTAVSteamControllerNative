@@ -130,7 +130,7 @@ struct ControllerDigitalActionData_t {
 //-----------------------------------------------------------------------------
 // Purpose: Native Steam controller support API
 //-----------------------------------------------------------------------------
-abstract_class ISteamController003 {
+abstract_class ISteamController003{
 public:
 
     // Init and Shutdown must be called when starting/ending use of this interface

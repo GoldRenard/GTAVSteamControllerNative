@@ -25,15 +25,15 @@ typedef bool        (S_CALLTYPE *BOOLPROC)();
 typedef bool        (S_CALLTYPE *RSTPROC)(uint32 unOwnAppID);
 typedef void        (S_CALLTYPE *REGPROC)(INT_PTR pCallback, int iCallback);
 typedef void        (S_CALLTYPE *UNREGPROC)(INT_PTR pCallback);
-typedef INT_PTR     (S_CALLTYPE *APIPROC)();
-typedef HSteamUser  (S_CALLTYPE *HUSERPROC)();
-typedef HSteamPipe  (S_CALLTYPE *HPIPEPROC)();
+typedef INT_PTR(S_CALLTYPE *APIPROC)();
+typedef HSteamUser(S_CALLTYPE *HUSERPROC)();
+typedef HSteamPipe(S_CALLTYPE *HPIPEPROC)();
 
 typedef ISteamController003*    (S_CALLTYPE *CONTROLLERPROC)();
 typedef ISteamClient017*        (S_CALLTYPE *CLIENTPROC)();
 
-static void PrintPointer(const char* procName, INT_PTR ptr) {
-    DEBUGOUT("%s() = [0x%I64X]", procName, ptr);
+static void PrintPointer(const WCHAR* procName, INT_PTR ptr) {
+    DEBUGOUT(L"%s() = [0x%I64X]", procName, ptr);
 }
 
 struct steam_api64_dll {
@@ -57,22 +57,22 @@ struct steam_api64_dll {
     HUSERPROC GetHSteamUser;
 
     void PrintPointers() {
-        DEBUGOUT("Proxy function pointers:");
-        PrintPointer("SteamAPI_Init", (INT_PTR) SteamAPI_Init);
-        PrintPointer("SteamAPI_Shutdown", (INT_PTR) SteamAPI_Shutdown);
-        PrintPointer("SteamAPI_RestartAppIfNecessary", (INT_PTR) SteamAPI_RestartAppIfNecessary);
-        PrintPointer("SteamAPI_RegisterCallback", (INT_PTR) SteamAPI_RegisterCallback);
-        PrintPointer("SteamAPI_UnregisterCallback", (INT_PTR) SteamAPI_UnregisterCallback);
-        PrintPointer("SteamAPI_RunCallbacks", (INT_PTR) SteamAPI_RunCallbacks);
-        PrintPointer("SteamApps", (INT_PTR) SteamApps);
-        PrintPointer("SteamUserStats", (INT_PTR) SteamUserStats);
-        PrintPointer("SteamUtils", (INT_PTR) SteamUtils);
-        PrintPointer("SteamUser", (INT_PTR) SteamUser);
-        PrintPointer("SteamFriends", (INT_PTR) SteamFriends);
-        PrintPointer("SteamClient", (INT_PTR) SteamClient);
-        PrintPointer("SteamController", (INT_PTR) SteamController);
-        PrintPointer("GetHSteamPipe", (INT_PTR) GetHSteamPipe);
-        PrintPointer("GetHSteamUser", (INT_PTR) GetHSteamUser);
+        DEBUGOUT(L"Proxy function pointers:");
+        PrintPointer(L"SteamAPI_Init", (INT_PTR) SteamAPI_Init);
+        PrintPointer(L"SteamAPI_Shutdown", (INT_PTR) SteamAPI_Shutdown);
+        PrintPointer(L"SteamAPI_RestartAppIfNecessary", (INT_PTR) SteamAPI_RestartAppIfNecessary);
+        PrintPointer(L"SteamAPI_RegisterCallback", (INT_PTR) SteamAPI_RegisterCallback);
+        PrintPointer(L"SteamAPI_UnregisterCallback", (INT_PTR) SteamAPI_UnregisterCallback);
+        PrintPointer(L"SteamAPI_RunCallbacks", (INT_PTR) SteamAPI_RunCallbacks);
+        PrintPointer(L"SteamApps", (INT_PTR) SteamApps);
+        PrintPointer(L"SteamUserStats", (INT_PTR) SteamUserStats);
+        PrintPointer(L"SteamUtils", (INT_PTR) SteamUtils);
+        PrintPointer(L"SteamUser", (INT_PTR) SteamUser);
+        PrintPointer(L"SteamFriends", (INT_PTR) SteamFriends);
+        PrintPointer(L"SteamClient", (INT_PTR) SteamClient);
+        PrintPointer(L"SteamController", (INT_PTR) SteamController);
+        PrintPointer(L"GetHSteamPipe", (INT_PTR) GetHSteamPipe);
+        PrintPointer(L"GetHSteamUser", (INT_PTR) GetHSteamUser);
     }
 } static steam_api64;
 
@@ -83,16 +83,15 @@ struct steam_legacy_interfaces {
     INT_PTR SteamFriends014;
 
     void PrintPointers() {
-        DEBUGOUT("Legacy interface pointers:");
-        PrintPointer("SteamApps006", (INT_PTR) SteamApps006);
-        PrintPointer("SteamUtils006", (INT_PTR) SteamUtils006);
-        PrintPointer("SteamUser017", (INT_PTR) SteamUser017);
-        PrintPointer("SteamFriends014", (INT_PTR) SteamFriends014);
+        DEBUGOUT(L"Legacy interface pointers:");
+        PrintPointer(L"SteamApps006", (INT_PTR) SteamApps006);
+        PrintPointer(L"SteamUtils006", (INT_PTR) SteamUtils006);
+        PrintPointer(L"SteamUser017", (INT_PTR) SteamUser017);
+        PrintPointer(L"SteamFriends014", (INT_PTR) SteamFriends014);
     }
-
 } static legacy_interfaces;
 
-void S_CALLTYPE SteamAPI_InitProxy();
+void S_CALLTYPE SteamAPI_InitProxy(const wchar_t* library);
 
 void S_CALLTYPE SteamAPI_CloseProxy();
 

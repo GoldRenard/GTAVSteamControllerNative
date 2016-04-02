@@ -9,8 +9,7 @@ NativeRegistration** GetRegistrationTable() {
         dwRegistrationTablePtr = Pattern::Scan(g_MainModuleInfo, "76 61 49 8B 7A 40 48 8D 0D");
 
         if (!dwRegistrationTablePtr) {
-            //Logger::Fatal("Unable to find Native Registration Table");
-            Logger::Debug("Unable to find Native Registration Table");
+            DEBUGOUT(L"Unable to find Native Registration Table");
             return nullptr;
         }
 
@@ -21,11 +20,11 @@ NativeRegistration** GetRegistrationTable() {
         if (!dwAddressOfRegistrationTable ||
             dwAddressOfRegistrationTable < (DWORD64) g_MainModuleInfo.lpBaseOfDll ||
             dwAddressOfRegistrationTable >(DWORD64) g_MainModuleInfo.lpBaseOfDll + g_MainModuleInfo.SizeOfImage) {
-            Logger::Fatal("Error reading Native Registration Table opcode (0x%I64X)", dwAddressOfRegistrationTable);
+            Logger::Fatal(L"Error reading Native Registration Table opcode (0x%I64X)", dwAddressOfRegistrationTable);
         }
 
         dwRegistrationTablePtr = dwAddressOfRegistrationTable;
-        DEBUGOUT("dwRegistrationTablePtr = 0x%I64X", dwRegistrationTablePtr);
+        DEBUGOUT(L"dwRegistrationTablePtr = 0x%I64X", dwRegistrationTablePtr);
     }
 
     return (NativeRegistration**) dwRegistrationTablePtr;

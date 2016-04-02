@@ -27,8 +27,8 @@
 class Logger {
 public:
     static void Init(HMODULE hModule);
-    static void Info(const char* fmt, ...);
-    static void Debug(const char* fmt, ...);
-    static void Error(const char* fmt, ...);
-    static void Fatal(const char* fmt, ...);
+    static void Info(const WCHAR* fmt, ...);
+    static void Debug(const WCHAR* fmt, ...);
+    static void Error(const WCHAR* fmt, ...);
+    static void Fatal(const WCHAR* fmt, ...);
 };

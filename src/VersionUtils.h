@@ -18,8 +18,8 @@
 
 #pragma once
 
-#define GAME_MODULE_NAME            "GTA5.exe"
-#define REQUIRED_GAME_VERSION       "1.0.678.1"
+#define GAME_MODULE_NAME            L"GTA5.exe"
+#define REQUIRED_GAME_VERSION       L"1.0.678.1"
 
 enum EVersionCheckResult {
     VALID = 0,
@@ -34,11 +34,11 @@ public:
     static BOOL IsValidEnvironment();
 
     // Returns version of file
-    static BOOL GetFileVersion(const char *fileName, char *ver);
+    static BOOL GetFileVersion(const WCHAR* fileName, WCHAR* ver);
 
     // Checks version of file
-    static BOOL HasFileVersion(const char *fileName, const char *expectedVersion, char *currentVersion);
+    static BOOL HasFileVersion(const WCHAR* fileName, const WCHAR* expectedVersion, WCHAR* currentVersion);
 
     // Checks version of module loaded by current process
-    static EVersionCheckResult IsValidModuleVersion(const char* mName, const char* mRequiredVersion, char* mCurrentVersion);
+    static EVersionCheckResult IsValidModuleVersion(const WCHAR* mName, const WCHAR* mRequiredVersion, WCHAR* mCurrentVersion);
 };
