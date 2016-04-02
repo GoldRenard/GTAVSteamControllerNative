@@ -21,7 +21,10 @@ void S_CALLTYPE SteamAPI_InitProxy() {
     steam_api64.SteamUser = reinterpret_cast<APIPROC>(GetProcAddress(steam_api64.dll, "SteamUser"));
     steam_api64.SteamUserStats = reinterpret_cast<APIPROC>(GetProcAddress(steam_api64.dll, "SteamUserStats"));
     steam_api64.SteamUtils = reinterpret_cast<APIPROC>(GetProcAddress(steam_api64.dll, "SteamUtils"));
+    steam_api64.SteamClient = reinterpret_cast<CLIENTPROC>(GetProcAddress(steam_api64.dll, "SteamClient"));
     steam_api64.SteamController = reinterpret_cast<CONTROLLERPROC>(GetProcAddress(steam_api64.dll, "SteamController"));
+    steam_api64.GetHSteamPipe = reinterpret_cast<HPIPEPROC>(GetProcAddress(steam_api64.dll, "GetHSteamPipe"));
+    steam_api64.GetHSteamUser = reinterpret_cast<HUSERPROC>(GetProcAddress(steam_api64.dll, "GetHSteamUser"));
     steam_api64.PrintPointers();
 
     _SteamAPI_Init();
@@ -36,6 +39,15 @@ void S_CALLTYPE SteamAPI_CloseProxy() {
 bool S_CALLTYPE _SteamAPI_Init() {
     bool result = steam_api64.SteamAPI_Init();
     if (result) {
+        HSteamPipe mPipe = _GetHSteamPipe();
+        HSteamUser mUser = _GetHSteamUser();
+
+        legacy_interfaces.SteamApps006 = SteamClient()->GetISteamApps(mUser, mPipe, STEAMAPPS_INTERFACE_VERSION_006);
+        legacy_interfaces.SteamFriends014 = SteamClient()->GetISteamFriends(mUser, mPipe, STEAMFRIENDS_INTERFACE_VERSION_014);
+        legacy_interfaces.SteamUser017 = SteamClient()->GetISteamUser(mUser, mPipe, STEAMUSER_INTERFACE_VERSION_017);
+        legacy_interfaces.SteamUtils006 = SteamClient()->GetISteamUtils(mUser, STEAMUTILS_INTERFACE_VERSION_006);
+        legacy_interfaces.PrintPointers();
+
         Controller::InitSteamController();
     }
     DEBUGOUT("SteamAPI_Init() called -> %d", result);
@@ -71,9 +83,8 @@ void S_CALLTYPE _SteamAPI_RunCallbacks() {
 }
 
 INT_PTR S_CALLTYPE _SteamApps() {
-    INT_PTR result = steam_api64.SteamApps();
-    DEBUGOUT("SteamApps() requested -> [0x%I64X]", result);
-    return steam_api64.SteamApps();
+    DEBUGOUT("SteamApps() requested -> [0x%I64X]", legacy_interfaces.SteamApps006);
+    return legacy_interfaces.SteamApps006;
 }
 
 INT_PTR S_CALLTYPE _SteamUserStats() {
@@ -83,21 +94,34 @@ INT_PTR S_CALLTYPE _SteamUserStats() {
 }
 
 INT_PTR S_CALLTYPE _SteamUtils() {
-    INT_PTR result = steam_api64.SteamUtils();
-    DEBUGOUT("SteamUtils() requested -> [0x%I64X]", result);
-    return result;
+    DEBUGOUT("SteamUtils() requested -> [0x%I64X]", legacy_interfaces.SteamUtils006);
+    return legacy_interfaces.SteamUtils006;
 }
 
 INT_PTR S_CALLTYPE _SteamUser() {
-    INT_PTR result = steam_api64.SteamUser();
-    DEBUGOUT("SteamUser() requested -> [0x%I64X]", result);
-    return result;
+    DEBUGOUT("SteamUser() requested -> [0x%I64X]", legacy_interfaces.SteamUser017);
+    return legacy_interfaces.SteamUser017;
 }
 
 INT_PTR S_CALLTYPE _SteamFriends() {
-    INT_PTR result = steam_api64.SteamFriends();
-    DEBUGOUT("SteamFriends() requested -> [0x%I64X]", result);
+    DEBUGOUT("SteamFriends() requested -> [0x%I64X]", legacy_interfaces.SteamFriends014);
+    return legacy_interfaces.SteamFriends014;
+}
+
+HSteamPipe S_CALLTYPE _GetHSteamPipe() {
+    HSteamPipe result = steam_api64.GetHSteamPipe();
+    DEBUGOUT("GetHSteamPipe() requested -> [0x%I64X]", result);
     return result;
+}
+
+HSteamUser S_CALLTYPE _GetHSteamUser() {
+    HSteamUser result = steam_api64.GetHSteamUser();
+    DEBUGOUT("GetHSteamUser() requested -> [0x%I64X]", result);
+    return result;
+}
+
+ISteamClient017 *SteamClient() {
+    return steam_api64.SteamClient();
 }
 
 ISteamController003 *SteamController() {

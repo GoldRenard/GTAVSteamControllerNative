@@ -43,6 +43,8 @@
 #include <sstream>
 #include <timeapi.h>
 
+#include "steam_types.h"
+#include "ISteamClient017.h"
 #include "ISteamController003.h"
 #include "steam_api64.h"
 #include "Pattern.h"

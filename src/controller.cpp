@@ -30,15 +30,13 @@ BOOL Controller::m_IsNativeActionSets = TRUE;
 // Purpose: Initialize the steam controller api
 //-----------------------------------------------------------------------------
 BOOL Controller::InitSteamController() {
-    DEBUGOUT("Initializing SteamAPI...\n");
 #ifdef SCRIPT_ASI
-
+    DEBUGOUT("Initializing SteamAPI...\n");
     if (!SteamAPI_Init()) {
         DEBUGOUT("SteamAPI_Init() failed\n");
         return FALSE;
     }
-
-#endif // SCRIPT_ASI
+#endif
 
     if (!SteamController()->Init()) {
         DEBUGOUT("SteamController()->Init failed.\n");

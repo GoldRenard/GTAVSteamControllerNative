@@ -20,16 +20,21 @@
 
 #define S_CALLTYPE __cdecl
 
-typedef unsigned __int32 uint32;
-
 typedef void        (S_CALLTYPE *VOIDPROC)();
 typedef bool        (S_CALLTYPE *BOOLPROC)();
 typedef bool        (S_CALLTYPE *RSTPROC)(uint32 unOwnAppID);
 typedef void        (S_CALLTYPE *REGPROC)(INT_PTR pCallback, int iCallback);
 typedef void        (S_CALLTYPE *UNREGPROC)(INT_PTR pCallback);
 typedef INT_PTR     (S_CALLTYPE *APIPROC)();
+typedef HSteamUser  (S_CALLTYPE *HUSERPROC)();
+typedef HSteamPipe  (S_CALLTYPE *HPIPEPROC)();
 
-typedef ISteamController003* (S_CALLTYPE *CONTROLLERPROC)();
+typedef ISteamController003*    (S_CALLTYPE *CONTROLLERPROC)();
+typedef ISteamClient017*        (S_CALLTYPE *CLIENTPROC)();
+
+static void PrintPointer(const char* procName, INT_PTR ptr) {
+    DEBUGOUT("%s() = [0x%I64X]", procName, ptr);
+}
 
 struct steam_api64_dll {
     HMODULE dll;
@@ -45,13 +50,14 @@ struct steam_api64_dll {
     APIPROC SteamUtils;
     APIPROC SteamUser;
     APIPROC SteamFriends;
+    CLIENTPROC SteamClient;
     CONTROLLERPROC SteamController;
 
-    void PrintPointer(const char* procName, INT_PTR ptr) {
-        DEBUGOUT("%s() = [0x%I64X]", procName, ptr);
-    }
+    HPIPEPROC GetHSteamPipe;
+    HUSERPROC GetHSteamUser;
 
     void PrintPointers() {
+        DEBUGOUT("Proxy function pointers:");
         PrintPointer("SteamAPI_Init", (INT_PTR) SteamAPI_Init);
         PrintPointer("SteamAPI_Shutdown", (INT_PTR) SteamAPI_Shutdown);
         PrintPointer("SteamAPI_RestartAppIfNecessary", (INT_PTR) SteamAPI_RestartAppIfNecessary);
@@ -63,9 +69,28 @@ struct steam_api64_dll {
         PrintPointer("SteamUtils", (INT_PTR) SteamUtils);
         PrintPointer("SteamUser", (INT_PTR) SteamUser);
         PrintPointer("SteamFriends", (INT_PTR) SteamFriends);
+        PrintPointer("SteamClient", (INT_PTR) SteamClient);
         PrintPointer("SteamController", (INT_PTR) SteamController);
+        PrintPointer("GetHSteamPipe", (INT_PTR) GetHSteamPipe);
+        PrintPointer("GetHSteamUser", (INT_PTR) GetHSteamUser);
     }
 } static steam_api64;
+
+struct steam_legacy_interfaces {
+    INT_PTR SteamApps006;
+    INT_PTR SteamUtils006;
+    INT_PTR SteamUser017;
+    INT_PTR SteamFriends014;
+
+    void PrintPointers() {
+        DEBUGOUT("Legacy interface pointers:");
+        PrintPointer("SteamApps006", (INT_PTR) SteamApps006);
+        PrintPointer("SteamUtils006", (INT_PTR) SteamUtils006);
+        PrintPointer("SteamUser017", (INT_PTR) SteamUser017);
+        PrintPointer("SteamFriends014", (INT_PTR) SteamFriends014);
+    }
+
+} static legacy_interfaces;
 
 void S_CALLTYPE SteamAPI_InitProxy();
 
@@ -82,6 +107,10 @@ void S_CALLTYPE _SteamAPI_RegisterCallback(INT_PTR pCallback, int iCallback);
 void S_CALLTYPE _SteamAPI_UnregisterCallback(INT_PTR pCallback);
 
 void S_CALLTYPE _SteamAPI_RunCallbacks();
+
+HSteamPipe S_CALLTYPE _GetHSteamPipe();
+
+HSteamUser S_CALLTYPE _GetHSteamUser();
 
 /*
     GTA V Expects:      STEAMAPPS_INTERFACE_VERSION006
@@ -109,6 +138,12 @@ INT_PTR S_CALLTYPE _SteamUser();
     Latest SDK 1.36:    SteamFriends015
 */
 INT_PTR S_CALLTYPE _SteamFriends();
+
+/*
+GTA V Expects:      Ha! It doesn't even expect it. Surprise!
+Latest SDK 1.36:    SteamClient017
+*/
+ISteamClient017 *SteamClient();
 
 /*
     GTA V Expects:      Ha! It doesn't even expect it. Surprise!

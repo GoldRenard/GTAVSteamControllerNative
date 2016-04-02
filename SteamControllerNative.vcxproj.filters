@@ -71,6 +71,12 @@
     <ClInclude Include="src\steam_api64.h">
       <Filter>Header Files\SteamAPI</Filter>
     </ClInclude>
+    <ClInclude Include="src\steam_types.h">
+      <Filter>Header Files\SteamAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ISteamClient017.h">
+      <Filter>Header Files\SteamAPI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\stdafx.cpp">

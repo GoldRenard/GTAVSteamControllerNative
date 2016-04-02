@@ -11,3 +11,5 @@ EXPORTS
  SteamUser=_SteamUser @53
  SteamUserStats=_SteamUserStats @54
  SteamUtils=_SteamUtils @55
+ GetHSteamPipe=_GetHSteamPipe @101
+ GetHSteamUser=_GetHSteamUser @102

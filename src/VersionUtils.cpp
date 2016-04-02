@@ -27,8 +27,7 @@ BOOL VersionUtils::IsValidEnvironment() {
             Logger::Fatal("Unsupported game version %s, %s is required. Download new version of plugin.", currentVersion, REQUIRED_GAME_VERSION);
             return FALSE;
         case NOT_FOUND:
-            //Logger::Fatal("Injecting not in a game?");
-            DEBUGOUT("Executing out of context of %s", GAME_MODULE_NAME);
+            DEBUGOUT("Executing out of %s context", GAME_MODULE_NAME);
             return FALSE;
         default:
             break;

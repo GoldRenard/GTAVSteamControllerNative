@@ -17,7 +17,6 @@
 // ======================================================================
 
 #pragma once
-typedef unsigned long long uint64;
 
 #define NUM_ACTION_SETS 4
 
@@ -131,7 +130,7 @@ struct ControllerDigitalActionData_t {
 //-----------------------------------------------------------------------------
 // Purpose: Native Steam controller support API
 //-----------------------------------------------------------------------------
-class __declspec(novtable) ISteamController003 {
+abstract_class ISteamController003 {
 public:
 
     // Init and Shutdown must be called when starting/ending use of this interface
