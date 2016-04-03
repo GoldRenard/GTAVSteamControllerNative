@@ -4,7 +4,7 @@
 
 InjectedScript *InjectedScript::m_Instance = NULL;
 
-const std::wstring GetLibraryPath(const wchar_t* libraryName) {
+const std::wstring GetLibraryPath(const WCHAR* libraryName) {
     std::wstring strTempPath;
     wchar_t wchPath[MAX_PATH];
     if (GetTempPathW(MAX_PATH, wchPath)) {
@@ -18,7 +18,7 @@ const std::wstring GetLibraryPath(const wchar_t* libraryName) {
     return NULL;
 }
 
-bool ExtractResource(const HINSTANCE hInstance, WORD resourceID, const wchar_t* szFilename) {
+bool ExtractResource(const HINSTANCE hInstance, WORD resourceID, const WCHAR* szFilename) {
     try {
         // Find and load the resource
         HRSRC hResource = FindResource(hInstance, MAKEINTRESOURCE(resourceID), L"BINARY");
@@ -51,7 +51,7 @@ bool ExtractResource(const HINSTANCE hInstance, WORD resourceID, const wchar_t* 
 }
 
 void InjectedScript::Start(HMODULE hInstance) {
-    std::wstring mLibraryPath = GetLibraryPath(L"steam_api64.dll");
+    std::wstring mLibraryPath = GetLibraryPath(STEAM_API_DLL);
     if (!ExtractResource(hInstance, IDR_BINARY1, mLibraryPath.c_str())) {
         Logger::Fatal(L"Could not extract original library to %s", mLibraryPath.c_str());
         return;
