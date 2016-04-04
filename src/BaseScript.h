@@ -50,4 +50,12 @@ private:
     const WCHAR* GetActionSetName(ActionSet actionSet) {
         return ActionNames[actionSet];
     }
+
+    char* GetActionSetNameA(ActionSet actionSet) {
+        char *buf = new char[64];
+        memset(buf, '\0', sizeof(char) * 64);
+        const wchar_t* name = ActionNames[actionSet];
+        size_t len = wcstombs(buf, name, wcslen(name));
+        return buf;
+    }
 };

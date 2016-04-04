@@ -33,19 +33,22 @@ void BaseScript::ApplyState(ActionSet dwActionSet) {
 #ifdef DEBUG
     DEBUGOUT(L"Controller state: %s", GetActionSetName(dwActionSet));
     Controller::TriggerHapticPulse();
-#ifdef SCRIPT_ASI
+
     char text[256];
-    sprintf_s(text, "Controller state: %s", GetActionSetName(dwActionSet));
+    const char* name = GetActionSetNameA(dwActionSet);
+    sprintf_s(text, "Controller state: %s", name);
+    delete[] name;
     UI::_SET_NOTIFICATION_TEXT_ENTRY("STRING");
     UI::_ADD_TEXT_COMPONENT_STRING(text);
     UI::_DRAW_NOTIFICATION(FALSE, FALSE);
-#endif
 #endif
 }
 
 void BaseScript::RenderState(float x, float y, ActionSet dwActionSet) {
     char text[256];
-    sprintf_s(text, "Controller state: %s", GetActionSetName(dwActionSet));
+    const char* name = GetActionSetNameA(dwActionSet);
+    sprintf_s(text, "Controller state: %s", name);
+    delete[] name;
 
     UI::SET_TEXT_FONT(0);
     UI::SET_TEXT_SCALE(0.0, 0.20);
