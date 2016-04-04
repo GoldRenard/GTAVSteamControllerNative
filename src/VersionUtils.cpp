@@ -18,37 +18,26 @@
 
 #include "stdafx.h"
 
-BOOL VersionUtils::IsVelidEnvironment() {
-    TCHAR currentVersion[64];
-    EVersionCheckResult mResult = VersionUtils::IsValidModuleVersion(STEAM_API_MODULE_NAME, REQUIRED_STEAM_API_VERSION, currentVersion);
-    switch (mResult) {
-        case INVALID:
-            Logger::Fatal("Unsupported SteamAPI version %s, %s is required. Make sure you have supported steam_api.dll", currentVersion, REQUIRED_STEAM_API_VERSION);
-            return FALSE;
-        case NOT_FOUND:
-            Logger::Fatal("No SteamAPI found. Non-steam game?");
-            return FALSE;
-        default:
-            break;
-    }
-#ifndef SCRIPT_ASI
+#define VERSION_SIZE 64
+
+BOOL VersionUtils::IsValidEnvironment() {
+    WCHAR currentVersion[VERSION_SIZE];
     memset(&currentVersion[0], 0, sizeof(currentVersion));
-    mResult = VersionUtils::IsValidModuleVersion(GAME_MODULE_NAME, REQUIRED_GAME_VERSION, currentVersion);
+    EVersionCheckResult mResult = VersionUtils::IsValidModuleVersion(GAME_MODULE_NAME, REQUIRED_GAME_VERSION, currentVersion);
     switch (mResult) {
         case INVALID:
-            Logger::Fatal("Unsupported game version %s, %s is required. Download new version of plugin.", currentVersion, REQUIRED_GAME_VERSION);
+            Logger::Fatal(L"Unsupported game version %s, %s is required. Download new version of plugin.", currentVersion, REQUIRED_GAME_VERSION);
             return FALSE;
         case NOT_FOUND:
-            Logger::Fatal("Injecting not in a game?");
+            DEBUGOUT(L"Executing out of %s context", GAME_MODULE_NAME);
             return FALSE;
         default:
             break;
     }
-#endif
     return TRUE;
 }
 
-EVersionCheckResult VersionUtils::IsValidModuleVersion(const char* mName, const char* mRequiredVersion, char* mCurrentVersion) {
+EVersionCheckResult VersionUtils::IsValidModuleVersion(const WCHAR* mName, const WCHAR* mRequiredVersion, WCHAR* mCurrentVersion) {
     HANDLE hProcess = GetCurrentProcess();
     HMODULE hMods[1024];
     DWORD cbNeeded;
@@ -56,13 +45,13 @@ EVersionCheckResult VersionUtils::IsValidModuleVersion(const char* mName, const 
 
     if (EnumProcessModules(hProcess, hMods, sizeof(hMods), &cbNeeded)) {
         for (unsigned int i = 0; i < (cbNeeded / sizeof(HMODULE)); i++) {
-            TCHAR szModName[MAX_PATH];
-            if (GetModuleFileNameEx(hProcess, hMods[i], szModName, sizeof(szModName) / sizeof(TCHAR))) {
-                std::string szModuleName = szModName;
+            WCHAR szModName[MAX_PATH];
+            if (GetModuleFileNameEx(hProcess, hMods[i], szModName, sizeof(szModName) / sizeof(WCHAR))) {
+                std::wstring szModuleName = szModName;
                 size_t pos = szModuleName.find(mName);
                 if (std::string::npos != pos) {
                     hModule = hMods[i];
-                    DEBUGOUT("Found loaded %s module as %s (0x%08X).", mName, szModName, hMods[i]);
+                    DEBUGOUT(L"Found loaded %s module as %s (0x%08X).", mName, szModName, hMods[i]);
                     if (!VersionUtils::HasFileVersion(szModName, mRequiredVersion, mCurrentVersion)) {
                         return EVersionCheckResult::INVALID;
                     }
@@ -74,41 +63,41 @@ EVersionCheckResult VersionUtils::IsValidModuleVersion(const char* mName, const 
     return !hModule ? EVersionCheckResult::NOT_FOUND : EVersionCheckResult::VALID;
 }
 
-BOOL VersionUtils::GetFileVersion(const char *fileName, char *ver) {
-    DWORD dwHandle, sz = GetFileVersionInfoSizeA(fileName, &dwHandle);
+BOOL VersionUtils::GetFileVersion(const WCHAR *fileName, WCHAR *ver) {
+    DWORD dwHandle, sz = GetFileVersionInfoSize(fileName, &dwHandle);
     if (0 == sz) {
-        DEBUGOUT("VersionUtils::GetFileVersion() [GetFileVersionInfoSizeA] call failed for \"%s\"", fileName);
+        DEBUGOUT(L"VersionUtils::GetFileVersion() [GetFileVersionInfoSizeA] call failed for \"%s\"", fileName);
         return FALSE;
     }
     char *buf = new char[sz];
-    if (!GetFileVersionInfoA(fileName, dwHandle, sz, &buf[0])) {
-        DEBUGOUT("VersionUtils::GetFileVersion() [GetFileVersionInfoA] call failed for \"%s\"", fileName);
+    if (!GetFileVersionInfo(fileName, dwHandle, sz, &buf[0])) {
+        DEBUGOUT(L"VersionUtils::GetFileVersion() [GetFileVersionInfoA] call failed for \"%s\"", fileName);
         delete buf;
         return FALSE;
     }
     VS_FIXEDFILEINFO * pvi;
     sz = sizeof(VS_FIXEDFILEINFO);
     if (!VerQueryValueA(&buf[0], "\\", (LPVOID*) &pvi, (unsigned int*) &sz)) {
-        DEBUGOUT("VersionUtils::GetFileVersion() [VerQueryValueA] call failed for \"%s\"", fileName);
+        DEBUGOUT(L"VersionUtils::GetFileVersion() [VerQueryValueA] call failed for \"%s\"", fileName);
         delete buf;
         return FALSE;
     }
-    sprintf(ver, "%d.%d.%d.%d",
+    swprintf(ver, VERSION_SIZE + 1, L"%d.%d.%d.%d",
         pvi->dwProductVersionMS >> 16,
         pvi->dwFileVersionMS & 0xFFFF,
         pvi->dwFileVersionLS >> 16,
         pvi->dwFileVersionLS & 0xFFFF
         );
-    DEBUGOUT("VersionUtils::GetFileVersion() returns \"%s\" for \"%s\"", ver, fileName);
+    DEBUGOUT(L"VersionUtils::GetFileVersion() returns \"%s\" for \"%s\"", ver, fileName);
     delete buf;
     return TRUE;
 }
 
-BOOL VersionUtils::HasFileVersion(const char *fileName, const char *expectedVersion, char *currentVersion) {
+BOOL VersionUtils::HasFileVersion(const WCHAR *fileName, const WCHAR *expectedVersion, WCHAR *currentVersion) {
     if (!GetFileVersion(fileName, currentVersion)) {
-        sprintf(currentVersion, "?.?.?.?");
-        DEBUGOUT("Cannot get version for file: %s", fileName);
+        swprintf(currentVersion, VERSION_SIZE + 1, L"?.?.?.?");
+        DEBUGOUT(L"Cannot get version for file: %s", fileName);
         return FALSE;
     }
-    return strcmp(currentVersion, expectedVersion) == 0;
+    return wcscmp(currentVersion, expectedVersion) == 0;
 }

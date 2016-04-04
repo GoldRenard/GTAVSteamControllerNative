@@ -1,7 +1,42 @@
 #pragma once
 
-class NativeContext :
-    public scrNativeCallContext {
+typedef DWORD Void;
+typedef DWORD Any;
+typedef DWORD uint;
+typedef DWORD Hash;
+typedef DWORD ScrHandle;
+typedef int Entity;
+typedef int Player;
+typedef int FireId;
+typedef int Ped;
+typedef int Vehicle;
+typedef int Cam;
+typedef int CarGenerator;
+typedef int Group;
+typedef int Train;
+typedef int Pickup;
+typedef int Object;
+typedef int Weapon;
+typedef int Interior;
+typedef int Texture;
+typedef int TextureDict;
+typedef int CoverPoint;
+typedef int Camera;
+typedef int TaskSequence;
+typedef int ColourIndex;
+typedef int Sphere;
+typedef int Blip;
+
+#define MAX_PLAYERS 31
+
+class NativeContext {
+protected:
+    void* m_pReturn;
+    UINT32 m_nArgCount;
+    void* m_pArgs;
+
+    UINT32 m_nDataCount;
+
 private:
     // Configuration
     enum {
@@ -19,6 +54,31 @@ public:
                                         // the same pointer. The game should handle this.
         m_nArgCount = 0;
         m_nDataCount = 0;
+    }
+
+    template<typename T>
+    inline T GetArgument(int idx) {
+        intptr_t* arguments = (intptr_t*) m_pArgs;
+
+        return *(T*) &arguments[idx];
+    }
+
+    template<typename T>
+    inline void SetResult(int idx, T value) {
+        intptr_t* returnValues = (intptr_t*) m_pReturn;
+
+        *(T*) &returnValues[idx] = value;
+    }
+
+    inline int GetArgumentCount() {
+        return m_nArgCount;
+    }
+
+    template<typename T>
+    inline T GetResult(int idx) {
+        intptr_t* returnValues = (intptr_t*) m_pReturn;
+
+        return *(T*) &returnValues[idx];
     }
 
     template <typename T>
@@ -54,7 +114,7 @@ public:
     }
 };
 
-typedef void(__cdecl * NativeHandler)(scrNativeCallContext* context);
+typedef void(__cdecl * NativeHandler)(NativeContext* context);
 
 struct NativeRegistration {
     NativeRegistration* nextRegistration;
@@ -92,4 +152,3 @@ public:
 
 NativeRegistration** GetRegistrationTable();
 NativeHandler GetNativeHandler(UINT64 hash);
-pgPtrCollection<ScriptThread>* GetThreadCollection(BlipList*& pBlipList);

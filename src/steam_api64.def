@@ -1,0 +1,15 @@
+LIBRARY STEAM_API64
+EXPORTS
+ SteamAPI_Init=_SteamAPI_Init @6
+ SteamAPI_RegisterCallback=_SteamAPI_RegisterCallback @10
+ SteamAPI_RestartAppIfNecessary=_SteamAPI_RestartAppIfNecessary @11
+ SteamAPI_RunCallbacks=_SteamAPI_RunCallbacks @12
+ SteamAPI_Shutdown=_SteamAPI_Shutdown @16
+ SteamAPI_UnregisterCallback=_SteamAPI_UnregisterCallback @18
+ SteamApps=_SteamApps @21
+ SteamFriends=_SteamFriends @29
+ SteamUser=_SteamUser @53
+ SteamUserStats=_SteamUserStats @54
+ SteamUtils=_SteamUtils @55
+ GetHSteamPipe=_GetHSteamPipe @101
+ GetHSteamUser=_GetHSteamUser @102

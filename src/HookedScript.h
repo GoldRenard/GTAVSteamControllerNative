@@ -17,8 +17,9 @@
 // ======================================================================
 
 #pragma once
-#include <vector>
-#include "BaseScript.h"
+
+#include "stdafx.h"
+
 class HookedScript : public BaseScript {
 public:
 

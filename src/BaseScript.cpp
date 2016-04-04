@@ -23,7 +23,7 @@ void BaseScript::Execute() {
 
 void BaseScript::ApplyState(ActionSet dwActionSet) {
     Controller::SetSteamControllerActionSet(dwActionSet);
-#ifdef DEBUG
+#if defined (DEBUG) && defined (SCRIPT_ASI)
     RenderState(0.01f, 0.01f, dwActionSet);
 #endif
     if (mCurrentActionSet == dwActionSet) {
@@ -31,21 +31,24 @@ void BaseScript::ApplyState(ActionSet dwActionSet) {
     }
     mCurrentActionSet = dwActionSet;
 #ifdef DEBUG
-    char text[256];
-    sprintf_s(text, "Controller state: %s", GetActionSetName(dwActionSet));
-    DEBUGOUT(text);
+    DEBUGOUT(L"Controller state: %s", GetActionSetName(dwActionSet));
+    Controller::TriggerHapticPulse();
 
+    char text[256];
+    const char* name = GetActionSetNameA(dwActionSet);
+    sprintf_s(text, "Controller state: %s", name);
+    delete[] name;
     UI::_SET_NOTIFICATION_TEXT_ENTRY("STRING");
     UI::_ADD_TEXT_COMPONENT_STRING(text);
     UI::_DRAW_NOTIFICATION(FALSE, FALSE);
-
-    Controller::TriggerHapticPulse();
 #endif
 }
 
 void BaseScript::RenderState(float x, float y, ActionSet dwActionSet) {
     char text[256];
-    sprintf_s(text, "Controller state: %s", GetActionSetName(dwActionSet));
+    const char* name = GetActionSetNameA(dwActionSet);
+    sprintf_s(text, "Controller state: %s", name);
+    delete[] name;
 
     UI::SET_TEXT_FONT(0);
     UI::SET_TEXT_SCALE(0.0, 0.20);

@@ -17,9 +17,8 @@
 // ======================================================================
 
 #pragma once
-#include "BaseScript.h"
 
-#define MAIN_PERSISTENT 0x5700179C
+#define STEAM_API_DLL L"steam_api64.dll"
 
 class InjectedScript : public BaseScript {
 public:

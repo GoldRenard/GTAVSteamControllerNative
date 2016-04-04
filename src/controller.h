@@ -19,7 +19,6 @@
 #pragma once
 
 #include "stdafx.h"
-#include "steam/steam_api.h"
 
 #define NUM_ACTION_SETS 4
 
@@ -35,9 +34,6 @@ public:
 
     // Initialize the Steam Controller interfaces
     static BOOL InitSteamController();
-
-    // Find an active Steam controller
-    static void FindActiveSteamController();
 
     // Called each frame to update the Steam Controller interface
     static void PollSteamController();

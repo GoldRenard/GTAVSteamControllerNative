@@ -24,11 +24,28 @@
 #define DEBUGOUT( X, ... )
 #endif
 
+#define WRITE(LEVEL, LOGFILE) \
+    va_list va_alist; \
+    WCHAR chLogBuff[4096]; \
+    WCHAR chParameters[3500]; \
+    WCHAR szTimestamp[30]; \
+    struct tm current_tm; \
+    time_t current_time = time(NULL); \
+    localtime_s(&current_tm, &current_time); \
+    swprintf(szTimestamp, 31, L"[%02d:%02d:%02d] ["#LEVEL"] %%s\n", current_tm.tm_hour, current_tm.tm_min, current_tm.tm_sec); \
+    va_start(va_alist, fmt); \
+    _vsnwprintf_s(chParameters, sizeof(chParameters), fmt, va_alist); \
+    va_end(va_alist); \
+    swprintf(chLogBuff, 4096, szTimestamp, chParameters); \
+    Write(chLogBuff, LOGFILE);
+
 class Logger {
 public:
     static void Init(HMODULE hModule);
-    static void Info(const char* fmt, ...);
-    static void Debug(const char* fmt, ...);
-    static void Error(const char* fmt, ...);
-    static void Fatal(const char* fmt, ...);
+    static void Info(const WCHAR* fmt, ...);
+    static void Debug(const WCHAR* fmt, ...);
+    static void Error(const WCHAR* fmt, ...);
+    static void Fatal(const WCHAR* fmt, ...);
+private:
+    static void Write(const WCHAR* data, const WCHAR* file);
 };
