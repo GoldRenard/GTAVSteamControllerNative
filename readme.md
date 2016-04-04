@@ -11,7 +11,7 @@ This plugin project is an implementation of native Steam Controller IGAs (In-Gam
 ### Requirements
 
 - Grand Theft Auto V
-- Steam **Beta**
+- Steam
 - [ScriptHookV](http://www.dev-c.com/gtav/scripthookv/)
 
 ### How to use
@@ -41,14 +41,10 @@ Personally, I don't want to publish this plugin-specific configuration to the St
 
 ### FAQ
 
-##### Why Steam Beta? / Why I can't create or modify Action Sets?
-
-At the time of writing this manual, the user-made action sets [only available in Steam Beta](http://steamcommunity.com/groups/SteamClientBeta#announcements/detail/907845561657648981). As soon as it will be supported in the normal version, you can switch back to normal Steam. But I prefer to always use beta, I like new features ;)
-
 ##### Why we must replace `steam_api64.dll`?
 
 GTA V out the box uses old version of Steamworks SDK with very poor Steam Controller support and there is no Action Sets API at all. `steam_api64.dll` I provided is official library taken from the latest Steamworks SDK 1.36: https://partner.steamgames.com/downloads/
 
 ### Credits
 
-- Thanks to Alexander Blade for both the Scripthook and the asi loader.
+- Thanks to Alexander Blade for both the Scripthook and the ASI Loader.
