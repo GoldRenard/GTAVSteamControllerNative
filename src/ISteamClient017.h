@@ -134,3 +134,5 @@ public:
     // Video
     virtual INT_PTR GetISteamVideo(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char *pchVersion) = 0;
 };
+
+#define STEAMCLIENT_INTERFACE_VERSION_017		"SteamClient017"

@@ -80,6 +80,9 @@
     <ClInclude Include="src\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\SteamClient.h">
+      <Filter>Header Files\SteamAPI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\stdafx.cpp">
@@ -110,6 +113,9 @@
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\steam_api64.cpp">
+      <Filter>Source Files\SteamAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SteamClient.cpp">
       <Filter>Source Files\SteamAPI</Filter>
     </ClCompile>
   </ItemGroup>
