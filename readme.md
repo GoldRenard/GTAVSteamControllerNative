@@ -21,10 +21,6 @@ This plugin project is an implementation of native Steam Controller IGAs (In-Gam
 5. Copy `SteamControllerNative.asi` to game folder;
 6. Start the game. It should switch action sets automatically, you just have to configure them as you want;
 
-### Online Warning
-
-Sorry, you can't play with this mod Online (just yet :wink:). If you're going to play Online, you must remove ScriptHookV and all your plugins.
-
 ### Prepared controller configuration
 
 Instead of creating a controller configuration from scratch, you can use [prepared one](https://github.com/GoldRenard/GTAVSteamControllerNative/blob/master/controller.vdf). 
@@ -36,6 +32,10 @@ Personally, I don't want to publish this plugin-specific configuration to the St
 3. Steam stores all controller configurations in `<Steam>\SteamApps\workshop\content\241100\` folder. Use any notepad with 'Seach in files' feature supported to search your configuration by that unique name;
 4. Replace it with [prepared one](https://github.com/GoldRenard/GTAVSteamControllerNative/blob/master/controller.vdf);
 5. Start Steam, BigPicture, switch back to your configuration and it should be updated. You're done.
+
+### Online Warning
+
+Sorry, you can't play with this mod Online (just yet :wink:). If you're going to play Online, you must remove ScriptHookV and all your plugins.
 
 ### Credits
 
