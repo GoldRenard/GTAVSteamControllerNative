@@ -213,5 +213,6 @@ ModelManifest.xml
 
 # Custom Files
 *.opendb
+*.db
 intermediate/
 bin/

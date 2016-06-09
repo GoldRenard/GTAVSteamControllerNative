@@ -74,6 +74,11 @@ void Logger::Error(const WCHAR* fmt, ...) {
     MessageBox(NULL, chLogBuff, L"ERROR", MB_ICONERROR);
 }
 
+void Logger::Warn(const WCHAR* fmt, ...) {
+    WRITE(WARN, g_debugLogFile);
+    MessageBox(NULL, chLogBuff, L"WARN", MB_ICONEXCLAMATION);
+}
+
 void Logger::Fatal(const WCHAR* fmt, ...) {
     WRITE(FATAL, g_debugLogFile);
     MessageBox(NULL, chLogBuff, L"FATAL ERROR", MB_ICONERROR);

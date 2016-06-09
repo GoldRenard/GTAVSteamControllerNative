@@ -74,16 +74,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">
     <LinkIncremental>false</LinkIncremental>
     <TargetExt>.asi</TargetExt>
-    <IncludePath>.\sdk\Steamworks\public;.\sdk\ScriptHookV\;$(IncludePath)</IncludePath>
-    <LibraryPath>.\sdk\Steamworks\redistributable_bin\win64\;.\sdk\ScriptHookV\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\sdk\ScriptHookV\;$(IncludePath)</IncludePath>
+    <LibraryPath>.\sdk\ScriptHookV\lib\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">
     <LinkIncremental>false</LinkIncremental>
     <TargetExt>.asi</TargetExt>
-    <IncludePath>.\sdk\Steamworks\public;.\sdk\ScriptHookV\;$(IncludePath)</IncludePath>
-    <LibraryPath>.\sdk\Steamworks\redistributable_bin\win64\;.\sdk\ScriptHookV\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\sdk\ScriptHookV\;$(IncludePath)</IncludePath>
+    <LibraryPath>.\sdk\ScriptHookV\lib\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -124,13 +124,10 @@
       <GenerateDebugInformation>No</GenerateDebugInformation>
       <AdditionalOptions>
       </AdditionalOptions>
-      <AdditionalDependencies>Version.lib;steam_api64.lib;ScriptHookV.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Version.lib;ScriptHookV.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
     </Link>
-    <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)sdk\Steamworks\redistributable_bin\win64\steam_api64.dll" "$(SolutionDir)bin\$(Configuration)\steam_api64.dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">
     <ClCompile>
@@ -151,13 +148,10 @@
       <GenerateDebugInformation>No</GenerateDebugInformation>
       <AdditionalOptions>
       </AdditionalOptions>
-      <AdditionalDependencies>Version.lib;steam_api64.lib;ScriptHookV.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Version.lib;ScriptHookV.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
     </Link>
-    <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)sdk\Steamworks\redistributable_bin\win64\steam_api64.dll" "$(SolutionDir)bin\$(Configuration)\steam_api64.dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">
     <ClCompile>
@@ -223,12 +217,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="src\ISteamClient017.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="src\ISteamController003.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="src\NativeInvoker.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">true</ExcludedFromBuild>
@@ -264,6 +258,10 @@
     </ClInclude>
     <ClInclude Include="src\targetver.h" />
     <ClInclude Include="src\VersionUtils.h" />
+    <ClInclude Include="src\SteamClient.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\NativeInvoker.cpp">
@@ -308,6 +306,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="src\VersionUtils.cpp" />
+    <ClCompile Include="src\SteamClient.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="controller.vdf" />

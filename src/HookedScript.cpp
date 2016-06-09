@@ -2,6 +2,18 @@
 #include "HookedScript.h"
 
 void ScriptMain() {
+    DEBUGOUT(L"Initializing SteamAPI...");
+    if (!SteamAPI_Init()) {
+        Logger::Fatal(L"Failed to initialize Steam API. Controller support will not work.");
+        return;
+    }
+
+    if (!Controller::InitSteamController()) {
+        Logger::Warn(L"Failed to initialize Steam Controller.");
+        return;
+    }
+
+    DEBUGOUT(L"SteamController API initialized, entering main loop.");
     srand(GetTickCount());
     while (true) {
         HookedScript::GetInstance()->Execute();
@@ -13,13 +25,7 @@ HookedScript *HookedScript::m_Instance = NULL;
 
 void HookedScript::Start(HMODULE hInstance) {
     this->hInstance = hInstance;
-    if (Controller::InitSteamController()) {
-        DEBUGOUT(L"Registering ScriptHookV handler...");
-        scriptRegister(hInstance, ScriptMain);
-    }
-    else {
-        DEBUGOUT(L"SteamController init failed.");
-    }
+    scriptRegister(hInstance, ScriptMain);
 }
 
 void HookedScript::Shutdown() {

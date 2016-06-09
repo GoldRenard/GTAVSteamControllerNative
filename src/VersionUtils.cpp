@@ -87,7 +87,7 @@ BOOL VersionUtils::GetFileVersion(const WCHAR *fileName, WCHAR *ver) {
         pvi->dwFileVersionMS & 0xFFFF,
         pvi->dwFileVersionLS >> 16,
         pvi->dwFileVersionLS & 0xFFFF
-        );
+    );
     DEBUGOUT(L"VersionUtils::GetFileVersion() returns \"%s\" for \"%s\"", ver, fileName);
     delete buf;
     return TRUE;

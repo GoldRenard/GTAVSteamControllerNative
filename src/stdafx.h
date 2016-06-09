@@ -32,8 +32,12 @@
 
 #include "Logger.h"
 
+#include "steam_types.h"
+#include "ISteamClient017.h"
+#include "ISteamController003.h"
+
 #ifdef SCRIPT_ASI
-#include "steam/steam_api.h"
+#include "SteamClient.h"
 #include "inc\natives.h"
 #include "inc\types.h"
 #include "inc\enums.h"
@@ -43,9 +47,6 @@
 #include <sstream>
 #include <timeapi.h>
 
-#include "steam_types.h"
-#include "ISteamClient017.h"
-#include "ISteamController003.h"
 #include "steam_api64.h"
 #include "Pattern.h"
 #include "NativeInvoker.h"
