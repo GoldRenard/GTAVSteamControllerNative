@@ -5,18 +5,21 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source Files\Common">
+      <UniqueIdentifier>{aaf92368-0940-482f-bfc5-c626c3096b19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{d39a2fb5-8301-4951-877c-fefa882a9fbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SteamAPI">
+      <UniqueIdentifier>{8dc85059-e7c3-4e25-be8d-60f3bf7f4610}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Source Files\Common">
-      <UniqueIdentifier>{aaf92368-0940-482f-bfc5-c626c3096b19}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Common">
       <UniqueIdentifier>{b804d499-dfc1-4d48-bf26-be523b9b591d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Utils">
-      <UniqueIdentifier>{d39a2fb5-8301-4951-877c-fefa882a9fbb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Utils">
       <UniqueIdentifier>{0cac22db-1322-4e73-a3e4-91f818a79eed}</UniqueIdentifier>
@@ -26,9 +29,6 @@
     </Filter>
     <Filter Include="Header Files\SteamAPI">
       <UniqueIdentifier>{9bfd842f-a3b1-4b04-aa6d-aa81a0e575d1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\SteamAPI">
-      <UniqueIdentifier>{8dc85059-e7c3-4e25-be8d-60f3bf7f4610}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

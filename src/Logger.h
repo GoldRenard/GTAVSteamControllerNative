@@ -45,6 +45,7 @@ public:
     static void Info(const WCHAR* fmt, ...);
     static void Debug(const WCHAR* fmt, ...);
     static void Error(const WCHAR* fmt, ...);
+    static void Warn(const WCHAR* fmt, ...);
     static void Fatal(const WCHAR* fmt, ...);
 private:
     static void Write(const WCHAR* data, const WCHAR* file);

@@ -30,14 +30,6 @@ BOOL Controller::m_IsNativeActionSets = TRUE;
 // Purpose: Initialize the steam controller api
 //-----------------------------------------------------------------------------
 BOOL Controller::InitSteamController() {
-#ifdef SCRIPT_ASI
-    DEBUGOUT(L"Initializing SteamAPI...\n");
-    if (!SteamAPI_Init()) {
-        DEBUGOUT(L"SteamAPI_Init() failed\n");
-        return FALSE;
-    }
-#endif
-
     if (!SteamController()->Init()) {
         DEBUGOUT(L"SteamController()->Init failed.\n");
         return FALSE;
@@ -66,6 +58,9 @@ BOOL Controller::InitSteamController() {
 // Purpose: Called each frame
 //-----------------------------------------------------------------------------
 void Controller::PollSteamController() {
+    // Manually call controller frame
+    SteamController()->RunFrame();
+
     // Use the first available steam controller for all interaction. We can call this each frame to handle
     // a controller disconnecting and a different one reconnecting. Handles are guaranteed to be unique for
     // a given controller, even across power cycles.

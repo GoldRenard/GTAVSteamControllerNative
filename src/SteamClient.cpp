@@ -5,61 +5,41 @@ HSteamUser hSteamUser = NULL;
 ISteamClient017 *pSteamClient = NULL;
 ISteamController003 *pSteamController = NULL;
 
-const std::wstring *GetSteamClientPath() {
-    std::wstring *strTempPath = NULL;
-    wchar_t wchPath[MAX_PATH];
-
-    HKEY hRegKey;
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"Software\\Valve\\Steam", 0, KEY_QUERY_VALUE, &hRegKey) == ERROR_SUCCESS) {
-        DWORD dwLength = sizeof(wchPath) - 1;
-        if (RegQueryValueEx(hRegKey, L"InstallPath", NULL, NULL, (LPBYTE) wchPath, &dwLength) == ERROR_SUCCESS) {
-            strTempPath = new std::wstring(wchPath);
-            strTempPath->append(L"\\");
-            strTempPath->append(L"steamclient64.dll");
-        }
-        RegCloseKey(hRegKey);
-    }
-    return strTempPath;
-}
-
 bool SteamAPI_Init() {
-    const std::wstring *pSteamPath = GetSteamClientPath();
-    if (!pSteamPath) {
-        Logger::Fatal(L"Could not find Steam installer.");
-        return false;
-    }
-
-    HMODULE hModule = LoadLibrary(pSteamPath->c_str());
-    delete pSteamPath;
+    HMODULE hModule = GetModuleHandle(L"steamclient64.dll");
     if (!hModule) {
-        Logger::Fatal(L"Could not load SteamClient library.");
+        Logger::Fatal(L"Failed to get SteamClient library.");
         return false;
     }
 
     CreateInterfaceFn pFactory = reinterpret_cast<CreateInterfaceFn>(GetProcAddress(hModule, "CreateInterface"));
+    DEBUGOUT(L"CreateInterfaceFn->0x%I64X", pFactory);
     if (!pFactory) {
-        Logger::Fatal(L"Could not get CreateInterface.");
+        Logger::Fatal(L"Failed to get CreateInterface factory.");
         return false;
     }
 
     pSteamClient = (ISteamClient017*) pFactory(STEAMCLIENT_INTERFACE_VERSION_017, nullptr);
+    DEBUGOUT(L"pSteamClient->0x%I64X", pSteamClient);
     if (!pSteamClient) {
-        Logger::Fatal(L"Could not get SteamClient interface.");
+        Logger::Fatal(L"Failed to get SteamClient interface.");
         return false;
     }
 
     hSteamPipe = pSteamClient->CreateSteamPipe();
+    DEBUGOUT(L"Steam pipe: %d", hSteamPipe);
     if (!hSteamPipe) {
         pSteamClient->BShutdownIfAllPipesClosed();
-        Logger::Fatal(L"Could not create Steam pipe");
+        Logger::Fatal(L"Failed to create a Steam pipe");
         return false;
     }
 
     hSteamUser = pSteamClient->ConnectToGlobalUser(hSteamPipe);
+    DEBUGOUT(L"Steam user: %d", hSteamUser);
     if (!hSteamUser) {
         pSteamClient->BReleaseSteamPipe(hSteamPipe);
         pSteamClient->BShutdownIfAllPipesClosed();
-        Logger::Fatal(L"Could not connect to Steam user");
+        Logger::Fatal(L"Failed to connect to global Steam user");
         return false;
     }
     return true;
@@ -67,8 +47,8 @@ bool SteamAPI_Init() {
 
 ISteamController003 *SteamController() {
     if (!pSteamController) {
-        return pSteamController;
+        pSteamController = (ISteamController003 *) pSteamClient->GetISteamController(hSteamUser, hSteamPipe, STEAMCONTROLLER_INTERFACE_VERSION_003);
+        DEBUGOUT(L"pSteamController->0x%I64X", pSteamClient);
     }
-    pSteamController = (ISteamController003 *) pSteamClient->GetISteamController(hSteamUser, hSteamPipe, STEAMCONTROLLER_INTERFACE_VERSION_003);
     return pSteamController;
 }
