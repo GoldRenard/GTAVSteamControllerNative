@@ -216,3 +216,4 @@ ModelManifest.xml
 *.db
 intermediate/
 bin/
+misc/

@@ -13,7 +13,7 @@ void BaseScript::Execute() {
     else if (PED::IS_PED_IN_FLYING_VEHICLE(playerPed)) {
         ApplyState(ActionSet::InFlyingVehicle);
     }
-    else if (PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0)) {
+    else if (PED::IS_PED_IN_ANY_VEHICLE(playerPed, FALSE) || PED::IS_PED_SITTING_IN_ANY_VEHICLE(playerPed)) {
         ApplyState(ActionSet::InVehicle);
     }
     else {
@@ -44,6 +44,7 @@ void BaseScript::ApplyState(ActionSet dwActionSet) {
 #endif
 }
 
+#if defined (DEBUG) && defined (SCRIPT_ASI)
 void BaseScript::RenderState(float x, float y, ActionSet dwActionSet) {
     char text[256];
     const char* name = GetActionSetNameA(dwActionSet);
@@ -60,3 +61,4 @@ void BaseScript::RenderState(float x, float y, ActionSet dwActionSet) {
     UI::_ADD_TEXT_COMPONENT_STRING(text);
     UI::_DRAW_TEXT(x, y);
 }
+#endif

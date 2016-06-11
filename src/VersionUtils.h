@@ -19,7 +19,7 @@
 #pragma once
 
 #define GAME_MODULE_NAME            L"GTA5.exe"
-#define REQUIRED_GAME_VERSION       L"1.0.678.1"
+#define REQUIRED_GAME_VERSION       L"1.0.757.4"
 
 enum EVersionCheckResult {
     VALID = 0,
