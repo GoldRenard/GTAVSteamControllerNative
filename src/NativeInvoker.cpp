@@ -49,25 +49,6 @@ NativeHandler GetNativeHandler(UINT64 hash) {
     return nullptr;
 }
 
-NativeHandler PrintNativeHandlers(UINT64 hash) {
-    NativeRegistration** registrationTable = GetRegistrationTable();
-
-    if (!registrationTable)
-        return nullptr;
-
-    NativeRegistration* table = registrationTable[hash & 0xFF];
-
-    for (; table; table = table->nextRegistration) {
-        for (UINT32 i = 0; i < table->numEntries; i++) {
-            if (hash == table->hashes[i]) {
-                return table->handlers[i];
-            }
-        }
-    }
-
-    return nullptr;
-}
-
 void NativeInvoke::Invoke(NativeContext *cxt, UINT64 hash) {
     auto fn = GetNativeHandler(hash);
     if (fn) {
