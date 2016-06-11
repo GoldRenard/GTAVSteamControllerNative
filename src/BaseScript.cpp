@@ -1,41 +1,49 @@
 #include "stdafx.h"
 #include "BaseScript.h"
 
+void DisableRecordingControls() {
+    CONTROLS::DISABLE_CONTROL_ACTION(0, ControlReplayStartStopRecording, true);
+    CONTROLS::DISABLE_CONTROL_ACTION(0, ControlReplayStartStopRecordingSecondary, true);
+    CONTROLS::DISABLE_CONTROL_ACTION(0, ControlReplayRecord, true);
+    CONTROLS::DISABLE_CONTROL_ACTION(0, ControlReplaySave, true);
+}
+
 void BaseScript::Execute() {
+    DisableRecordingControls();
     Controller::PollSteamController();
 
     Player player = PLAYER::PLAYER_ID();
     Ped playerPed = PLAYER::PLAYER_PED_ID();
 
     if (UI::IS_PAUSE_MENU_ACTIVE() || !ENTITY::DOES_ENTITY_EXIST(playerPed) || !PLAYER::IS_PLAYER_CONTROL_ON(player)) {
-        ApplyState(ActionSet::Menu);
+        ApplyState(eControllerActionSet_Menu);
     }
     else if (PED::IS_PED_IN_FLYING_VEHICLE(playerPed)) {
-        ApplyState(ActionSet::InFlyingVehicle);
+        ApplyState(eControllerActionSet_InFlyingVehicle);
     }
     else if (PED::IS_PED_IN_ANY_VEHICLE(playerPed, FALSE) || PED::IS_PED_SITTING_IN_ANY_VEHICLE(playerPed)) {
-        ApplyState(ActionSet::InVehicle);
+        ApplyState(eControllerActionSet_InVehicle);
     }
     else {
-        ApplyState(ActionSet::OnFoot);
+        ApplyState(eControllerActionSet_OnFoot);
     }
 }
 
-void BaseScript::ApplyState(ActionSet dwActionSet) {
-    Controller::SetSteamControllerActionSet(dwActionSet);
+void BaseScript::ApplyState(ECONTROLLERACTIONSET eActionSet) {
+    Controller::SetSteamControllerActionSet(eActionSet);
 #if defined (DEBUG) && defined (SCRIPT_ASI)
-    RenderState(0.01f, 0.01f, dwActionSet);
+    RenderState(0.01f, 0.01f, eActionSet);
 #endif
-    if (mCurrentActionSet == dwActionSet) {
+    if (mCurrentActionSet == eActionSet) {
         return;
     }
-    mCurrentActionSet = dwActionSet;
+    mCurrentActionSet = eActionSet;
 #ifdef DEBUG
-    DEBUGOUT(L"Controller state: %s", GetActionSetName(dwActionSet));
+    DEBUGOUT(L"Controller state: %s", GetActionSetName(eActionSet));
     Controller::TriggerHapticPulse();
 
     char text[256];
-    const char* name = GetActionSetNameA(dwActionSet);
+    const char* name = GetActionSetNameA(eActionSet);
     sprintf_s(text, "Controller state: %s", name);
     delete[] name;
     UI::_SET_NOTIFICATION_TEXT_ENTRY("STRING");
@@ -45,10 +53,16 @@ void BaseScript::ApplyState(ActionSet dwActionSet) {
 }
 
 #if defined (DEBUG) && defined (SCRIPT_ASI)
-void BaseScript::RenderState(float x, float y, ActionSet dwActionSet) {
+void BaseScript::RenderState(float x, float y, ECONTROLLERACTIONSET eActionSet) {
     char text[256];
-    const char* name = GetActionSetNameA(dwActionSet);
-    sprintf_s(text, "Controller state: %s", name);
+
+    float x1, y1;
+    Controller::GetControllerAnalogAction(eControllerAnalogAction_Camera, &x1, &y1);
+    float x2 = CONTROLS::GET_CONTROL_NORMAL(0, ControlLookUpDown);
+    float y2 = CONTROLS::GET_CONTROL_NORMAL(0, ControlLookLeftRight);
+
+    const char* name = GetActionSetNameA(eActionSet);
+    sprintf_s(text, "Controller state: %s | Analog: X=%.2f Y=%.2f | Game: X=%.2f Y=%.2f", name, x1, y1, x2, y2);
     delete[] name;
 
     UI::SET_TEXT_FONT(0);

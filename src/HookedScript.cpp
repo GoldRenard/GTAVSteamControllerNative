@@ -31,4 +31,5 @@ void HookedScript::Start(HMODULE hInstance) {
 void HookedScript::Shutdown() {
     DEBUGOUT(L"Unregistering ScriptHookV handler...");
     scriptUnregister(this->hInstance);
+    SteamAPI_Shutdown();
 }

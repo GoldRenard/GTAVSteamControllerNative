@@ -7,6 +7,11 @@
 			"title"				"#Set_Menu"
 			"StickPadGyro"
 			{
+				"Camera"
+				{
+					"title"			"#Action_Camera"
+					"input_mode"	"absolute_mouse"
+				}
 			}
 			"AnalogTrigger"
 			{
@@ -63,6 +68,7 @@
 			"Set_OnFoot"				"Foot"
 			"Set_InVehicle"				"Vehicle"
 			"Set_InFlyingVehicle"		"Flying Vehicle"
+			"Action_Camera"				"Camera"
 		}
 		"russian"
 		{
@@ -70,6 +76,7 @@
 			"Set_OnFoot"				"Пешком"
 			"Set_InVehicle"				"Транспорт"
 			"Set_InFlyingVehicle"		"Возд. транспорт"
+			"Action_Camera"				"Камера"
 		}
 	}
 }

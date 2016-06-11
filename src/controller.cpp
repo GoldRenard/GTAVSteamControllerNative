@@ -22,7 +22,14 @@
 ControllerHandle_t Controller::m_ActiveControllerHandle;
 
 // An array of handles to different Steam Controller action set configurations
-ControllerActionSetHandle_t Controller::m_ControllerActionSetHandles[NUM_ACTION_SETS];
+ControllerActionSetHandle_t Controller::m_ControllerActionSetHandles[eControllerAnalogAction_NumActionSets];
+
+// An array of handles to Steam Controller events that player can bind to controls
+ControllerAnalogActionHandle_t Controller::m_ControllerAnalogActionHandles[eControllerAnalogAction_NumActions];
+
+// Origins for all the Steam Controller actions. The 'origin' is where the action is currently bound to,
+// ie 'jump' is currently bound to the 'A' button.
+EControllerActionOrigin Controller::m_ControllerAnalogActionOrigins[eControllerAnalogAction_NumActions];
 
 BOOL Controller::m_IsNativeActionSets = TRUE;
 
@@ -35,17 +42,25 @@ BOOL Controller::InitSteamController() {
         return FALSE;
     }
 
-    m_ControllerActionSetHandles[ActionSet::Menu] = SteamController()->GetActionSetHandle("Menu");
-    m_ControllerActionSetHandles[ActionSet::OnFoot] = SteamController()->GetActionSetHandle("OnFoot");
-    m_ControllerActionSetHandles[ActionSet::InVehicle] = SteamController()->GetActionSetHandle("InVehicle");
-    m_ControllerActionSetHandles[ActionSet::InFlyingVehicle] = SteamController()->GetActionSetHandle("InFlyingVehicle");
+    for (int i = 0; i <eControllerAnalogAction_NumActions; i++) {
+        m_ControllerAnalogActionHandles[i] = 0;
+        m_ControllerAnalogActionOrigins[i] = k_EControllerActionOrigin_None;
+    }
 
-    DEBUGOUT(L"Adding ActionSet Default -> %d", m_ControllerActionSetHandles[ActionSet::Menu]);
-    DEBUGOUT(L"Adding ActionSet Foot -> %d", m_ControllerActionSetHandles[ActionSet::OnFoot]);
-    DEBUGOUT(L"Adding ActionSet Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InVehicle]);
-    DEBUGOUT(L"Adding ActionSet Flying Vehicle -> %d", m_ControllerActionSetHandles[ActionSet::InFlyingVehicle]);
+    m_ControllerAnalogActionHandles[eControllerAnalogAction_Camera] = SteamController()->GetAnalogActionHandle("Camera");
+    DEBUGOUT(L"Adding AnalogAction Camera -> %d", m_ControllerAnalogActionHandles[eControllerAnalogAction_Camera]);
 
-    for (int i = 0; i < NUM_ACTION_SETS; i++) {
+    m_ControllerActionSetHandles[eControllerActionSet_Menu] = SteamController()->GetActionSetHandle("Menu");
+    m_ControllerActionSetHandles[eControllerActionSet_OnFoot] = SteamController()->GetActionSetHandle("OnFoot");
+    m_ControllerActionSetHandles[eControllerActionSet_InVehicle] = SteamController()->GetActionSetHandle("InVehicle");
+    m_ControllerActionSetHandles[eControllerActionSet_InFlyingVehicle] = SteamController()->GetActionSetHandle("InFlyingVehicle");
+
+    DEBUGOUT(L"Adding ActionSet Default -> %d", m_ControllerActionSetHandles[eControllerActionSet_Menu]);
+    DEBUGOUT(L"Adding ActionSet Foot -> %d", m_ControllerActionSetHandles[eControllerActionSet_OnFoot]);
+    DEBUGOUT(L"Adding ActionSet Vehicle -> %d", m_ControllerActionSetHandles[eControllerActionSet_InVehicle]);
+    DEBUGOUT(L"Adding ActionSet Flying Vehicle -> %d", m_ControllerActionSetHandles[eControllerActionSet_InFlyingVehicle]);
+
+    for (int i = 0; i < eControllerAnalogAction_NumActionSets; i++) {
         if (m_ControllerActionSetHandles[i] <= 0) {
             m_IsNativeActionSets = FALSE;
             break;
@@ -95,9 +110,34 @@ void Controller::TriggerHapticPulse() {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 // Purpose: Put the controller into a specific action set. Action sets are collections of game-context actions ie "walking", "flying" or "menu"
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
-void Controller::SetSteamControllerActionSet(ActionSet dwActionSet) {
+void Controller::SetSteamControllerActionSet(ECONTROLLERACTIONSET eActionSet) {
     if (IsSteamControllerActive()) {
         SteamController()->ActivateActionSet(m_ActiveControllerHandle, m_IsNativeActionSets
-            ? m_ControllerActionSetHandles[dwActionSet] : dwActionSet + 1);
+            ? m_ControllerActionSetHandles[eActionSet] : eActionSet + 1);
+    }
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+// Purpose: Get the current x,y state of the analog action. Examples of an analog action are a virtual joystick on the trackpad or the real joystick.
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+void Controller::GetControllerAnalogAction(ECONTROLLERANALOGACTION dwAction, float *x, float *y) {
+    if (!IsSteamControllerActive()) {
+        *x = 0.0f;
+        *y = 0.0f;
+        return;
+    }
+
+    ControllerAnalogActionData_t analogData = SteamController()->GetAnalogActionData(m_ActiveControllerHandle, m_ControllerAnalogActionHandles[dwAction]);
+
+    // Actions are only 'active' when they're assigned to a control in an action set, and that action set is active.
+    if (analogData.bActive) {
+        analogData.x = analogData.x / ANALOG_DATA_RATIO;
+        analogData.y = analogData.y / ANALOG_DATA_RATIO;
+        *x = analogData.x;
+        *y = analogData.y;
+    }
+    else {
+        *x = 0.0f;
+        *y = 0.0f;
     }
 }

@@ -63,6 +63,15 @@ bool SteamAPI_Init() {
     return true;
 }
 
+void SteamAPI_Shutdown() {
+    if (pSteamClient && hSteamPipe) {
+        if (hSteamUser) {
+            pSteamClient->BReleaseSteamPipe(hSteamPipe);
+        }
+        pSteamClient->BShutdownIfAllPipesClosed();
+    }
+}
+
 ISteamController003 *SteamController() {
     if (!pSteamController) {
         pSteamController = (ISteamController003 *) pSteamClient->GetISteamController(hSteamUser, hSteamPipe, STEAMCONTROLLER_INTERFACE_VERSION_003);

@@ -20,13 +20,21 @@
 
 #include "stdafx.h"
 
-#define NUM_ACTION_SETS 4
 
-enum ActionSet {
-    Menu = 0,
-    OnFoot = 1,
-    InVehicle = 2,
-    InFlyingVehicle = 3
+#define ANALOG_DATA_RATIO 1000
+
+
+enum ECONTROLLERACTIONSET {
+    eControllerActionSet_Menu,
+    eControllerActionSet_OnFoot,
+    eControllerActionSet_InVehicle,
+    eControllerActionSet_InFlyingVehicle,
+    eControllerAnalogAction_NumActionSets
+};
+
+enum ECONTROLLERANALOGACTION {
+    eControllerAnalogAction_Camera,
+    eControllerAnalogAction_NumActions
 };
 
 class Controller {
@@ -42,7 +50,9 @@ public:
     static BOOL IsSteamControllerActive();
 
     // Set the current Steam Controller Action set
-    static void SetSteamControllerActionSet(ActionSet dwActionSet);
+    static void SetSteamControllerActionSet(ECONTROLLERACTIONSET eActionSet);
+
+    static void GetControllerAnalogAction(ECONTROLLERANALOGACTION eAction, float *x, float *y);
 
     // Trigger Haptic Pulse (just for debugging)
     static void TriggerHapticPulse();
@@ -55,5 +65,12 @@ private:
     static BOOL m_IsNativeActionSets;
 
     // An array of handles to different Steam Controller action set configurations
-    static ControllerActionSetHandle_t m_ControllerActionSetHandles[NUM_ACTION_SETS];
+    static ControllerActionSetHandle_t m_ControllerActionSetHandles[eControllerAnalogAction_NumActionSets];
+
+    // An array of handles to Steam Controller events that player can bind to controls
+    static ControllerAnalogActionHandle_t m_ControllerAnalogActionHandles[eControllerAnalogAction_NumActions];
+
+    // Origins for all the Steam Controller actions. The 'origin' is where the action is currently bound to,
+    // ie 'jump' is currently bound to the 'A' button.
+    static EControllerActionOrigin m_ControllerAnalogActionOrigins[eControllerAnalogAction_NumActions];
 };

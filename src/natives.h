@@ -45,3 +45,8 @@ namespace PED {
     static BOOL IS_PED_IN_ANY_VEHICLE(Ped ped, BOOL atGetIn) { return NativeInvoke::Invoke<BOOL, Ped, BOOL>(0x9A4E2270C2271219, ped, atGetIn); } // 997ABD671D25CA0B 3B0171EE
     static BOOL IS_PED_SITTING_IN_ANY_VEHICLE(Ped ped) { return NativeInvoke::Invoke<BOOL, Ped>(0x57ADE64D2E3798F0, ped); } // 826AA586EDB9FEF8 0EA9CA03
 }
+
+namespace CONTROLS {
+    static BOOL _SET_CONTROL_NORMAL(int inputGroup, int control, float amount) { return NativeInvoke::Invoke<BOOL, int, int, float>(0x33D233C9C1CDF70F, inputGroup, control, amount); } // E8A25867FBA3B05E 
+    static Void DISABLE_CONTROL_ACTION(int inputGroup, int control, BOOL disable) { return NativeInvoke::Invoke<Void, int, int, BOOL>(0xCFF471245AFEEDCE, inputGroup, control, disable); } // FE99B66D079CF6BC 3800C0DC
+}

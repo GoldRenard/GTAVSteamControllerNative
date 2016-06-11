@@ -40,21 +40,21 @@ protected:
 
     HMODULE hInstance = 0;
 
-    ActionSet mCurrentActionSet = ActionSet::Menu;
+    ECONTROLLERACTIONSET mCurrentActionSet = eControllerActionSet_Menu;
 
 private:
-    void ApplyState(ActionSet dwActionSet);
+    void ApplyState(ECONTROLLERACTIONSET eActionSet);
 
-    void RenderState(float x, float y, ActionSet dwActionSet);
+    void RenderState(float x, float y, ECONTROLLERACTIONSET eActionSet);
 
-    const WCHAR* GetActionSetName(ActionSet actionSet) {
-        return ActionNames[actionSet];
+    const WCHAR* GetActionSetName(ECONTROLLERACTIONSET eActionSet) {
+        return ActionNames[eActionSet];
     }
 
-    char* GetActionSetNameA(ActionSet actionSet) {
+    char* GetActionSetNameA(ECONTROLLERACTIONSET eActionSet) {
         char *buf = new char[64];
         memset(buf, '\0', sizeof(char) * 64);
-        const wchar_t* name = ActionNames[actionSet];
+        const wchar_t* name = ActionNames[eActionSet];
         size_t len = wcstombs(buf, name, wcslen(name));
         return buf;
     }
