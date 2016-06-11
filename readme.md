@@ -17,14 +17,9 @@ This plugin project is an implementation of native Steam Controller IGAs (In-Gam
 
 1. Launch Steam in BigPicture Mode;
 2. Create new Steam Controller template for GTA V with four action sets **in sequence**: Menu, Foot, Vehicle, Flying Vehicle. You can leave them empty for now and configure later in game, or you can use prepared configuration like described in following section;
-3. Download and unpack latest [Release package](https://github.com/GoldRenard/GTAVSteamControllerNative/releases/latest);
-4. Create a backup of original `steam_api64.dll` located in game folder;
-5. Copy both `SteamControllerNative.asi` and `steam_api64.dll` (replace it) to game folder;
+3. Download [latest version of plugin](https://github.com/GoldRenard/GTAVSteamControllerNative/releases/latest);
+5. Copy `SteamControllerNative.asi` to game folder;
 6. Start the game. It should switch action sets automatically, you just have to configure them as you want;
-
-### Online Warning
-
-Sorry, you can't play with this mod Online. If you're going to play Online, you must remove both ScriptHookV and **recover original `steam_api64.dll`** (you have the backup, right?). I'm not sure is it ok to keep updated `steam_api64.dll` with Online, they still can treat this as mod and block your account. Be careful.
 
 ### Prepared controller configuration
 
@@ -38,12 +33,10 @@ Personally, I don't want to publish this plugin-specific configuration to the St
 4. Replace it with [prepared one](https://github.com/GoldRenard/GTAVSteamControllerNative/blob/master/controller.vdf);
 5. Start Steam, BigPicture, switch back to your configuration and it should be updated. You're done.
 
-### FAQ
+### Online Warning
 
-##### Why we must replace `steam_api64.dll`?
-
-GTA V out the box uses old version of Steamworks SDK with very poor Steam Controller support and there is no Action Sets API at all. `steam_api64.dll` I provided is official library taken from the latest Steamworks SDK 1.36: https://partner.steamgames.com/downloads/
+Sorry, you can't play with this mod Online (just yet :wink:). If you're going to play Online, you must remove ScriptHookV and all your plugins.
 
 ### Credits
 
-- Thanks to Alexander Blade for both the Scripthook and the ASI Loader.
+- Thanks to Alexander Blade for both the ScriptHook V and the ASI Loader.
