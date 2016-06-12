@@ -8,6 +8,11 @@ void DisableRecordingControls() {
     CONTROLS::DISABLE_CONTROL_ACTION(0, ControlReplaySave, true);
 }
 
+BOOL IsDriver(Ped pPlayer) {
+    Vehicle pVehicle = PED::GET_VEHICLE_PED_IS_IN(pPlayer, FALSE);
+    return pVehicle ? pPlayer == VEHICLE::GET_PED_IN_VEHICLE_SEAT(pVehicle, -1) : FALSE;
+}
+
 void BaseScript::Execute() {
     DisableRecordingControls();
     Controller::PollSteamController();
@@ -15,13 +20,16 @@ void BaseScript::Execute() {
     Player player = PLAYER::PLAYER_ID();
     Ped playerPed = PLAYER::PLAYER_PED_ID();
 
-    if (UI::IS_PAUSE_MENU_ACTIVE() || !ENTITY::DOES_ENTITY_EXIST(playerPed) || !PLAYER::IS_PLAYER_CONTROL_ON(player)) {
+    if (UI::IS_PAUSE_MENU_ACTIVE() 
+        || PED::IS_PED_DEAD_OR_DYING(playerPed, TRUE) 
+        || !ENTITY::DOES_ENTITY_EXIST(playerPed) 
+        || !PLAYER::IS_PLAYER_CONTROL_ON(player)) {
         ApplyState(eControllerActionSet_Menu);
     }
-    else if (PED::IS_PED_IN_FLYING_VEHICLE(playerPed)) {
+    else if (PED::IS_PED_IN_FLYING_VEHICLE(playerPed) && IsDriver(playerPed)) {
         ApplyState(eControllerActionSet_InFlyingVehicle);
     }
-    else if (PED::IS_PED_IN_ANY_VEHICLE(playerPed, FALSE) || PED::IS_PED_SITTING_IN_ANY_VEHICLE(playerPed)) {
+    else if ((PED::IS_PED_IN_ANY_VEHICLE(playerPed, FALSE) || PED::IS_PED_SITTING_IN_ANY_VEHICLE(playerPed)) && IsDriver(playerPed)) {
         ApplyState(eControllerActionSet_InVehicle);
     }
     else {
