@@ -10,7 +10,7 @@ void DisableRecordingControls() {
 
 BOOL IsDriver(Ped pPlayer) {
     Vehicle pVehicle = PED::GET_VEHICLE_PED_IS_IN(pPlayer, FALSE);
-    return pVehicle ? pPlayer == VEHICLE::GET_PED_IN_VEHICLE_SEAT(pVehicle, -1) : FALSE;
+    return pVehicle ? pPlayer == VEHICLE::GET_PED_IN_VEHICLE_SEAT(pVehicle, -1) : TRUE;
 }
 
 void BaseScript::Execute() {
@@ -21,7 +21,6 @@ void BaseScript::Execute() {
     Ped playerPed = PLAYER::PLAYER_PED_ID();
 
     if (UI::IS_PAUSE_MENU_ACTIVE() 
-        || PED::IS_PED_DEAD_OR_DYING(playerPed, TRUE) 
         || !ENTITY::DOES_ENTITY_EXIST(playerPed) 
         || !PLAYER::IS_PLAYER_CONTROL_ON(player)) {
         ApplyState(eControllerActionSet_Menu);

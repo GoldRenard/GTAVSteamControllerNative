@@ -27,8 +27,6 @@ namespace PLAYER {
     static Player PLAYER_ID() { return NativeInvoke::Invoke<Player>(0x4D29100D094E5511); } // 4F8644AF03D0E0D6 8AEA886C
     static Ped PLAYER_PED_ID() { return NativeInvoke::Invoke<Ped>(0x27D769C59BC9D030); } // D80958FC74E988A6 FA92E226
     static BOOL IS_PLAYER_CONTROL_ON(Player player) { return NativeInvoke::Invoke<BOOL, Player>(0x170C6E2649B67440, player); } // 49C32D60007AFA47 618857F2
-    static BOOL IS_PED_DEAD_OR_DYING(Ped ped, BOOL p1) { return NativeInvoke::Invoke<BOOL, Ped, BOOL>(0x62076137A700BDA9, ped, p1); } // 3317DEDB88C95038 CBDB7739
-    static Vehicle GET_VEHICLE_PED_IS_IN(Ped ped, BOOL getLastVehicle) { return NativeInvoke::Invoke<Vehicle, Ped, BOOL>(0xD9FFE8E1642C81E2, ped, getLastVehicle); } // 9A9112A0FE9A4713 AFE92319
 }
 
 namespace VEHICLE {
@@ -50,6 +48,7 @@ namespace PED {
     static BOOL IS_PED_IN_FLYING_VEHICLE(Ped ped) { return NativeInvoke::Invoke<BOOL, Ped>(0x8F64F1C94CD1AEE6, ped); } // 9134873537FA419C CA072485
     static BOOL IS_PED_IN_ANY_VEHICLE(Ped ped, BOOL atGetIn) { return NativeInvoke::Invoke<BOOL, Ped, BOOL>(0x9A4E2270C2271219, ped, atGetIn); } // 997ABD671D25CA0B 3B0171EE
     static BOOL IS_PED_SITTING_IN_ANY_VEHICLE(Ped ped) { return NativeInvoke::Invoke<BOOL, Ped>(0x57ADE64D2E3798F0, ped); } // 826AA586EDB9FEF8 0EA9CA03
+    static Vehicle GET_VEHICLE_PED_IS_IN(Ped ped, BOOL getLastVehicle) { return NativeInvoke::Invoke<Vehicle, Ped, BOOL>(0xD9FFE8E1642C81E2, ped, getLastVehicle); } // 9A9112A0FE9A4713 AFE92319
 }
 
 namespace CONTROLS {
