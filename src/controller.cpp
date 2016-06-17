@@ -120,11 +120,11 @@ void Controller::SetSteamControllerActionSet(ECONTROLLERACTIONSET eActionSet) {
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 // Purpose: Get the current x,y state of the analog action. Examples of an analog action are a virtual joystick on the trackpad or the real joystick.
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-void Controller::GetControllerAnalogAction(ECONTROLLERANALOGACTION dwAction, float *x, float *y) {
+BOOL Controller::GetControllerAnalogAction(ECONTROLLERANALOGACTION dwAction, float *x, float *y) {
     if (!IsSteamControllerActive()) {
         *x = 0.0f;
         *y = 0.0f;
-        return;
+        return FALSE;
     }
 
     ControllerAnalogActionData_t analogData = SteamController()->GetAnalogActionData(m_ActiveControllerHandle, m_ControllerAnalogActionHandles[dwAction]);
@@ -140,4 +140,5 @@ void Controller::GetControllerAnalogAction(ECONTROLLERANALOGACTION dwAction, flo
         *x = 0.0f;
         *y = 0.0f;
     }
+    return analogData.bActive;
 }

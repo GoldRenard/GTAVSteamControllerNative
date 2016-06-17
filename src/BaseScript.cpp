@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "BaseScript.h"
 
+float g_Pitch = 0;
+
 void DisableRecordingControls() {
     CONTROLS::DISABLE_CONTROL_ACTION(0, ControlReplayStartStopRecording, true);
     CONTROLS::DISABLE_CONTROL_ACTION(0, ControlReplayStartStopRecordingSecondary, true);
@@ -34,6 +36,29 @@ void BaseScript::Execute() {
     else {
         ApplyState(eControllerActionSet_OnFoot);
     }
+
+    // Update Camera position
+    float cX = 0, cY = 0;
+    if (CAM::IS_GAMEPLAY_CAM_RENDERING() && Controller::GetControllerAnalogAction(eControllerAnalogAction_Camera, &cX, &cY)) {
+        //float cHeading = CAM::GET_GAMEPLAY_CAM_RELATIVE_HEADING();
+        //float cPitch = CAM::GET_GAMEPLAY_CAM_RELATIVE_PITCH();
+        //CAM::SET_GAMEPLAY_CAM_RELATIVE_HEADING(cHeading - cX);
+        //CAM::SET_GAMEPLAY_CAM_RELATIVE_PITCH(cPitch + cY, 0x3f800000);
+
+        g_Pitch -= cY;
+
+        if (CAM::GET_FOLLOW_PED_CAM_VIEW_MODE() == 4) {
+            CAM::_SET_GAMEPLAY_CAM_RAW_YAW(-cX);
+            CAM::_SET_GAMEPLAY_CAM_RAW_PITCH(g_Pitch);
+        }
+        else {
+            float cHeading = CAM::GET_GAMEPLAY_CAM_RELATIVE_HEADING();
+            float cPitch = CAM::GET_GAMEPLAY_CAM_RELATIVE_PITCH();
+            CAM::SET_GAMEPLAY_CAM_RELATIVE_HEADING(cHeading - cX);
+            //CAM::SET_GAMEPLAY_CAM_RELATIVE_PITCH(g_Pitch, 0x3f800000);
+            CAM::SET_GAMEPLAY_CAM_RELATIVE_PITCH(g_Pitch, 0);
+        }
+    }
 }
 
 void BaseScript::ApplyState(ECONTROLLERACTIONSET eActionSet) {
@@ -45,6 +70,8 @@ void BaseScript::ApplyState(ECONTROLLERACTIONSET eActionSet) {
         return;
     }
     mCurrentActionSet = eActionSet;
+    g_Pitch = 0;
+
 #ifdef DEBUG
     DEBUGOUT(L"Controller state: %s", GetActionSetName(eActionSet));
     Controller::TriggerHapticPulse();

@@ -21,7 +21,7 @@
 #include "stdafx.h"
 
 
-#define ANALOG_DATA_RATIO 1000
+#define ANALOG_DATA_RATIO 35
 
 
 enum ECONTROLLERACTIONSET {
@@ -52,7 +52,7 @@ public:
     // Set the current Steam Controller Action set
     static void SetSteamControllerActionSet(ECONTROLLERACTIONSET eActionSet);
 
-    static void GetControllerAnalogAction(ECONTROLLERANALOGACTION eAction, float *x, float *y);
+    static BOOL GetControllerAnalogAction(ECONTROLLERANALOGACTION eAction, float *x, float *y);
 
     // Trigger Haptic Pulse (just for debugging)
     static void TriggerHapticPulse();

@@ -55,3 +55,14 @@ namespace CONTROLS {
     static BOOL _SET_CONTROL_NORMAL(int inputGroup, int control, float amount) { return NativeInvoke::Invoke<BOOL, int, int, float>(0x33D233C9C1CDF70F, inputGroup, control, amount); } // E8A25867FBA3B05E 
     static Void DISABLE_CONTROL_ACTION(int inputGroup, int control, BOOL disable) { return NativeInvoke::Invoke<Void, int, int, BOOL>(0xCFF471245AFEEDCE, inputGroup, control, disable); } // FE99B66D079CF6BC 3800C0DC
 }
+
+namespace CAM {
+    static BOOL IS_GAMEPLAY_CAM_RENDERING() { return NativeInvoke::Invoke<BOOL>(0x848B254591916C7D); } // 39B5D1B10383F0C8 0EF276DA
+    static int GET_FOLLOW_PED_CAM_VIEW_MODE() { return NativeInvoke::Invoke<int>(0x6A60A80D676F74A7); } // 8D4D46230B2C353A A65FF946
+    static float GET_GAMEPLAY_CAM_RELATIVE_HEADING() { return NativeInvoke::Invoke<float>(0x66806C50F201EF6C); } // 743607648ADD4587 CAF839C2
+    static Void SET_GAMEPLAY_CAM_RELATIVE_HEADING(float heading) { return NativeInvoke::Invoke<Void, float>(0x0B28AEB595CB09AF, heading); } // B4EC2312F4E5B1F1 20C6217C
+    static float GET_GAMEPLAY_CAM_RELATIVE_PITCH() { return NativeInvoke::Invoke<float>(0x8D2022E807AD4703); } // 3A6867B4845BEDA2 FC5A4946
+    static Void SET_GAMEPLAY_CAM_RELATIVE_PITCH(float x, float Value2) { return NativeInvoke::Invoke<Void, float, float>(0x4523FDDB9926E1D8, x, Value2); } // 6D0858B8EDFD2B7D 6381B963
+    static Void _SET_GAMEPLAY_CAM_RAW_YAW(float yaw) { return NativeInvoke::Invoke<Void, float>(0xDB2C4154EE8453D9, yaw); } // 103991D4A307D472 
+    static Void _SET_GAMEPLAY_CAM_RAW_PITCH(float pitch) { return NativeInvoke::Invoke<Void, float>(0x897AB63B69C06A1D, pitch); } // 759E13EBC1C15C5A 
+}

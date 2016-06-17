@@ -1,38 +1,57 @@
 "controller_mappings"
 {
 	"version"		"2"
-	"title"			"Steam Controller Native"
-	"description"	"#SettingsController_AutosaveDescription"
-	"creator"		"76561197983619863"
+	"title"			"Steam Controller Native Advanced"
+	"description"	"This is the Steam Controller Native Advanced configuration for Grand Theft Auto V."
+	"creator"		"-1"
 	"actions"
 	{
 		"Menu"
 		{
-			"title"				"Menu"
-			"legacy_set"		"1"
+			"title"				"#Set_Menu"
+			"legacy_set"		"0"
 		}
 		"OnFoot"
 		{
-			"title"				"Foot"
-			"legacy_set"		"1"
+			"title"				"#Set_OnFoot"
+			"legacy_set"		"0"
+			"StickPadGyro"
+			{
+				"Camera"
+				{
+					"title"			"#Action_Camera"
+					"input_mode"	"absolute_mouse"
+				}
+			}
 		}
 		"InVehicle"
 		{
-			"title"				"Vehicle"
-			"legacy_set"		"1"
+			"title"				"#Set_InVehicle"
+			"legacy_set"		"0"
 		}
 		"InFlyingVehicle"
 		{
-			"title"				"Flying Vehicle"
-			"legacy_set"		"1"
+			"title"				"#Set_InFlyingVehicle"
+			"legacy_set"		"0"
 		}
 	}
 	"localization"
 	{
 		"english"
 		{
-			"title"				"Steam Controller Native"
-			"description"		"Steam Controller Native Plugin configuration for Grand Theft Auto V"
+			"Set_Menu"					"Menu"
+			"Set_OnFoot"				"Foot"
+			"Set_InVehicle"				"Vehicle"
+			"Set_InFlyingVehicle"		"Flying Vehicle"
+			"Action_Camera"				"Camera"
+		}
+		"russian"
+		{
+			"Set_Menu"					"Меню"
+			"Set_OnFoot"				"Пешком"
+			"Set_InVehicle"				"Транспорт"
+			"Set_InFlyingVehicle"		"Возд. транспорт"
+			"Action_Camera"				"Камера"
 		}
 	}
 	"group"
@@ -41,16 +60,10 @@
 		"mode"		"four_buttons"
 		"bindings"
 		{
-			"button_A"		"xinput_button A"
-			"button_B"		"xinput_button B"
-			"button_X"		"xinput_button X"
-			"button_Y"		"xinput_button Y"
-		}
-		"settings"
-		{
-			"hold_repeat_inverval"		"99"
-			"button_size"				"17994"
-			"button_dist"				"19994"
+			"button_a"		"xinput_button A"
+			"button_b"		"xinput_button B"
+			"button_x"		"xinput_button X"
+			"button_y"		"xinput_button Y"
 		}
 	}
 	"group"
@@ -59,442 +72,118 @@
 		"mode"		"dpad"
 		"bindings"
 		{
-			"dpad_north"		"xinput_button DPAD_UP"
-			"dpad_south"		"xinput_button DPAD_DOWN"
-			"dpad_east"			"xinput_button DPAD_RIGHT"
-			"dpad_west"			"xinput_button DPAD_LEFT"
+			"dpad_north"		"xinput_button dpad_up"
+			"dpad_south"		"xinput_button dpad_down"
+			"dpad_east"		"xinput_button dpad_right"
+			"dpad_west"		"xinput_button dpad_left"
 		}
 		"settings"
 		{
-			"hold_repeat_inverval"		"99"
-			"edge_binding_radius"		"24996"
+			"deadzone"		"5000"
 		}
 	}
 	"group"
 	{
 		"id"		"2"
-		"mode"		"absolute_mouse"
+		"mode"		"joystick_camera"
 		"bindings"
 		{
-			"click"		"key_press E, Use"
+			"click"		"xinput_button JOYSTICK_RIGHT"
 		}
 		"settings"
 		{
-			"sensitivity"				"145"
-			"doubetap_max_duration"		"320"
+			"output_joystick"		"1"
 		}
 	}
 	"group"
 	{
 		"id"		"3"
-		"mode"		"dpad"
+		"mode"		"joystick_move"
 		"bindings"
 		{
-			"dpad_north"	"key_press W, Move Forward"
-			"dpad_south"	"key_press S, Move Back"
-			"dpad_east"		"key_press D, Move Right"
-			"dpad_west"		"key_press A, Move Left"
-			"click"			"key_press LEFT_SHIFT, Sprint"
-		}
-		"settings"
-		{
-			"requires_click"			"0"
-			"hold_repeat_inverval"		"99"
-			"edge_binding_radius"		"24995"
+			"click"		"xinput_button JOYSTICK_LEFT"
 		}
 	}
 	"group"
 	{
 		"id"		"4"
 		"mode"		"trigger"
+		"bindings"
+		{
+			"click"		"xinput_button TRIGGER_LEFT"
+		}
 		"settings"
 		{
-			"hold_repeat_inverval"		"99"
-			"output_trigger"			"1"
+			"output_trigger"		"1"
 		}
 	}
 	"group"
 	{
 		"id"		"5"
 		"mode"		"trigger"
+		"bindings"
+		{
+			"click"		"xinput_button TRIGGER_RIGHT"
+		}
 		"settings"
 		{
-			"hold_repeat_inverval"		"99"
-			"output_trigger"			"2"
+			"output_trigger"		"2"
 		}
 	}
 	"group"
 	{
 		"id"		"6"
-		"mode"		"four_buttons"
+		"mode"		"joystick_move"
 		"bindings"
 		{
-			"button_A"		"xinput_button A"
-			"button_B"		"xinput_button B"
-			"button_X"		"xinput_button X"
-			"button_Y"		"xinput_button Y"
+			"click"		"xinput_button JOYSTICK_RIGHT"
+		}
+		"settings"
+		{
+			"edge_binding_radius"		"24997"
+			"virtual_cap_size"		"7498"
+			"output_joystick"		"1"
+			"sensitivity"		"99"
 		}
 	}
 	"group"
 	{
 		"id"		"7"
-		"mode"		"trigger"
+		"mode"		"absolute_mouse"
 		"settings"
 		{
-			"output_trigger"		"1"
-			"haptic_intensity"		"0"
+			"sensitivity"		"124"
+			"trackball"		"0"
 		}
 	}
 	"group"
 	{
 		"id"		"8"
-		"mode"		"trigger"
+		"mode"		"mouse_joystick"
 		"settings"
 		{
-			"hold_repeats"			"1"
-			"output_trigger"		"2"
-			"haptic_intensity"		"0"
-			"adaptive_threshold"	"4"
+			"sensitivity"		"124"
+			"edge_spin_velocity"		"574"
 		}
 	}
 	"group"
 	{
 		"id"		"9"
-		"mode"		"joystick_move"
-	}
-	"group"
-	{
-		"id"		"10"
-		"mode"		"joystick_move"
-	}
-	"group"
-	{
-		"id"		"11"
-		"mode"		"joystick_move"
-	}
-	"group"
-	{
-		"id"		"12"
-		"mode"		"four_buttons"
-		"bindings"
-		{
-			"button_A"		"xinput_button A"
-			"button_B"		"xinput_button B"
-			"button_X"		"xinput_button X"
-			"button_Y"		"xinput_button Y"
-		}
-	}
-	"group"
-	{
-		"id"		"13"
-		"mode"		"trigger"
-		"settings"
-		{
-			"output_trigger"		"1"
-		}
-	}
-	"group"
-	{
-		"id"		"14"
-		"mode"		"trigger"
-		"bindings"
-		{
-			"click"		"mouse_button LEFT, Mouse fire"
-		}
-		"settings"
-		{
-			"output_trigger"		"2"
-		}
-	}
-	"group"
-	{
-		"id"		"15"
-		"mode"		"four_buttons"
-		"bindings"
-		{
-			"button_A"		"xinput_button A"
-			"button_B"		"xinput_button B"
-			"button_X"		"xinput_button X"
-			"button_Y"		"xinput_button Y"
-		}
-	}
-	"group"
-	{
-		"id"		"16"
-		"mode"		"trigger"
-		"settings"
-		{
-			"output_trigger"		"1"
-		}
-	}
-	"group"
-	{
-		"id"		"17"
-		"mode"		"trigger"
-		"settings"
-		{
-			"output_trigger"		"2"
-		}
-	}
-	"group"
-	{
-		"id"		"18"
 		"mode"		"absolute_mouse"
-		"bindings"
-		{
-			"click"		"xinput_button JOYSTICK_RIGHT"
-		}
 		"settings"
 		{
+			"virtual_mode"		"1"
+			"sensitivity"		"38"
+			"trackball"		"0"
+			"haptic_intensity"		"0"
+			"sensitivity_vert_scale"		"119"
 			"acceleration"		"2"
+			"mouse_smoothing"		"0"
+			"doubetap_max_duration"		"322"
 		}
-	}
-	"group"
-	{
-		"id"		"19"
-		"mode"		"dpad"
-		"bindings"
+		"gameactions"
 		{
-			"dpad_north"		"key_press W, More Forward"
-			"dpad_south"		"key_press S, Move Back"
-			"dpad_east"			"key_press D, Move Right"
-			"dpad_west"			"key_press A, Move Left"
-			"click"				"xinput_button JOYSTICK_LEFT"
-		}
-		"settings"
-		{
-			"requires_click"		"0"
-		}
-	}
-	"group"
-	{
-		"id"		"20"
-		"mode"		"dpad"
-		"bindings"
-		{
-			"dpad_north"		"xinput_button DPAD_UP"
-			"dpad_south"		"xinput_button DPAD_DOWN"
-			"dpad_east"			"xinput_button DPAD_RIGHT"
-			"dpad_west"			"xinput_button DPAD_LEFT"
-			"click"				"xinput_button JOYSTICK_LEFT"
-		}
-		"settings"
-		{
-			"layout"		"0"
-		}
-	}
-	"group"
-	{
-		"id"		"21"
-		"mode"		"mouse_joystick"
-	}
-	"group"
-	{
-		"id"		"22"
-		"mode"		"absolute_mouse"
-		"settings"
-		{
-			"acceleration"		"2"
-			"mouse_dampening_trigger"			"2"
-			"mouse_trigger_clamp_amount"		"51"
-		}
-	}
-	"group"
-	{
-		"id"		"23"
-		"mode"		"joystick_move"
-		"bindings"
-		{
-			"click"		"xinput_button JOYSTICK_LEFT"
-		}
-		"settings"
-		{
-			"haptic_intensity"		"1"
-		}
-	}
-	"group"
-	{
-		"id"		"24"
-		"mode"		"dpad"
-		"bindings"
-		{
-			"dpad_north"		"xinput_button DPAD_UP"
-			"dpad_south"		"xinput_button DPAD_DOWN"
-			"dpad_east"			"xinput_button DPAD_RIGHT"
-			"dpad_west"			"xinput_button DPAD_LEFT"
-		}
-	}
-	"group"
-	{
-		"id"		"25"
-		"mode"		"mouse_joystick"
-		"bindings"
-		{
-			"click"		"xinput_button JOYSTICK_RIGHT"
-		}
-		"settings"
-		{
-			"haptic_intensity"				"0"
-			"mousejoystick_deadzone_x"		"19009"
-			"mousejoystick_deadzone_y"		"19009"
-		}
-	}
-	"group"
-	{
-		"id"		"26"
-		"mode"		"mouse_joystick"
-		"settings"
-		{
-			"haptic_intensity"		"0"
-		}
-	}
-	"group"
-	{
-		"id"		"27"
-		"mode"		"joystick_camera"
-	}
-	"group"
-	{
-		"id"		"28"
-		"mode"		"joystick_move"
-		"settings"
-		{
-			"curve_exponent"		"4"
-		}
-	}
-	"group"
-	{
-		"id"		"29"
-		"mode"		"absolute_mouse"
-		"settings"
-		{
-			"haptic_intensity"		"0"
-			"acceleration"		"2"
-		}
-	}
-	"group"
-	{
-		"id"		"30"
-		"mode"		"absolute_mouse"
-		"settings"
-		{
-			"sensitivity"		"748"
-			"haptic_intensity"		"0"
-			"acceleration"		"3"
-			"gyro_button"		"0"
-		}
-	}
-	"group"
-	{
-		"id"		"31"
-		"mode"		"absolute_mouse"
-	}
-	"group"
-	{
-		"id"		"32"
-		"mode"		"joystick_move"
-		"bindings"
-		{
-			"click"		"xinput_button JOYSTICK_LEFT"
-		}
-		"settings"
-		{
-			"haptic_intensity"		"1"
-		}
-	}
-	"group"
-	{
-		"id"		"33"
-		"mode"		"dpad"
-		"bindings"
-		{
-			"dpad_north"		"xinput_button DPAD_UP"
-			"dpad_south"		"xinput_button DPAD_DOWN"
-			"dpad_east"			"xinput_button DPAD_RIGHT"
-			"dpad_west"			"xinput_button DPAD_LEFT"
-		}
-	}
-	"group"
-	{
-		"id"		"34"
-		"mode"		"mouse_joystick"
-		"bindings"
-		{
-			"click"		"xinput_button JOYSTICK_RIGHT"
-		}
-	}
-	"group"
-	{
-		"id"		"35"
-		"mode"		"absolute_mouse"
-		"bindings"
-		{
-			"click"		"key_press C, Look Behind"
-		}
-		"settings"
-		{
-			"haptic_intensity"		"0"
-			"acceleration"			"2"
-		}
-	}
-	"group"
-	{
-		"id"		"36"
-		"mode"		"joystick_move"
-		"settings"
-		{
-			"haptic_intensity"		"0"
-			"gyro_button"			"1"
-			"invert_y"				"1"
-		}
-	}
-	"group"
-	{
-		"id"		"37"
-		"mode"		"absolute_mouse"
-		"settings"
-		{
-			"haptic_intensity"		"0"
-			"acceleration"			"2"
-		}
-	}
-	"group"
-	{
-		"id"		"38"
-		"mode"		"joystick_move"
-	}
-	"group"
-	{
-		"id"		"39"
-		"mode"		"joystick_move"
-		"bindings"
-		{
-			"click"		"xinput_button JOYSTICK_LEFT"
-		}
-	}
-	"group"
-	{
-		"id"		"40"
-		"mode"		"joystick_move"
-		"bindings"
-		{
-			"click"		"xinput_button JOYSTICK_RIGHT"
-		}
-	}
-	"group"
-	{
-		"id"		"41"
-		"mode"		"trigger"
-		"bindings"
-		{
-			"click"		"mouse_wheel SCROLL_UP, Zoom up"
-		}
-		"settings"
-		{
-			"hold_repeats"				"1"
-			"output_trigger"			"2"
-			"haptic_intensity"			"1"
-			"adaptive_threshold"		"4"
+			"OnFoot"		"Camera"
 		}
 	}
 	"preset"
@@ -506,9 +195,10 @@
 			"0"		"button_diamond active"
 			"1"		"left_trackpad active"
 			"2"		"right_trackpad inactive"
-			"40"	"right_trackpad active"
-			"3"		"joystick inactive"
-			"39"	"joystick active"
+			"6"		"right_trackpad inactive"
+			"7"		"right_trackpad inactive"
+			"8"		"right_trackpad active"
+			"3"		"joystick active"
 			"4"		"left_trigger active"
 			"5"		"right_trigger active"
 		}
@@ -516,11 +206,12 @@
 		{
 			"bindings"
 			{
-				"left_bumper"					"xinput_button SHOULDER_LEFT"
-				"right_bumper"					"xinput_button SHOULDER_RIGHT"
-				"button_escape"					"xinput_button START"
-				"button_menu"					"xinput_button SELECT"
-				"left_trigger_threshold"		"mode_shift right_trigger 41"
+				"button_escape"		"xinput_button start"
+				"button_menu"		"xinput_button select"
+				"right_bumper"		"xinput_button shoulder_right"
+				"left_bumper"		"xinput_button shoulder_left"
+				"button_back_left"		"xinput_button a"
+				"button_back_right"		"xinput_button x"
 			}
 		}
 		"settings"
@@ -533,29 +224,26 @@
 		"name"		"OnFoot"
 		"group_source_bindings"
 		{
-			"6"		"button_diamond active"
-			"9"		"left_trackpad inactive"
-			"19"	"left_trackpad active"
-			"11"	"right_trackpad inactive"
-			"18"	"right_trackpad active"
-			"21"	"right_trackpad inactive"
-			"10"	"joystick inactive"
-			"20"	"joystick active"
-			"7"		"left_trigger active"
-			"8"		"right_trigger active"
-			"41"	"right_trigger active modeshift"
-			"22"	"gyro active"
+			"0"		"button_diamond active"
+			"1"		"left_trackpad active"
+			"2"		"right_trackpad inactive"
+			"6"		"right_trackpad inactive"
+			"7"		"right_trackpad inactive"
+			"9"		"right_trackpad active"
+			"3"		"joystick active"
+			"4"		"left_trigger active"
+			"5"		"right_trigger active"
 		}
 		"switch_bindings"
 		{
 			"bindings"
 			{
-				"button_back_left"		"key_press LEFT_CONTROL, Stealth Mode"
-				"button_back_right"		"key_press SPACE, Jump"
-				"button_menu"			"xinput_button SELECT"
-				"button_escape"			"xinput_button START"
-				"right_bumper"			"xinput_button SHOULDER_RIGHT"
-				"left_bumper"			"xinput_button SHOULDER_LEFT"
+				"button_escape"		"xinput_button start"
+				"button_menu"		"xinput_button select"
+				"right_bumper"		"xinput_button shoulder_right"
+				"left_bumper"		"xinput_button shoulder_left"
+				"button_back_left"		"xinput_button a"
+				"button_back_right"		"xinput_button x"
 			}
 		}
 		"settings"
@@ -568,29 +256,26 @@
 		"name"		"InVehicle"
 		"group_source_bindings"
 		{
-			"12"		"button_diamond active"
-			"23"		"left_trackpad active"
-			"25"		"right_trackpad active"
-			"27"		"right_trackpad inactive"
-			"28"		"right_trackpad inactive"
-			"29"		"right_trackpad active modeshift"
-			"31"		"right_trackpad inactive"
-			"24"		"joystick active"
-			"13"		"left_trigger active"
-			"14"		"right_trigger active"
-			"26"		"gyro active"
-			"30"		"gyro active modeshift"
+			"0"		"button_diamond active"
+			"1"		"left_trackpad active"
+			"2"		"right_trackpad inactive"
+			"6"		"right_trackpad inactive"
+			"7"		"right_trackpad inactive"
+			"8"		"right_trackpad active"
+			"3"		"joystick active"
+			"4"		"left_trigger active"
+			"5"		"right_trigger active"
 		}
 		"switch_bindings"
 		{
 			"bindings"
 			{
-				"left_bumper"			"xinput_button SHOULDER_LEFT"
-				"right_bumper"			"xinput_button SHOULDER_RIGHT"
-				"button_menu"			"xinput_button SELECT"
-				"button_escape"			"xinput_button START"
-				"button_back_left"		"xinput_button A"
-				"button_back_right"		"mouse_button RIGHT, Mouse aim"
+				"button_escape"		"xinput_button start"
+				"button_menu"		"xinput_button select"
+				"right_bumper"		"xinput_button shoulder_right"
+				"left_bumper"		"xinput_button shoulder_left"
+				"button_back_left"		"xinput_button a"
+				"button_back_right"		"xinput_button x"
 			}
 		}
 		"settings"
@@ -603,25 +288,26 @@
 		"name"		"InFlyingVehicle"
 		"group_source_bindings"
 		{
-			"15"		"button_diamond active"
-			"32"		"left_trackpad active"
-			"34"		"right_trackpad inactive"
-			"35"		"right_trackpad active"
-			"33"		"joystick active"
-			"16"		"left_trigger active"
-			"17"		"right_trigger active"
-			"36"		"gyro inactive"
-			"37"		"gyro active"
-			"38"		"gyro active modeshift"
+			"0"		"button_diamond active"
+			"1"		"left_trackpad active"
+			"2"		"right_trackpad inactive"
+			"6"		"right_trackpad inactive"
+			"7"		"right_trackpad inactive"
+			"8"		"right_trackpad active"
+			"3"		"joystick active"
+			"4"		"left_trigger active"
+			"5"		"right_trigger active"
 		}
 		"switch_bindings"
 		{
 			"bindings"
 			{
-				"left_bumper"		"xinput_button SHOULDER_LEFT"
-				"right_bumper"		"xinput_button SHOULDER_RIGHT"
-				"button_menu"		"xinput_button SELECT"
-				"button_escape"		"xinput_button START"
+				"button_escape"		"xinput_button start"
+				"button_menu"		"xinput_button select"
+				"right_bumper"		"xinput_button shoulder_right"
+				"left_bumper"		"xinput_button shoulder_left"
+				"button_back_left"		"xinput_button a"
+				"button_back_right"		"xinput_button x"
 			}
 		}
 		"settings"
