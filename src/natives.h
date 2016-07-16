@@ -20,38 +20,38 @@
 
 #include "stdafx.h"
 
-// Here are a natives for 757.4 build (1.34 online). Yeah, that is only small piece of harmless natives because
+// Here are a natives for 1.0.791.2 build (1.35 online). Yeah, that is only small piece of harmless natives because
 // I don't want to contribute to the cheating community. If you such a bad guy, BURN IN HELL.
 
 namespace PLAYER {
-    static Player PLAYER_ID() { return NativeInvoke::Invoke<Player>(0x4D29100D094E5511); } // 4F8644AF03D0E0D6 8AEA886C
-    static Ped PLAYER_PED_ID() { return NativeInvoke::Invoke<Ped>(0x27D769C59BC9D030); } // D80958FC74E988A6 FA92E226
-    static BOOL IS_PLAYER_CONTROL_ON(Player player) { return NativeInvoke::Invoke<BOOL, Player>(0x170C6E2649B67440, player); } // 49C32D60007AFA47 618857F2
+    static Player PLAYER_ID() { return NativeInvoke::Invoke<Player>(0xE0BDAFA1A39552D6); } // 4F8644AF03D0E0D6 8AEA886C
+    static Ped PLAYER_PED_ID() { return NativeInvoke::Invoke<Ped>(0x06736567F820A39E); } // D80958FC74E988A6 FA92E226
+    static BOOL IS_PLAYER_CONTROL_ON(Player player) { return NativeInvoke::Invoke<BOOL, Player>(0x6F54F6E4D3F3FD07, player); } // 49C32D60007AFA47 618857F2
 }
 
 namespace VEHICLE {
-    static Ped GET_PED_IN_VEHICLE_SEAT(Vehicle vehicle, int index) { return NativeInvoke::Invoke<Ped, Vehicle, int>(0x9297C590C99228DC, vehicle, index); } // BB40DD2270B65366 388FDE9A
+    static Ped GET_PED_IN_VEHICLE_SEAT(Vehicle vehicle, int index) { return NativeInvoke::Invoke<Ped, Vehicle, int>(0x4321FC7479614822, vehicle, index); } // BB40DD2270B65366 388FDE9A
 }
 
 namespace UI {
-    static BOOL IS_PAUSE_MENU_ACTIVE() { return NativeInvoke::Invoke<BOOL>(0x1E114237D972903B); } // B0034A223497FFCB D3600591
-    static Void _SET_NOTIFICATION_TEXT_ENTRY(char* type) { return NativeInvoke::Invoke<Void, char*>(0x5411F6B456B04A6B, type); } // 202709F4C58A0424 574EE85C
-    static Void _ADD_TEXT_COMPONENT_STRING(char* text) { return NativeInvoke::Invoke<Void, char*>(0xF9E9E11D6DF3EBF8, text); } // 6C188BE134E074AA 27A244D8
-    static int _DRAW_NOTIFICATION(BOOL blink, BOOL p1) { return NativeInvoke::Invoke<int, BOOL, BOOL>(0xF51DE8AFFD9CC3C9, blink, p1); } // 2ED7843F8F801023 08F7AF78
+    static BOOL IS_PAUSE_MENU_ACTIVE() { return NativeInvoke::Invoke<BOOL>(0x3DC360442A11BB38); } // B0034A223497FFCB D3600591
+    static Void _SET_NOTIFICATION_TEXT_ENTRY(char* type) { return NativeInvoke::Invoke<Void, char*>(0x999E5F6D1B49D87B, type); } // 202709F4C58A0424 574EE85C
+    static Void _ADD_TEXT_COMPONENT_STRING(char* text) { return NativeInvoke::Invoke<Void, char*>(0x9C174A0D56FFB64A, text); } // 6C188BE134E074AA 27A244D8
+    static int _DRAW_NOTIFICATION(BOOL blink, BOOL p1) { return NativeInvoke::Invoke<int, BOOL, BOOL>(0xB452F88B6A7B058D, blink, p1); } // 2ED7843F8F801023 08F7AF78
 }
 
 namespace ENTITY {
-    static BOOL DOES_ENTITY_EXIST(Entity entity) { return NativeInvoke::Invoke<BOOL, Entity>(0xD2CFFE76B625AE55, entity); } // 7239B21A38F536BA 3AC90869
+    static BOOL DOES_ENTITY_EXIST(Entity entity) { return NativeInvoke::Invoke<BOOL, Entity>(0xC1EDB61CE0A4B94E, entity); } // 7239B21A38F536BA 3AC90869
 }
 
 namespace PED {
-    static BOOL IS_PED_IN_FLYING_VEHICLE(Ped ped) { return NativeInvoke::Invoke<BOOL, Ped>(0x8F64F1C94CD1AEE6, ped); } // 9134873537FA419C CA072485
-    static BOOL IS_PED_IN_ANY_VEHICLE(Ped ped, BOOL atGetIn) { return NativeInvoke::Invoke<BOOL, Ped, BOOL>(0x9A4E2270C2271219, ped, atGetIn); } // 997ABD671D25CA0B 3B0171EE
-    static BOOL IS_PED_SITTING_IN_ANY_VEHICLE(Ped ped) { return NativeInvoke::Invoke<BOOL, Ped>(0x57ADE64D2E3798F0, ped); } // 826AA586EDB9FEF8 0EA9CA03
-    static Vehicle GET_VEHICLE_PED_IS_IN(Ped ped, BOOL getLastVehicle) { return NativeInvoke::Invoke<Vehicle, Ped, BOOL>(0xD9FFE8E1642C81E2, ped, getLastVehicle); } // 9A9112A0FE9A4713 AFE92319
+    static BOOL IS_PED_IN_FLYING_VEHICLE(Ped ped) { return NativeInvoke::Invoke<BOOL, Ped>(0x211EB61B2F3222D0, ped); } // 9134873537FA419C CA072485
+    static BOOL IS_PED_IN_ANY_VEHICLE(Ped ped, BOOL atGetIn) { return NativeInvoke::Invoke<BOOL, Ped, BOOL>(0x0FDFEC0DD29106EE, ped, atGetIn); } // 997ABD671D25CA0B 3B0171EE
+    static BOOL IS_PED_SITTING_IN_ANY_VEHICLE(Ped ped) { return NativeInvoke::Invoke<BOOL, Ped>(0x7A6749CADAC50206, ped); } // 826AA586EDB9FEF8 0EA9CA03
+    static Vehicle GET_VEHICLE_PED_IS_IN(Ped ped, BOOL getLastVehicle) { return NativeInvoke::Invoke<Vehicle, Ped, BOOL>(0x34E1EF1E8BCD1BFC, ped, getLastVehicle); } // 9A9112A0FE9A4713 AFE92319
 }
 
 namespace CONTROLS {
-    static BOOL _SET_CONTROL_NORMAL(int inputGroup, int control, float amount) { return NativeInvoke::Invoke<BOOL, int, int, float>(0x33D233C9C1CDF70F, inputGroup, control, amount); } // E8A25867FBA3B05E 
-    static Void DISABLE_CONTROL_ACTION(int inputGroup, int control, BOOL disable) { return NativeInvoke::Invoke<Void, int, int, BOOL>(0xCFF471245AFEEDCE, inputGroup, control, disable); } // FE99B66D079CF6BC 3800C0DC
+    static BOOL _SET_CONTROL_NORMAL(int inputGroup, int control, float amount) { return NativeInvoke::Invoke<BOOL, int, int, float>(0x1785FD24F6556E21, inputGroup, control, amount); } // E8A25867FBA3B05E 
+    static Void DISABLE_CONTROL_ACTION(int inputGroup, int control, BOOL disable) { return NativeInvoke::Invoke<Void, int, int, BOOL>(0xC80D2B3478FFF428, inputGroup, control, disable); } // FE99B66D079CF6BC 3800C0DC
 }
