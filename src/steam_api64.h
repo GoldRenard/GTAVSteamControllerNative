@@ -19,17 +19,22 @@
 #pragma once
 
 #define S_CALLTYPE __cdecl
+#define S_API extern "C"
 
 typedef void        (S_CALLTYPE *VOIDPROC)();
 typedef bool        (S_CALLTYPE *BOOLPROC)();
 typedef bool        (S_CALLTYPE *RSTPROC)(uint32 unOwnAppID);
 typedef void        (S_CALLTYPE *REGPROC)(INT_PTR pCallback, int iCallback);
 typedef void        (S_CALLTYPE *UNREGPROC)(INT_PTR pCallback);
+
+typedef void *      (S_CALLTYPE *CTXINIT)(void *pContextInitData);
+typedef void *      (S_CALLTYPE *CINF)(const char *ver);
+
 typedef INT_PTR(S_CALLTYPE *APIPROC)();
 typedef HSteamUser(S_CALLTYPE *HUSERPROC)();
 typedef HSteamPipe(S_CALLTYPE *HPIPEPROC)();
 
-typedef ISteamController003*    (S_CALLTYPE *CONTROLLERPROC)();
+typedef ISteamController004*    (S_CALLTYPE *CONTROLLERPROC)();
 typedef ISteamClient017*        (S_CALLTYPE *CLIENTPROC)();
 
 static void PrintPointer(const WCHAR* procName, INT_PTR ptr) {
@@ -38,114 +43,77 @@ static void PrintPointer(const WCHAR* procName, INT_PTR ptr) {
 
 struct steam_api64_dll {
     HMODULE dll;
+
     BOOLPROC SteamAPI_Init;
     VOIDPROC SteamAPI_Shutdown;
     RSTPROC SteamAPI_RestartAppIfNecessary;
+
     REGPROC SteamAPI_RegisterCallback;
     UNREGPROC SteamAPI_UnregisterCallback;
     VOIDPROC SteamAPI_RunCallbacks;
 
-    APIPROC SteamApps;
-    APIPROC SteamUserStats;
-    APIPROC SteamUtils;
-    APIPROC SteamUser;
-    APIPROC SteamFriends;
-    CLIENTPROC SteamClient;
-    CONTROLLERPROC SteamController;
+    CTXINIT SteamInternal_ContextInit;
+    CINF SteamInternal_CreateInterface;
 
-    HPIPEPROC GetHSteamPipe;
-    HUSERPROC GetHSteamUser;
+    CLIENTPROC SteamClient;
+    ISteamController004* SteamController;
+
+    HPIPEPROC SteamAPI_GetHSteamPipe;
+    HUSERPROC SteamAPI_GetHSteamUser;
 
     void PrintPointers() {
         DEBUGOUT(L"Proxy function pointers:");
         PrintPointer(L"SteamAPI_Init", (INT_PTR) SteamAPI_Init);
         PrintPointer(L"SteamAPI_Shutdown", (INT_PTR) SteamAPI_Shutdown);
         PrintPointer(L"SteamAPI_RestartAppIfNecessary", (INT_PTR) SteamAPI_RestartAppIfNecessary);
+
         PrintPointer(L"SteamAPI_RegisterCallback", (INT_PTR) SteamAPI_RegisterCallback);
         PrintPointer(L"SteamAPI_UnregisterCallback", (INT_PTR) SteamAPI_UnregisterCallback);
         PrintPointer(L"SteamAPI_RunCallbacks", (INT_PTR) SteamAPI_RunCallbacks);
-        PrintPointer(L"SteamApps", (INT_PTR) SteamApps);
-        PrintPointer(L"SteamUserStats", (INT_PTR) SteamUserStats);
-        PrintPointer(L"SteamUtils", (INT_PTR) SteamUtils);
-        PrintPointer(L"SteamUser", (INT_PTR) SteamUser);
-        PrintPointer(L"SteamFriends", (INT_PTR) SteamFriends);
-        PrintPointer(L"SteamClient", (INT_PTR) SteamClient);
+
+        PrintPointer(L"SteamInternal_ContextInit", (INT_PTR) SteamInternal_ContextInit);
+        PrintPointer(L"SteamInternal_CreateInterface", (INT_PTR) SteamInternal_CreateInterface);
+
+        PrintPointer(L"SteamAPI_GetHSteamPipe", (INT_PTR) SteamAPI_GetHSteamPipe);
+        PrintPointer(L"SteamAPI_GetHSteamUser", (INT_PTR) SteamAPI_GetHSteamUser);
+
+        PrintPointer(L"SteamAPI_GetHSteamUser", (INT_PTR) SteamAPI_GetHSteamUser);
         PrintPointer(L"SteamController", (INT_PTR) SteamController);
-        PrintPointer(L"GetHSteamPipe", (INT_PTR) GetHSteamPipe);
-        PrintPointer(L"GetHSteamUser", (INT_PTR) GetHSteamUser);
     }
 } static steam_api64;
-
-struct steam_legacy_interfaces {
-    INT_PTR SteamApps006;
-    INT_PTR SteamUtils006;
-    INT_PTR SteamUser017;
-    INT_PTR SteamFriends014;
-
-    void PrintPointers() {
-        DEBUGOUT(L"Legacy interface pointers:");
-        PrintPointer(L"SteamApps006", (INT_PTR) SteamApps006);
-        PrintPointer(L"SteamUtils006", (INT_PTR) SteamUtils006);
-        PrintPointer(L"SteamUser017", (INT_PTR) SteamUser017);
-        PrintPointer(L"SteamFriends014", (INT_PTR) SteamFriends014);
-    }
-} static legacy_interfaces;
 
 void S_CALLTYPE SteamAPI_InitProxy(const wchar_t* library);
 
 void S_CALLTYPE SteamAPI_CloseProxy();
 
-bool S_CALLTYPE _SteamAPI_Init();
+S_API bool S_CALLTYPE _SteamAPI_Init();
 
-void S_CALLTYPE _SteamAPI_Shutdown();
+S_API void S_CALLTYPE _SteamAPI_Shutdown();
 
-bool S_CALLTYPE _SteamAPI_RestartAppIfNecessary(uint32 unOwnAppID);
+S_API bool S_CALLTYPE _SteamAPI_RestartAppIfNecessary(uint32 unOwnAppID);
 
-void S_CALLTYPE _SteamAPI_RegisterCallback(INT_PTR pCallback, int iCallback);
+S_API void S_CALLTYPE _SteamAPI_RegisterCallback(INT_PTR pCallback, int iCallback);
 
-void S_CALLTYPE _SteamAPI_UnregisterCallback(INT_PTR pCallback);
+S_API void S_CALLTYPE _SteamAPI_UnregisterCallback(INT_PTR pCallback);
 
-void S_CALLTYPE _SteamAPI_RunCallbacks();
+S_API void S_CALLTYPE _SteamAPI_RunCallbacks();
 
-HSteamPipe S_CALLTYPE _GetHSteamPipe();
+S_API void * S_CALLTYPE _SteamInternal_ContextInit(void *pContextInitData);
 
-HSteamUser S_CALLTYPE _GetHSteamUser();
+S_API void * S_CALLTYPE _SteamInternal_CreateInterface(const char *ver);
 
-/*
-    GTA V Expects:      STEAMAPPS_INTERFACE_VERSION006
-    Latest SDK 1.36:    STEAMAPPS_INTERFACE_VERSION007
-*/
-INT_PTR S_CALLTYPE _SteamApps();
+S_API HSteamPipe S_CALLTYPE _SteamAPI_GetHSteamPipe();
 
-/* GTA V Expects actual version (STEAMUSERSTATS_INTERFACE_VERSION011). */
-INT_PTR S_CALLTYPE _SteamUserStats();
-
-/*
-    GTA V Expects:      SteamUtils006
-    Latest SDK 1.36:    SteamUtils007
-*/
-INT_PTR S_CALLTYPE _SteamUtils();
-
-/*
-    GTA V Expects:      SteamUser017
-    Latest SDK 1.36:    SteamUser018
-*/
-INT_PTR S_CALLTYPE _SteamUser();
-
-/*
-    GTA V Expects:      SteamFriends014
-    Latest SDK 1.36:    SteamFriends015
-*/
-INT_PTR S_CALLTYPE _SteamFriends();
+S_API HSteamUser S_CALLTYPE _SteamAPI_GetHSteamUser();
 
 /*
 GTA V Expects:      Ha! It doesn't even expect it. Surprise!
-Latest SDK 1.36:    SteamClient017
+Latest SDK 1.38a:    SteamClient017
 */
 ISteamClient017 *SteamClient();
 
 /*
     GTA V Expects:      Ha! It doesn't even expect it. Surprise!
-    Latest SDK 1.36:    SteamController003
+    Latest SDK 1.38a:    SteamController004
 */
-ISteamController003 *SteamController();
+ISteamController004 *SteamController();

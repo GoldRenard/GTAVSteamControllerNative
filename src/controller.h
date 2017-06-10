@@ -20,9 +20,7 @@
 
 #include "stdafx.h"
 
-
 #define ANALOG_DATA_RATIO 1000
-
 
 enum ECONTROLLERACTIONSET {
     eControllerActionSet_Menu,

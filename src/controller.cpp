@@ -37,12 +37,13 @@ BOOL Controller::m_IsNativeActionSets = TRUE;
 // Purpose: Initialize the steam controller api
 //-----------------------------------------------------------------------------
 BOOL Controller::InitSteamController() {
+    DEBUGOUT(L"Trying to init SteamController...");
     if (!SteamController()->Init()) {
-        DEBUGOUT(L"SteamController()->Init failed.\n");
+        DEBUGOUT(L"SteamController()->Init failed.");
         return FALSE;
     }
 
-    for (int i = 0; i <eControllerAnalogAction_NumActions; i++) {
+    for (int i = 0; i < eControllerAnalogAction_NumActions; i++) {
         m_ControllerAnalogActionHandles[i] = 0;
         m_ControllerAnalogActionOrigins[i] = k_EControllerActionOrigin_None;
     }

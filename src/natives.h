@@ -53,6 +53,6 @@ namespace PED {
 }
 
 namespace CONTROLS {
-    static BOOL _SET_CONTROL_NORMAL(int inputGroup, int control, float amount) { return NativeInvoke::Invoke<BOOL, int, int, float>(0x09EC89E3937B74EE, inputGroup, control, amount); } // E8A25867FBA3B05E 
+    static BOOL _SET_CONTROL_NORMAL(int inputGroup, int control, float amount) { return NativeInvoke::Invoke<BOOL, int, int, float>(0x09EC89E3937B74EE, inputGroup, control, amount); } // E8A25867FBA3B05E
     static Void DISABLE_CONTROL_ACTION(int inputGroup, int control, BOOL disable) { return NativeInvoke::Invoke<Void, int, int, BOOL>(0xD1BB2AD73E7FC3A7, inputGroup, control, disable); } // FE99B66D079CF6BC 3800C0DC
 }

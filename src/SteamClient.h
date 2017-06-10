@@ -26,4 +26,4 @@ bool SteamAPI_Init();
 
 void SteamAPI_Shutdown();
 
-ISteamController003 *SteamController();
+ISteamController004 *SteamController();

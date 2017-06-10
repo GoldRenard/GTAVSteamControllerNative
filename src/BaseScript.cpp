@@ -20,8 +20,8 @@ void BaseScript::Execute() {
     Player player = PLAYER::PLAYER_ID();
     Ped playerPed = PLAYER::PLAYER_PED_ID();
 
-    if (UI::IS_PAUSE_MENU_ACTIVE() 
-        || !ENTITY::DOES_ENTITY_EXIST(playerPed) 
+    if (UI::IS_PAUSE_MENU_ACTIVE()
+        || !ENTITY::DOES_ENTITY_EXIST(playerPed)
         || !PLAYER::IS_PLAYER_CONTROL_ON(player)) {
         ApplyState(eControllerActionSet_Menu);
     }
@@ -53,9 +53,9 @@ void BaseScript::ApplyState(ECONTROLLERACTIONSET eActionSet) {
     const char* name = GetActionSetNameA(eActionSet);
     sprintf_s(text, "Controller state: %s", name);
     delete[] name;
-    UI::_SET_NOTIFICATION_TEXT_ENTRY("STRING");
-    UI::_ADD_TEXT_COMPONENT_STRING(text);
-    UI::_DRAW_NOTIFICATION(FALSE, FALSE);
+    //UI::_SET_NOTIFICATION_TEXT_ENTRY("STRING");
+    //UI::_ADD_TEXT_COMPONENT_STRING(text);
+    //UI::_DRAW_NOTIFICATION(FALSE, FALSE);
 #endif
 }
 

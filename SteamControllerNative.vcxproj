@@ -220,7 +220,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="src\ISteamController003.h">
+    <ClInclude Include="src\ISteamController004.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug ASI|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release ASI|x64'">false</ExcludedFromBuild>
     </ClInclude>

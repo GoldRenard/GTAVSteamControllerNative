@@ -18,8 +18,6 @@
 
 #pragma once
 
-#define NUM_ACTION_SETS 4
-
 #define STEAM_CONTROLLER_MAX_COUNT 16
 
 #define STEAM_CONTROLLER_MAX_ANALOG_ACTIONS 16
@@ -28,10 +26,29 @@
 
 #define STEAM_CONTROLLER_MAX_ORIGINS 8
 
+// When sending an option to a specific controller handle, you can send to all controllers via this command
 #define STEAM_CONTROLLER_HANDLE_ALL_CONTROLLERS UINT64_MAX
 
 #define STEAM_CONTROLLER_MIN_ANALOG_ACTION_DATA -1.0f
 #define STEAM_CONTROLLER_MAX_ANALOG_ACTION_DATA 1.0f
+
+enum ESteamControllerPad {
+    k_ESteamControllerPad_Left,
+    k_ESteamControllerPad_Right
+};
+
+enum EControllerSource {
+    k_EControllerSource_None,
+    k_EControllerSource_LeftTrackpad,
+    k_EControllerSource_RightTrackpad,
+    k_EControllerSource_Joystick,
+    k_EControllerSource_ABXY,
+    k_EControllerSource_Switch,
+    k_EControllerSource_LeftTrigger,
+    k_EControllerSource_RightTrigger,
+    k_EControllerSource_Gyro,
+    k_EControllerSource_Count
+};
 
 enum EControllerSourceMode {
     k_EControllerSourceMode_None,
@@ -46,7 +63,9 @@ enum EControllerSourceMode {
     k_EControllerSourceMode_Trigger,
     k_EControllerSourceMode_TouchMenu,
     k_EControllerSourceMode_MouseJoystick,
-    k_EControllerSourceMode_MouseRegion
+    k_EControllerSourceMode_MouseRegion,
+    k_EControllerSourceMode_RadialMenu,
+    k_EControllerSourceMode_Switches
 };
 
 enum EControllerActionOrigin {
@@ -97,16 +116,13 @@ enum EControllerActionOrigin {
 // This handle will consistently identify a controller, even if it is disconnected and re-connected
 typedef uint64 ControllerHandle_t;
 
-enum ESteamControllerPad {
-    k_ESteamControllerPad_Left,
-    k_ESteamControllerPad_Right
-};
-
 // These handles are used to refer to a specific in-game action or action set
 // All action handles should be queried during initialization for performance reasons
 typedef uint64 ControllerActionSetHandle_t;
 typedef uint64 ControllerDigitalActionHandle_t;
 typedef uint64 ControllerAnalogActionHandle_t;
+
+#pragma pack( push, 1 )
 
 struct ControllerAnalogActionData_t {
     // Type of data coming from this action, this will match what got specified in the action set
@@ -127,18 +143,39 @@ struct ControllerDigitalActionData_t {
     bool bActive;
 };
 
+struct ControllerMotionData_t {
+    // Sensor-fused absolute rotation; will drift in heading
+    float rotQuatX;
+    float rotQuatY;
+    float rotQuatZ;
+    float rotQuatW;
+
+    // Positional acceleration
+    float posAccelX;
+    float posAccelY;
+    float posAccelZ;
+
+    // Angular velocity
+    float rotVelX;
+    float rotVelY;
+    float rotVelZ;
+};
+
+#pragma pack( pop )
+
 //-----------------------------------------------------------------------------
 // Purpose: Native Steam controller support API
 //-----------------------------------------------------------------------------
-abstract_class ISteamController003{
+abstract_class ISteamController004 {
 public:
 
     // Init and Shutdown must be called when starting/ending use of this interface
     virtual bool Init() = 0;
     virtual bool Shutdown() = 0;
 
-    // Pump callback/callresult events
-    // Note: SteamAPI_RunCallbacks will do this for you, so you should never need to call this directly.
+    // Synchronize API state with the latest Steam Controller inputs available. This
+    // is performed automatically by SteamAPI_RunCallbacks, but for the absolute lowest
+    // possible latency, you call this directly before reading controller state.
     virtual void RunFrame() = 0;
 
     // Enumerate currently connected controllers
@@ -186,7 +223,23 @@ public:
     // Trigger a haptic pulse on a controller
     virtual void TriggerHapticPulse(ControllerHandle_t controllerHandle, ESteamControllerPad eTargetPad, unsigned short usDurationMicroSec) = 0;
 
+    // Trigger a pulse with a duty cycle of usDurationMicroSec / usOffMicroSec, unRepeat times.
+    // nFlags is currently unused and reserved for future use.
     virtual void TriggerRepeatedHapticPulse(ControllerHandle_t controllerHandle, ESteamControllerPad eTargetPad, unsigned short usDurationMicroSec, unsigned short usOffMicroSec, unsigned short unRepeat, unsigned int nFlags) = 0;
+
+    // Returns the associated gamepad index for the specified controller, if emulating a gamepad
+    virtual int GetGamepadIndexForController(ControllerHandle_t ulControllerHandle) = 0;
+
+    // Returns the associated controller handle for the specified emulated gamepad
+    virtual ControllerHandle_t GetControllerForGamepadIndex(int nIndex) = 0;
+
+    // Returns raw motion data from the specified controller
+    virtual ControllerMotionData_t GetMotionData(ControllerHandle_t controllerHandle) = 0;
+
+    // Attempt to display origins of given action in the controller HUD, for the currently active action set
+    // Returns false is overlay is disabled / unavailable, or the user is not in Big Picture mode
+    virtual bool ShowDigitalActionOrigins(ControllerHandle_t controllerHandle, ControllerDigitalActionHandle_t digitalActionHandle, float flScale, float flXPosition, float flYPosition) = 0;
+    virtual bool ShowAnalogActionOrigins(ControllerHandle_t controllerHandle, ControllerAnalogActionHandle_t analogActionHandle, float flScale, float flXPosition, float flYPosition) = 0;
 };
 
-#define STEAMCONTROLLER_INTERFACE_VERSION_003 "SteamController003"
+#define STEAMCONTROLLER_INTERFACE_VERSION_004 "SteamController004"

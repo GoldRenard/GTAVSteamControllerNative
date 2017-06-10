@@ -21,7 +21,7 @@
 HSteamPipe hSteamPipe = NULL;
 HSteamUser hSteamUser = NULL;
 ISteamClient017 *pSteamClient = NULL;
-ISteamController003 *pSteamController = NULL;
+ISteamController004 *pSteamController = NULL;
 
 bool SteamAPI_Init() {
     HMODULE hModule = GetModuleHandle(L"steamclient64.dll");
@@ -72,9 +72,9 @@ void SteamAPI_Shutdown() {
     }
 }
 
-ISteamController003 *SteamController() {
+ISteamController004 *SteamController() {
     if (!pSteamController) {
-        pSteamController = (ISteamController003 *) pSteamClient->GetISteamController(hSteamUser, hSteamPipe, STEAMCONTROLLER_INTERFACE_VERSION_003);
+        pSteamController = (ISteamController004 *) pSteamClient->GetISteamController(hSteamUser, hSteamPipe, STEAMCONTROLLER_INTERFACE_VERSION_004);
         DEBUGOUT(L"pSteamController->0x%I64X", pSteamClient);
     }
     return pSteamController;

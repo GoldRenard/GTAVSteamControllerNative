@@ -34,7 +34,7 @@
 
 #include "steam_types.h"
 #include "ISteamClient017.h"
-#include "ISteamController003.h"
+#include "ISteamController004.h"
 
 #ifdef SCRIPT_ASI
 #include "SteamClient.h"
