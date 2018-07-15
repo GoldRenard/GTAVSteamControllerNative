@@ -21,22 +21,6 @@ This plugin project is an implementation of native Steam Controller IGAs (In-Gam
 5. Copy `SteamControllerNative.asi` to game folder;
 6. Start the game. It should switch action sets automatically, you just have to configure them as you want;
 
-### Prepared controller configuration
-
-Instead of creating a controller configuration from scratch, you can use [prepared one](https://github.com/GoldRenard/GTAVSteamControllerNative/blob/master/controller.vdf). 
-
-Personally, I don't want to publish this plugin-specific configuration to the Steam public list to avoid any confusion for users who don't use this plugin. So here are manual instruction:
-
-1. Create new Steam Controller template for GTA V and save it **locally** with some unique name;
-2. Switch to any other controller configuration, close BigPicture or better even Steam;
-3. Steam stores all controller configurations in `<Steam>\SteamApps\workshop\content\241100\` folder. Use any notepad with 'Seach in files' feature supported to search your configuration by that unique name;
-4. Replace it with [prepared one](https://github.com/GoldRenard/GTAVSteamControllerNative/blob/master/controller.vdf);
-5. Start Steam, BigPicture, switch back to your configuration and it should be updated. You're done.
-
-### Online Warning
-
-Sorry, you can't play with this mod Online (just yet :wink:). If you're going to play Online, you must remove ScriptHookV and all your plugins.
-
 ### Credits
 
 - Thanks to Alexander Blade for both the ScriptHook V and the ASI Loader.
